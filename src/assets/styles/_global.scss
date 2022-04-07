@@ -1,0 +1,85 @@
+@import '~antd/dist/antd.css';
+@import './fonts';
+@import './colors';
+@import './constants';
+@import './mixins';
+
+* {
+  font-family: Lexend, sans-serif;
+  font-weight: 400;
+}
+
+html {
+  font-size: 10px;
+
+  @media (max-width: 1440px) {
+    font-size: 8px;
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.row-reverse {
+  flex-direction: row-reverse;
+}
+
+.col-reverse {
+  flex-direction: column-reverse;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.container {
+  max-width: 144rem;
+  width: 100%;
+  padding: 0 1.5rem;
+  margin: 0 auto;
+}

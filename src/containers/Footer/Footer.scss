@@ -1,0 +1,100 @@
+@import '../../assets/styles/global';
+
+.Footer {
+  background-color: $tana;
+  padding: 7rem 0 5rem;
+
+  &-logo {
+    max-width: 13rem;
+    margin-bottom: 3.5rem;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &-title {
+    color: $mako;
+    font-size: 2.4rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+  }
+
+  &-link {
+    font-size: 1.8rem;
+    color: $mako;
+    margin-bottom: 1.5rem;
+  }
+
+  &-col {
+    flex: 0 0 calc(100% / 4 - 1.5rem);
+    max-width: calc(100% / 4 - 1.5rem);
+
+    &:first-child {
+      flex: 1;
+    }
+  }
+
+  &-description,
+  &-info-label {
+    font-size: 1.4rem;
+    color: $mako;
+    line-height: 1.5;
+    max-width: 35rem;
+  }
+
+  &-description {
+    margin-bottom: 1rem;
+  }
+
+  &-info {
+    margin-bottom: 1rem;
+
+    &-icon {
+      flex: 0 0 1.8rem;
+      max-width: 1.8rem;
+      margin-right: 1.2rem;
+    }
+  }
+
+  &-socials {
+    margin-top: 4rem;
+
+    &-item {
+      flex: 0 0 3.8rem;
+      max-width: 3.8rem;
+      height: 3.8rem;
+      display: flex;
+      box-shadow: $social-shadow;
+      border-radius: 50%;
+      background: $white;
+      cursor: pointer;
+      margin: 0 1.5rem 1.5rem 0;
+
+      .Icon {
+        margin: auto;
+      }
+    }
+  }
+
+  &-download {
+    &-col {
+      &:first-child {
+        margin-right: 2.2rem;
+      }
+    }
+
+    &-item {
+      margin-bottom: 1.5rem;
+
+      &.qr {
+        max-width: 12rem;
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
