@@ -12,7 +12,7 @@ const Svg = ({ color = EIconColor.BLACK }) => {
       x="0px"
       y="0px"
       viewBox="0 0 32 32"
-      style="enable-background:new 0 0 32 32;"
+      style={{ enableBackground: 'new 0 0 32 32' }}
       xmlSpace="preserve"
     >
       <circle class="st0" cx="16" cy="16" r="15.5" fill="none" stroke={color} strokeWidth="1" strokeMiterlimit="4" />

@@ -1,0 +1,24 @@
+@import '../../assets/styles/global';
+
+.Carousels {
+  position: relative;
+  
+  .slick-arrow {
+    width: 3.2rem;
+    height: 3.2rem;
+    .ant-btn {
+      padding: 0;
+      border: none;
+
+      .Button-icon {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+}

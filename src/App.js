@@ -14,11 +14,13 @@ const App = () => {
       <Router primary={false}>
         <Guest path={LayoutPaths.Guest}>
           <PublicRoute path={Paths.Home} component={Pages.Home} />
+          <PublicRoute path={Paths.SearchResult} component={Pages.SearchResult} />
+          <PublicRoute path={Paths.BookDetail()} component={Pages.BookDetail} />
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
         </Guest>
 
         <Auth path={LayoutPaths.Auth}>
-          <AuthRoute path={Paths.Login} component={Pages.Login} />
+          {/* <AuthRoute path={Paths.Login} component={Pages.Login} /> */}
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Auth}${Paths.Login}`} />
         </Auth>
 

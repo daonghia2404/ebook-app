@@ -1,0 +1,52 @@
+@import '../../assets/styles/global';
+
+.BooksCarousel {
+  padding: 3rem 0 6rem;
+
+  &.dark-background {
+    background-color: $athens-gray;
+  }
+
+  &-header {
+    margin-bottom: 4rem;
+  }
+
+  .slick-arrow {
+    position: absolute;
+    right: 0;
+    top: -6.7rem;
+    left: unset;
+
+    &.slick-prev {
+      right: calc(3.2rem + 1rem);
+    }
+  }
+
+  &-see-more {
+    width: 15rem;
+    margin-right: calc(7.4rem + 4rem);
+  }
+
+  &-title {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  &-list {
+    .BookBlock {
+      &-image {
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+    .slick-list {
+      margin: 0 -2rem;
+    }
+
+    .slick-slide>div {
+      padding: 0 2rem;
+    }
+  }
+}

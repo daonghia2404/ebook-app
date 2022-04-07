@@ -1,0 +1,89 @@
+@import '../../assets/styles/global';
+
+.HeaderSearch {
+  background: $athens-gray;
+
+  &-wrapper {
+    min-height: 17rem;
+  }
+
+  &-logo {
+    margin-right: auto;
+    max-width: 18.5rem;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &-search {
+    flex: 1;
+    max-width: 67rem;
+    margin: 0 3.5rem;
+    border-radius: 3rem;
+    overflow: hidden;
+    background: $white;
+
+    .Input {
+      width: 100%;
+    }
+
+    .Button {
+      flex: 0 0 8.6rem;
+      max-width: 8.6rem;
+      .ant-btn {
+        border-radius: 3rem;
+      }
+    }
+  }
+
+  &-account {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: $mako;
+    text-transform: uppercase;
+    margin-right: 2rem;
+
+    .Avatar {
+      margin-right: 1rem;
+    }
+
+    &-link {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: $mako;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin: 0 .5rem;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &-cart {
+    flex: 0 0 2.2rem;
+    max-width: 2.2rem;
+    position: relative;
+
+    &-badge {
+      position: absolute;
+      background: $alizarin-crimson;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      border: 1px solid $white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: $white;
+      font-weight: 600;
+      font-size: 1.4rem;
+      top: 0;
+      right: 0;
+      transform: translate(50%, -10%);
+    }
+  }
+}

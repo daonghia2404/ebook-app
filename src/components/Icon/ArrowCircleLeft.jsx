@@ -9,10 +9,10 @@ const Svg = ({ color = EIconColor.BLACK }) => {
       <path
         d="M15.5347 11.8794L10.9657 16.3453L15.5347 21.0174"
         stroke={color}
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      <path d="M11.7275 16.4485H21.627" stroke={color} stroke-linecap="round" />
+      <path d="M11.7275 16.4485H21.627" stroke={color} strokeLinecap="round" />
     </svg>
   );
 };

@@ -1,0 +1,13 @@
+@import '../../assets/styles/global';
+
+.HomeBanner {
+  margin: 4.8rem 0;
+
+  .slick-list {
+    border-radius: .8rem;
+  }
+
+  &-item {
+    overflow: hidden;
+  }
+}

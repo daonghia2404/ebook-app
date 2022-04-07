@@ -1,4 +1,82 @@
 @import '../../assets/styles/global';
 
 .Button {
+  &.uppercase {
+    .ant-btn {
+      text-transform: uppercase;
+    }
+  }
+
+  &.radius {
+    .ant-btn {
+      border-radius: 3rem;
+    }
+  }
+
+  &-icon {
+    flex: 0 0 1.4rem;
+    max-width: 1.4rem;
+    margin-left: .4rem;
+  }
+
+  .ant-btn {
+    border-radius: .5rem;
+    height: 4.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    border: 1px solid transparent;
+    background: transparent;
+    padding: 0 1rem;
+    cursor: pointer;
+    width: 100%;
+
+    &.ant-btn-lg {
+      height: 5.2rem;
+      padding: 0 1.6rem;
+
+      .Button {
+        &-icon {
+          flex: 0 0 2.6rem;
+          max-width: 2.6rem;
+        }
+      }
+    }
+
+    &.ant-btn-default {
+      color: $black;
+      border-color: $fun-green;
+    }
+
+    &.ant-btn-primary {
+      border-color: $fun-green;
+      background: $fun-green;
+      color: $white;
+    }
+  }
+
+  &.outline-primary {
+    .ant-btn {
+      border-color: $fun-green;
+      background: $white;
+      color: $black;
+    }
+  }
+
+  &.primary-transparent {
+    .ant-btn {
+      border-color: $fun-green-alpha-01;
+      background: $fun-green-alpha-01;
+      color: $fun-green;
+    }
+  }
+
+  &.only-icon {
+    .Button {
+      &-icon {
+        margin: auto;
+      }
+    }
+  }
 }

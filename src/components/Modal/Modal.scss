@@ -1,0 +1,42 @@
+@import '../../assets/styles/global';
+
+.Modal {
+  &-overlay {
+    padding: 0 1.6rem;
+
+    .ant-modal-content {
+      box-shadow: $modal-shadow;
+      background: transparent;
+    }
+
+    .ant-modal-body {
+      padding: 0;
+    }
+
+    &.radius {
+      .Modal-body {
+        border-radius: 2rem;
+        overflow: hidden;
+      }
+    }
+  }
+
+  &-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    user-select: none;
+    width: 3.2rem;
+    height: 3.2rem;
+    transform: translate(50%, -50%);
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &-body {
+    background: $white;
+  }
+}

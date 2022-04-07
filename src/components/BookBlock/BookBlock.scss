@@ -1,0 +1,61 @@
+@import '../../assets/styles/global';
+
+.BookBlock {
+  &-image {
+    margin-bottom: 2rem;
+    display: flex;
+    border-radius: 1rem;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      margin: auto;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  &-title {
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.6rem;
+    margin-bottom: 1.6rem;
+  }
+
+  &-price {
+    text-align: center;
+    margin-bottom: 2.6rem;
+
+    span,
+    del {
+      display: block;
+      margin: 0 5px;
+    }
+
+    span {
+      color: $fun-green;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    del {
+      color: $gray;
+      font-size: 1.6rem;
+      font-weight: 500;
+    }
+  }
+
+  &-action {
+    .Button {
+      &:nth-child(1) {
+        flex: 0 0 5.2rem;
+        max-width: 5.2rem;
+        margin-right: .8rem;
+      }
+
+      &:nth-child(2) {
+        flex: 1;
+      }
+    }
+  }
+}

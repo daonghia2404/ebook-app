@@ -1,0 +1,22 @@
+@import '../../assets/styles/global';
+
+.Input {
+  .ant-input {
+    border: none;
+    border-radius: 1rem;
+    min-height: 4.2rem;
+    font-size: 1.4rem;
+    padding: 1rem 1.5rem;
+    box-shadow: none;
+    border: 1px solid $mercury;
+
+    &.ant-input-lg {
+      min-height: 5.4rem;
+      font-size: 1.6rem;
+    }
+
+    &::placeholder {
+      color: $oslo-gray;
+    }
+  }
+}

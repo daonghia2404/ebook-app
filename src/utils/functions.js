@@ -82,15 +82,15 @@ export const scrollToTop = () => {
 export const validationRules = {
   required: (message) => ({
     required: true,
-    message: message || 'This field is required',
+    message: message || 'Vui lòng nhập đầy đủ thông tin trường',
   }),
   minLength: (message, length = 2) => ({
     min: length,
-    message: message || `Enter characters at least ${length}`,
+    message: message || `Vui lòng nhập tối thiểu ít nhất ${length} ký tự`,
   }),
   maxLength: (message, length = 10) => ({
     max: length,
-    message: message || `Enter characters at most ${length}`,
+    message: message || `Vui lòng nhập tối đa nhiều nhất ${length} ký tự`,
   }),
   email: (message) => ({
     type: 'email',
@@ -132,4 +132,25 @@ export const validationRules = {
       return Promise.reject(message || 'Invalid URL');
     },
   }),
+  confirmPassword: (confirmPasswordValue, message) => ({
+    validator: (rule, value) => {
+      if (!value || value === confirmPasswordValue) return Promise.resolve();
+      return Promise.reject(message || 'Mật khẩu nhập lại không trùng khớp');
+    },
+  }),
+};
+
+export const formatAbbreviationsName = (value) => {
+  const arrayString = value.trim().split(' ');
+  const onlyOneWord = arrayString.length === 1;
+
+  if (onlyOneWord) {
+    const firstLetter = arrayString[0].trim().charAt(0);
+    return `${firstLetter}`.toUpperCase();
+  }
+
+  const firstLastWordFirstLetter = arrayString[arrayString.length - 2].trim().charAt(0);
+  const secondLastWordFirstLetter = arrayString[arrayString.length - 1].trim().charAt(0);
+
+  return `${firstLastWordFirstLetter}${secondLastWordFirstLetter}`.toUpperCase();
 };

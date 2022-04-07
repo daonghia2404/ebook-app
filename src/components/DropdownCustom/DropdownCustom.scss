@@ -1,0 +1,27 @@
+@import '../../assets/styles/global';
+
+.DropdownCustom {
+  &-overlay {
+    position: relative;
+    background: $white;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: .5rem;
+    overflow: hidden;
+
+    &::before {
+      background: $shamrock;
+      height: .3rem;
+      top: 0;
+      left: 0;
+      width: 100%;
+      content: '';
+      opacity: 1;
+      bottom: unset;
+      position: absolute;
+    }
+  }
+
+  &-body {
+    cursor: pointer;
+  }
+}

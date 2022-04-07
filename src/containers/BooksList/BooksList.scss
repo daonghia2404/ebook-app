@@ -1,0 +1,33 @@
+@import '../../assets/styles/global';
+
+.BooksList {
+  &-header {
+    margin-bottom: 4rem;
+  }
+
+  &-see-more {
+    width: 15rem;
+  }
+
+  &-title {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  &-list {
+    margin: 0 -2rem;
+
+    &-item {
+      padding: 0 2rem;
+      margin-bottom: 4rem;
+
+      .BookBlock {
+        &-image {
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

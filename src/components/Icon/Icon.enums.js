@@ -11,6 +11,7 @@ export const EIconName = {
   Youtube: 'Youtube',
   MapMarker: 'MapMarker',
   Mail: 'Mail',
+  ArrowLeft: 'ArrowLeft',
 };
 
 export const EIconColor = {
@@ -19,4 +20,5 @@ export const EIconColor = {
   MAKO: '#3B4045',
   FUN_GREEN: '#016938',
   OLIVE_DRAB: '#55AB29',
+  BLUE_ZODIAC: '#0F2E53',
 };

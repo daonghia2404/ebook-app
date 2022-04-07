@@ -20,7 +20,9 @@ const retryLoadComponent = (fn, retriesLeft = 5, interval = 1000) =>
   });
 
 const Home = lazy(() => retryLoadComponent(() => import('@/pages/Home')));
-const Login = lazy(() => retryLoadComponent(() => import('@/pages/Login')));
+const SearchResult = lazy(() => retryLoadComponent(() => import('@/pages/SearchResult')));
+const BookDetail = lazy(() => retryLoadComponent(() => import('@/pages/BookDetail')));
+
 const Dashboard = lazy(() => retryLoadComponent(() => import('@/pages/Dashboard')));
 
 export const LayoutPaths = {
@@ -30,19 +32,27 @@ export const LayoutPaths = {
 };
 
 export const ModulePaths = {
+  Book: '/sach',
   Rest: '*',
 };
 
 export const Paths = {
   Home: '/',
-  Login: '/',
+  SearchResult: '/ket-qua-tim-kiem',
+  BookDetail: (id) => `${ModulePaths.Book}/chi-tiet/${id || ':id'}`,
+
+  Auth: '/',
+
   Dashboard: '/',
+
   Rest: '*',
 };
 
 export const Pages = {
   Home,
-  Login,
+  SearchResult,
+  BookDetail,
+
   Dashboard,
 };
 

@@ -1,0 +1,38 @@
+@import '../../assets/styles/global';
+
+.NewsTab {
+  padding: 7rem 0 2rem;
+
+  &-header {
+    margin-bottom: 5rem;
+
+    &-item {
+      font-size: 1.6rem;
+      color: $gray;
+      margin-right: 6.4rem;
+      cursor: pointer;
+      transition: $common-transition;
+
+      &:hover {
+        color: $fun-green;
+      }
+
+      &.active {
+        font-weight: 600;
+        font-size: 2rem;
+        color: $black;
+      }
+    }
+  }
+
+  &-list {
+    margin: 0 -2rem;
+
+    &-item {
+      flex: 0 0 calc(100% / 4);
+      max-width: calc(100% / 4);
+      padding: 0 2rem;
+      margin-bottom: 4rem;
+    }
+  }
+}

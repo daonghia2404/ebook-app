@@ -16,6 +16,7 @@ import Twitter from './Twitter';
 import Youtube from './Youtube';
 import MapMarker from './MapMarker';
 import Mail from './Mail';
+import ArrowLeft from './ArrowLeft';
 
 const Icon = ({ name, className, color, onClick }) => {
   const renderIcon = () => {
@@ -44,6 +45,8 @@ const Icon = ({ name, className, color, onClick }) => {
         return <MapMarker color={color} />;
       case EIconName.Mail:
         return <Mail color={color} />;
+      case EIconName.ArrowLeft:
+        return <ArrowLeft color={color} />;
 
       default:
         return <></>;

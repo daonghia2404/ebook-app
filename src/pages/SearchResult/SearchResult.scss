@@ -1,0 +1,11 @@
+@import '../../assets/styles/global';
+
+.SearchResult {
+  padding: 7rem 16rem;
+
+  &-text {
+    font-size: 1.8rem;
+    color: $fun-green;
+    margin-bottom: 7rem;
+  }
+}
