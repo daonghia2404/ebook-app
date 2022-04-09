@@ -12,6 +12,13 @@ export const EIconName = {
   MapMarker: 'MapMarker',
   Mail: 'Mail',
   ArrowLeft: 'ArrowLeft',
+  Plus: 'Plus',
+  Minus: 'Minus',
+  Close: 'Close',
+  Trash: 'Trash',
+  Filter: 'Filter',
+  CaretDown: 'CaretDown',
+  Star: 'Star',
 };
 
 export const EIconColor = {
@@ -21,4 +28,6 @@ export const EIconColor = {
   FUN_GREEN: '#016938',
   OLIVE_DRAB: '#55AB29',
   BLUE_ZODIAC: '#0F2E53',
+  GRAY: '#808080',
+  SUNGLOW: '#FBBA32',
 };

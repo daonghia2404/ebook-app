@@ -1,0 +1,137 @@
+@import '../../assets/styles/global';
+
+.CartDropdown {
+  position: relative;
+
+  &-bg {
+    position: absolute;
+    height: 17.5rem;
+    width: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    object-position: center;
+    z-index: -1;
+    opacity: 0.4;
+  }
+
+  &-header {
+    position: relative;
+    padding: 4rem 3.6rem;
+  }
+
+  &-close {
+    width: 2.4rem;
+    height: 2.4rem;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 3.6rem;
+    transform: translateY(-50%);
+
+    .Icon {
+      height: 100%;
+    }
+  }
+
+  &-title {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+
+  &-list {
+    padding: 0 3.6rem;
+    height: 70rem;
+    overflow: auto;
+
+    &-item {
+      margin-bottom: 3rem;
+
+      &-checkbox {
+        flex: 0 0 2rem;
+        max-width: 2rem;
+        margin-top: 2.8rem;
+      }
+
+      &-book {
+        flex: 1;
+        margin: 0 2.4rem;
+
+        &-image {
+          flex: 0 0 10rem;
+          max-width: 10rem;
+          height: 13.4rem;
+          margin-right: 2rem;
+
+          img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: .8rem;
+          }
+        }
+
+        &-info {
+          &-title {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+          }
+
+          &-price {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: $shuttle-gray;
+            margin-bottom: 6rem;
+          }
+
+          &-actions {
+            .Amount {
+
+              &-minus,
+              &-plus {
+                max-width: 2.5rem;
+                flex: 0 0 2.5rem;
+                background: $mercury;
+                border-radius: .5rem;
+                border: none;
+              }
+
+              span {
+                border-radius: .5rem;
+                max-width: 5.2rem;
+                flex: 0 0 5.2rem;
+                margin: 0 .5rem;
+                background: $mercury;
+              }
+            }
+          }
+        }
+      }
+
+      &-remove {
+        flex: 0 0 9.5rem;
+        max-width: 9.5rem;
+      }
+    }
+  }
+
+  &-footer {
+    padding: 1.5rem 2rem;
+    background: $concrete;
+
+    &-total {
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-top: 0.5rem;
+
+      span {
+        color: $alizarin-crimson;
+        font-weight: 600;
+      }
+    }
+  }
+}

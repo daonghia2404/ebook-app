@@ -1,0 +1,13 @@
+@import '../../assets/styles/global';
+
+.BooksCategory {
+  padding: 7rem 16rem;
+
+  .BooksList {
+    &-title {
+      font-size: 3.2rem;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+  }
+}

@@ -5,7 +5,7 @@ import Input from '@/components/Input';
 import { validationRules } from '@/utils/functions';
 import Button from '@/components/Button';
 
-const SingIn = () => {
+const SingIn = ({ onClickForgotPassword }) => {
   const [form] = Form.useForm();
 
   return (
@@ -17,7 +17,9 @@ const SingIn = () => {
         <Input size="large" type="password" />
       </Form.Item>
       <Form.Item>
-        <div className="AuthModal-forgot-password">Quên mật khẩu</div>
+        <div className="AuthModal-forgot-password" onClick={onClickForgotPassword}>
+          Quên mật khẩu
+        </div>
       </Form.Item>
       <Form.Item>
         <Button type="primary" size="large" htmlType="submit" title="Đăng nhập" />

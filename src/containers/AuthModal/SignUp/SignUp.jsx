@@ -25,12 +25,12 @@ const SignUp = () => {
       <Form.Item label="Email" name="email" rules={[validationRules.required(), validationRules.email()]}>
         <Input size="large" />
       </Form.Item>
-      <Form.Item label="Mật khẩu" name="password" rules={[validationRules.required()]} onChange={handleChangePassword}>
-        <Input size="large" type="password" />
+      <Form.Item label="Mật khẩu" name="password" rules={[validationRules.required()]}>
+        <Input size="large" type="password" onChange={handleChangePassword} />
       </Form.Item>
       <Form.Item
         label="Nhập lại mật khẩu"
-        name="password"
+        name="confirmPassword"
         rules={[validationRules.required(), validationRules.confirmPassword(password)]}
       >
         <Input size="large" type="password" />

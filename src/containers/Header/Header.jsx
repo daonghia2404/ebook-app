@@ -1,22 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
+import DropdownCustom from '@/components/DropdownCustom';
+import NotificationDropdown from '@/containers/NotificationDropdown';
 
 import './Header.scss';
 
 const Header = () => {
+  const [visibleNotificationDropdown, setVisibleNotificationDropdown] = useState(false);
+
+  const handleOpenNotificationDropdown = () => {
+    setVisibleNotificationDropdown(true);
+  };
+
+  const handleCloseNotificationDropdown = () => {
+    setVisibleNotificationDropdown(false);
+  };
+
   return (
     <div className="Header">
       <div className="container">
         <div className="Header-wrapper flex items-center justify-between">
           <div className="Header-col" />
           <div className="Header-col flex items-center">
-            <div className="Header-item flex items-center">
-              <div className="Header-item-icon">
-                <Icon name={EIconName.Notification} color={EIconColor.WHITE} />
+            <DropdownCustom
+              visible={visibleNotificationDropdown}
+              onClose={handleCloseNotificationDropdown}
+              maxWidth="63rem"
+              placement="bottomRight"
+              overlay={<NotificationDropdown onClose={handleCloseNotificationDropdown} />}
+            >
+              <div className="Header-item flex items-center" onClick={handleOpenNotificationDropdown}>
+                <div className="Header-item-icon">
+                  <Icon name={EIconName.Notification} color={EIconColor.WHITE} />
+                </div>
+                <div className="Header-item-label">Thông Báo</div>
               </div>
-              <div className="Header-item-label">Thông Báo</div>
-            </div>
+            </DropdownCustom>
 
             <div className="Header-item flex items-center">
               <div className="Header-item-icon">

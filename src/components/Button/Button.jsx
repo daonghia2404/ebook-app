@@ -5,14 +5,23 @@ import { navigate } from '@reach/router';
 
 import './Button.scss';
 
-const Button = ({ className, title, icon, uppercase, link, onClick, radius, ...rest }) => {
+const Button = ({ className, title, icon, uppercase, link, reverse, onClick, radius, ...rest }) => {
   const handleClick = () => {
     if (link) navigate(link);
     else onClick?.();
   };
 
   return (
-    <div className={classNames('Button', className, { uppercase }, { radius }, { 'only-icon': !title && icon })}>
+    <div
+      className={classNames(
+        'Button',
+        className,
+        { uppercase },
+        { radius },
+        { reverse },
+        { 'only-icon': !title && icon },
+      )}
+    >
       <AntdButton {...rest} onClick={handleClick}>
         {title}
         {icon && <div className="Button-icon">{icon}</div>}

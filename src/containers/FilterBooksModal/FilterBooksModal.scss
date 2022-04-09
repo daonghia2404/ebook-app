@@ -1,0 +1,69 @@
+@import '../../assets/styles/global';
+
+.FilterBooksModal {
+  &-wrapper {
+    .Modal-body {
+      position: relative;
+      padding: 4rem 3rem;
+    }
+  }
+
+  &-bg {
+    position: absolute;
+    pointer-events: none;
+
+    &.special {
+      top: 0;
+      width: 100%;
+      height: 17.6rem;
+      left: 0;
+      object-fit: cover;
+      opacity: 0.4;
+      object-position: center;
+    }
+  }
+
+  &-header {
+    position: relative;
+  }
+
+  &-back {
+    position: absolute;
+    left: 0;
+    width: 4rem;
+    margin: 0 auto 1rem -1rem;
+    cursor: pointer;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &-title {
+    font-size: 2.2rem;
+    font-weight: 600;
+  }
+
+  &-description {
+    font-size: 1.6rem;
+    color: $gray;
+
+    span {
+      color: $fun-green;
+    }
+  }
+
+  &-form {
+    margin: 11rem 0 0;
+  }
+
+  &-resend {
+    text-align: center;
+    font-size: 1.6rem;
+    margin-top: -1rem;
+
+    span {
+      cursor: pointer;
+      color: $fun-green;
+      text-decoration: underline;
+    }
+  }
+}

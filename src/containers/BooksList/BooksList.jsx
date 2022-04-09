@@ -2,10 +2,11 @@ import React from 'react';
 
 import BookBlock from '@/components/BookBlock';
 import Button from '@/components/Button';
+import Icon, { EIconName } from '@/components/Icon';
 
 import './BooksList.scss';
 
-const BooksList = ({ title, data, layout = 4 }) => {
+const BooksList = ({ title, data, layout = 4, onClickFilter }) => {
   return (
     <div className="BooksList">
       <div className="container">
@@ -16,7 +17,11 @@ const BooksList = ({ title, data, layout = 4 }) => {
                 <div className="BooksList-title">{title}</div>
               </div>
               <div className="BooksList-header-col flex items-center">
-                <Button title="Xem Thêm" className="BooksList-see-more primary-transparent" radius />
+                {onClickFilter ? (
+                  <Icon name={EIconName.Filter} onClick={onClickFilter} />
+                ) : (
+                  <Button title="Xem Thêm" className="BooksList-see-more primary-transparent" radius />
+                )}
               </div>
             </div>
           )}

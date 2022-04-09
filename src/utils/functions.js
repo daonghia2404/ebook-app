@@ -94,7 +94,7 @@ export const validationRules = {
   }),
   email: (message) => ({
     type: 'email',
-    message: message || 'Invalid email',
+    message: message || 'Vui lòng nhập email hợp lệ',
   }),
   noSpecialKey: (message) => ({
     validator: (rule, value) => {

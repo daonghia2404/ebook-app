@@ -7,6 +7,18 @@
     }
   }
 
+  &.reverse {
+    .ant-btn {
+      flex-direction: row-reverse;
+    }
+    .Button {
+      &-icon {
+        margin-right: .4rem;
+        margin-left: 0;
+      }
+    }
+  }
+
   &.radius {
     .ant-btn {
       border-radius: 3rem;
@@ -31,6 +43,7 @@
     padding: 0 1rem;
     cursor: pointer;
     width: 100%;
+    box-shadow: $button-shadow;
 
     &.ant-btn-lg {
       height: 5.2rem;
@@ -52,6 +65,12 @@
     &.ant-btn-primary {
       border-color: $fun-green;
       background: $fun-green;
+      color: $white;
+    }
+
+    &.ant-btn-dangerous {
+      border-color: $chestnut-rose;
+      background: $chestnut-rose;
       color: $white;
     }
   }

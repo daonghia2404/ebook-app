@@ -1,10 +1,13 @@
 import React from 'react';
+import { navigate } from '@reach/router';
+
+import { Paths } from '@/pages/routers';
 
 import './NewBlock.scss';
 
 const NewBlock = ({ image, title, description, date }) => {
   return (
-    <div className="NewBlock">
+    <div className="NewBlock" onClick={() => navigate(Paths.NewDetail(1))}>
       <div className="NewBlock-image">
         <img src={image} alt="" />
       </div>

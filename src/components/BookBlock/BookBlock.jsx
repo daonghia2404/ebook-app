@@ -2,12 +2,14 @@ import React from 'react';
 
 import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
+import { navigate } from '@reach/router';
+import { Paths } from '@/pages/routers';
 
 import './BookBlock.scss';
 
 const BookBlock = ({ image, title, price, oldPrice, onAddCart, onBuy }) => {
   return (
-    <div className="BookBlock">
+    <div className="BookBlock" onClick={() => navigate(Paths.BookDetail(1))}>
       <div className="BookBlock-image">
         <img src={image} alt="" />
       </div>

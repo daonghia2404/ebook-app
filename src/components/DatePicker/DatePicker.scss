@@ -1,0 +1,30 @@
+@import '../../assets/styles/global';
+
+.DatePicker {
+  .ant-picker {
+    border-radius: 1rem;
+    min-height: 4.2rem;
+    padding: 1rem 1.5rem;
+    box-shadow: none;
+    border: 1px solid $mercury;
+    width: 100%;
+
+    &.ant-picker-large {
+      min-height: 5.4rem;
+
+      .ant-picker-input input {
+        font-size: 1.6rem;
+      }
+    }
+
+    .ant-picker-input input {
+      font-size: 1.6rem;
+      font-weight: 300;
+      font-size: 1.4rem;
+
+      &::placeholder {
+        color: $oslo-gray;
+      }
+    }
+  }
+}

@@ -17,6 +17,13 @@ import Youtube from './Youtube';
 import MapMarker from './MapMarker';
 import Mail from './Mail';
 import ArrowLeft from './ArrowLeft';
+import Plus from './Plus';
+import Minus from './Minus';
+import Close from './Close';
+import Trash from './Trash';
+import Filter from './Filter';
+import CaretDown from './CaretDown';
+import Star from './Star';
 
 const Icon = ({ name, className, color, onClick }) => {
   const renderIcon = () => {
@@ -47,7 +54,20 @@ const Icon = ({ name, className, color, onClick }) => {
         return <Mail color={color} />;
       case EIconName.ArrowLeft:
         return <ArrowLeft color={color} />;
-
+      case EIconName.Plus:
+        return <Plus color={color} />;
+      case EIconName.Minus:
+        return <Minus color={color} />;
+      case EIconName.Close:
+        return <Close color={color} />;
+      case EIconName.Trash:
+        return <Trash color={color} />;
+      case EIconName.Filter:
+        return <Filter color={color} />;
+      case EIconName.CaretDown:
+        return <CaretDown color={color} />;
+      case EIconName.Star:
+        return <Star color={color} />;
       default:
         return <></>;
     }

@@ -3,6 +3,10 @@
 .BooksList {
   &-header {
     margin-bottom: 4rem;
+
+    .Icon {
+      cursor: pointer;
+    }
   }
 
   &-see-more {

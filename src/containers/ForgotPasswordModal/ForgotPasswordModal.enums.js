@@ -1,0 +1,5 @@
+export const EKeyStepForgotPasswordModal = {
+  FIND_ACCOUNT: 'FIND_ACCOUNT',
+  VETIFY_ACCOUNT: 'VETIFY_ACCOUNT',
+  CHANGE_PASSWORD: 'CHANGE_PASSWORD',
+};

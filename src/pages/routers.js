@@ -22,6 +22,8 @@ const retryLoadComponent = (fn, retriesLeft = 5, interval = 1000) =>
 const Home = lazy(() => retryLoadComponent(() => import('@/pages/Home')));
 const SearchResult = lazy(() => retryLoadComponent(() => import('@/pages/SearchResult')));
 const BookDetail = lazy(() => retryLoadComponent(() => import('@/pages/BookDetail')));
+const BooksCategory = lazy(() => retryLoadComponent(() => import('@/pages/BooksCategory')));
+const NewDetail = lazy(() => retryLoadComponent(() => import('@/pages/NewDetail')));
 
 const Dashboard = lazy(() => retryLoadComponent(() => import('@/pages/Dashboard')));
 
@@ -33,6 +35,7 @@ export const LayoutPaths = {
 
 export const ModulePaths = {
   Book: '/sach',
+  New: '/tin-tuc',
   Rest: '*',
 };
 
@@ -40,6 +43,8 @@ export const Paths = {
   Home: '/',
   SearchResult: '/ket-qua-tim-kiem',
   BookDetail: (id) => `${ModulePaths.Book}/chi-tiet/${id || ':id'}`,
+  BooksCategory: '/danh-sach',
+  NewDetail: (id) => `${ModulePaths.New}/chi-tiet/${id || ':id'}`,
 
   Auth: '/',
 
@@ -52,6 +57,8 @@ export const Pages = {
   Home,
   SearchResult,
   BookDetail,
+  BooksCategory,
+  NewDetail,
 
   Dashboard,
 };

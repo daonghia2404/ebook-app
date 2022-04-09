@@ -1,0 +1,56 @@
+@import '../../assets/styles/global';
+
+.Checkbox {
+  .ant-checkbox-wrapper {
+    display: flex;
+    align-items: center;
+
+    span {
+      font-size: 1.8rem;
+      color: $black;
+      font-weight: 300;
+    }
+
+    .ant-checkbox {
+      top: 0;
+
+      &-inner {
+        background: $white;
+        border-color: $fun-green;
+        width: 2rem;
+        height: 2rem;
+        border-radius: .5rem;
+
+        &::after {
+          top: 45%;
+          left: 20%;
+          display: table;
+          width: .6rem;
+          height: 1.2rem;
+        }
+      }
+    }
+
+    &:hover .ant-checkbox-inner,
+    .ant-checkbox:hover .ant-checkbox-inner,
+    .ant-checkbox-input:focus+.ant-checkbox-inner {
+      border-color: $fun-green;
+    }
+
+    .ant-checkbox-checked {
+      .ant-checkbox-inner {
+        background-color: $white;
+        border-color: $fun-green;
+
+        &::after {
+          border-color: $fun-green;
+        }
+      }
+
+      &::after {
+        border-radius: .5rem;
+        border-color: $fun-green;
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+@import '../../assets/styles/global';
+
+.Amount {
+  &-minus,
+  &-plus {
+    border-radius: 1rem;
+    flex: 0 0 2.4rem;
+    max-width: 2.4rem;
+    height: 2.4rem;
+    border: 1px solid $gray;
+    background: $white;
+    cursor: pointer;
+    display: flex;
+
+    .Icon {
+      margin: auto;
+    }
+  }
+
+  span {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: $heavy-metal;
+    display: block;
+    text-align: center;
+    margin: 0 2.8rem;
+  }
+}

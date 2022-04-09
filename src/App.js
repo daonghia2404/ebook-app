@@ -15,6 +15,8 @@ const App = () => {
         <Guest path={LayoutPaths.Guest}>
           <PublicRoute path={Paths.Home} component={Pages.Home} />
           <PublicRoute path={Paths.SearchResult} component={Pages.SearchResult} />
+          <PublicRoute path={Paths.BooksCategory} component={Pages.BooksCategory} />
+          <PublicRoute path={Paths.NewDetail()} component={Pages.NewDetail} />
           <PublicRoute path={Paths.BookDetail()} component={Pages.BookDetail} />
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
         </Guest>
