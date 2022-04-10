@@ -7,21 +7,30 @@ import { Paths } from '@/pages/routers';
 
 import './BookBlock.scss';
 
-const BookBlock = ({ image, title, price, oldPrice, onAddCart, onBuy }) => {
+const BookBlock = ({ image, owner, title, price, oldPrice, onAddCart, onBuy }) => {
   return (
     <div className="BookBlock" onClick={() => navigate(Paths.BookDetail(1))}>
       <div className="BookBlock-image">
         <img src={image} alt="" />
       </div>
       <div className="BookBlock-title">{title}</div>
-      <div className="BookBlock-price flex justify-center">
-        <span>{price}</span>
-        {oldPrice && <del>{oldPrice}</del>}
-      </div>
-      <div className="BookBlock-action flex justify-between">
-        <Button size="large" type="primary" icon={<Icon name={EIconName.ShoppingBag} color={EIconColor.WHITE} />} />
-        <Button size="large" className="outline-primary" title="Mua ngay" />
-      </div>
+      {!owner && (
+        <>
+          <div className="BookBlock-price flex justify-center">
+            <span>{price}</span>
+            {oldPrice && <del>{oldPrice}</del>}
+          </div>
+          <div className="BookBlock-action flex justify-between">
+            <Button
+              size="large"
+              type="primary"
+              icon={<Icon name={EIconName.ShoppingBag} color={EIconColor.WHITE} />}
+              onClick={onAddCart}
+            />
+            <Button size="large" className="outline-primary" title="Mua ngay" onClick={onBuy} />
+          </div>
+        </>
+      )}
     </div>
   );
 };

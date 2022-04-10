@@ -1,0 +1,125 @@
+@import '../../assets/styles/global';
+
+.CheckoutCard {
+  &-header {
+    text-transform: uppercase;
+    font-size: 2.8rem;
+    font-weight: 500;
+    color: $white;
+    background: $fun-green;
+    padding: 1.5rem 1rem;
+  }
+
+  &-body {
+    background: $concrete;
+    border: 1px solid $silver;
+    border-top: none;
+  }
+
+  &-group {
+    padding: 2.4rem;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $silver;
+    }
+  }
+
+  &-row {
+    &-label {
+      font-size: 1.6rem;
+
+      span {
+        margin-left: 0.4rem;
+        font-weight: 300;
+        color: $fun-green;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .Icon {
+        margin-left: .4rem;
+      }
+
+      strong {
+        margin-left: 0.4rem;
+        color: $fun-green;
+        font-weight: 700;
+      }
+    }
+  }
+
+  &-address {
+    border-radius: 1rem;
+    background: $white;
+    padding: 1.6rem;
+    position: relative;
+    margin-top: 1.2rem;
+
+    &-item {
+      &-icon {
+        flex: 0 0 1.8rem;
+        max-width: 1.8rem;
+        margin-right: 2.4rem;
+      }
+
+      &-info {
+        &-name {
+          font-size: 1.6rem;
+        }
+
+        &-description {
+          font-size: 1.6rem;
+          margin-bottom: 1rem;
+          color: $boulder;
+        }
+
+        &-change {
+          position: absolute;
+          font-size: 1.4rem;
+          color: $fun-green;
+          top: 1.6rem;
+          right: 1.6rem;
+          cursor: pointer;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  &-note {
+    font-size: 1.4rem;
+    margin-bottom: 3.6rem;
+    color: $crimson;
+  }
+
+  &-actions {
+    .Button {
+      flex: 0 0 calc(100% / 2 - .5rem);
+      max-width: calc(100% / 2 - .5rem);
+
+      .ant-btn {
+        height: 6.3rem !important;
+      }
+    }
+
+    &-btn-title {
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: $white;
+      text-transform: uppercase;
+
+      span {
+        color: $white;
+        font-size: 1.1rem;
+        display: block;
+      }
+    }
+  }
+}

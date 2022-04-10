@@ -2,6 +2,9 @@
 
 .Avatar {
   .ant-avatar-circle {
+    border: .3rem solid $white;
+    box-shadow: $avatar-shadow;
+
     &:hover {
       cursor: pointer;
     }
@@ -14,5 +17,4 @@
       transform: translate(-50%, -50%) !important;
     }
   }
-};
-
+}

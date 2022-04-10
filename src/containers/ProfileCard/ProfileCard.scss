@@ -1,0 +1,80 @@
+@import '../../assets/styles/global';
+
+.ProfileCard {
+  &-avatar {
+    margin-bottom: 0.8rem;
+  }
+
+  &-header {
+    margin-bottom: 3rem;
+  }
+
+  &-name,
+  &-email {
+    text-align: center;
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+  }
+
+  &-name {
+    font-weight: 500;
+  }
+
+  &-email {
+    color: $gray;
+    font-weight: 300;
+  }
+
+  &-edit-btn {
+    max-width: 18rem;
+    width: 100%;
+    margin: 2rem auto 0;
+
+    .Button {
+      width: 100%;
+
+      .ant-btn {
+        border-radius: 1rem;
+      }
+    }
+  }
+
+  &-list {
+    &-item {
+      padding: 2rem 0;
+      border-bottom: 1px solid $gallery;
+      cursor: pointer;
+
+      &.active,
+      &:hover {
+        .ProfileCard-list-item {
+          &-title {
+            color: $fun-green;
+          }
+
+          &-icon {
+            svg path {
+              fill: $fun-green;
+            }
+          }
+        }
+      }
+
+      &-icon {
+        flex: 0 0 1.5rem;
+        max-width: 1.5rem;
+        margin-right: 1rem;
+
+        svg path {
+          transition: $common-transition;
+
+        }
+      }
+
+      &-title {
+        font-size: 1.4rem;
+        transition: $common-transition;
+      }
+    }
+  }
+}

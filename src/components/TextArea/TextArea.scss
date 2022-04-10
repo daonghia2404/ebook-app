@@ -1,0 +1,14 @@
+@import '../../assets/styles/global';
+
+.TextArea {
+  &-control {
+    border-radius: .6rem;
+    border-color: $harp !important;
+    background: $harp;
+    padding: 1.2rem 2.4rem;
+    min-height: 15rem !important;
+    width: 100%;
+    font-size: 1.6rem;
+    box-shadow: none !important;
+  }
+}

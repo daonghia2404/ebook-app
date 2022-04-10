@@ -6,7 +6,7 @@ import Icon, { EIconName } from '@/components/Icon';
 
 import './BooksList.scss';
 
-const BooksList = ({ title, data, layout = 4, onClickFilter }) => {
+const BooksList = ({ owner, title, data, layout = 4, onClickFilter }) => {
   return (
     <div className="BooksList">
       <div className="container">
@@ -16,13 +16,15 @@ const BooksList = ({ title, data, layout = 4, onClickFilter }) => {
               <div className="BooksList-header-col">
                 <div className="BooksList-title">{title}</div>
               </div>
-              <div className="BooksList-header-col flex items-center">
-                {onClickFilter ? (
-                  <Icon name={EIconName.Filter} onClick={onClickFilter} />
-                ) : (
-                  <Button title="Xem Thêm" className="BooksList-see-more primary-transparent" radius />
-                )}
-              </div>
+              {!owner && (
+                <div className="BooksList-header-col flex items-center">
+                  {onClickFilter ? (
+                    <Icon name={EIconName.Filter} onClick={onClickFilter} />
+                  ) : (
+                    <Button title="Xem Thêm" className="BooksList-see-more primary-transparent" radius />
+                  )}
+                </div>
+              )}
             </div>
           )}
 
@@ -33,7 +35,7 @@ const BooksList = ({ title, data, layout = 4, onClickFilter }) => {
                 className="BooksList-list-item"
                 style={{ flex: `0 0 ${100 / layout}%`, maxWidth: `${100 / layout}%` }}
               >
-                <BookBlock {...item} />
+                <BookBlock {...item} owner={owner} />
               </div>
             ))}
           </div>

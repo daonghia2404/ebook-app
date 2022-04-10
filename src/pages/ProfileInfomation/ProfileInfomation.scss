@@ -1,0 +1,53 @@
+@import '../../assets/styles/global';
+
+.ProfileInfomation {
+  padding: 6rem 1.5rem;
+  height: 100%;
+
+  &-avatar {
+    margin: auto auto 5rem;
+  }
+
+  &-row {
+    width: 100%;
+    max-width: 57rem;
+    padding: 2.5rem 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $gray-nurse;
+    }
+
+    &-item {
+      font-size: 1.6rem;
+
+      &:nth-child(2) {
+        font-weight: 500;
+        color: $fun-green;
+      }
+    }
+
+    &.submit {
+      margin-top: 5rem;
+    }
+  }
+
+  &-form {
+    width: 100%;
+    max-width: 57rem;
+
+    &-row {
+      &-label {
+        font-size: 1.6rem;
+        margin: 0.6rem 3.5rem 0 0;
+        display: block;
+      }
+    }
+  }
+
+  .ant-radio-wrapper {
+    flex-direction: row-reverse;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

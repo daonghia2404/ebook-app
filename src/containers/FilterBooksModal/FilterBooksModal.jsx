@@ -33,10 +33,10 @@ const FilterBooksModal = ({ visible, onClose }) => {
         <Form.Item name="author" label="Tác giả">
           <Select placeholder="Chọn tác giả" size="large" options={[]} />
         </Form.Item>
-        <Form.Item name="author" label="Dịch giả">
+        <Form.Item name="translater" label="Dịch giả">
           <Select placeholder="Chọn dịch giả" size="large" options={[]} />
         </Form.Item>
-        <Form.Item name="author" label="Năm xuất bản">
+        <Form.Item name="year" label="Năm xuất bản">
           <DatePicker size="large" placeholder="Chọn năm xuất bản" />
         </Form.Item>
         <Form.Item>

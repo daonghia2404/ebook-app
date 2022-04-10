@@ -1,0 +1,15 @@
+@import '../../assets/styles/global';
+
+.Questions {
+  height: 100%;
+  padding: 4rem 1.5rem;
+
+  &-logo {
+    max-width: 17rem;
+    margin: 0 auto 5rem;
+
+    img {
+      width: 100%;
+    }
+  }
+}

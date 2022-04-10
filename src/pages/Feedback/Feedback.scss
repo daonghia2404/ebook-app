@@ -1,0 +1,11 @@
+@import '../../assets/styles/global';
+
+.Feedback {
+  height: 100%;
+  padding: 6rem 1.5rem;
+
+  &-form {
+    max-width: 57rem;
+    width: 100%;
+  }
+}

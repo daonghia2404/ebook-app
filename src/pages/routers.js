@@ -24,6 +24,19 @@ const SearchResult = lazy(() => retryLoadComponent(() => import('@/pages/SearchR
 const BookDetail = lazy(() => retryLoadComponent(() => import('@/pages/BookDetail')));
 const BooksCategory = lazy(() => retryLoadComponent(() => import('@/pages/BooksCategory')));
 const NewDetail = lazy(() => retryLoadComponent(() => import('@/pages/NewDetail')));
+const Checkout = lazy(() => retryLoadComponent(() => import('@/pages/Checkout')));
+
+const ProfileInfomation = lazy(() => retryLoadComponent(() => import('@/pages/ProfileInfomation')));
+const ProfileInfomationEdit = lazy(() => retryLoadComponent(() => import('@/pages/ProfileInfomation')));
+const MyBooks = lazy(() => retryLoadComponent(() => import('@/pages/MyBooks')));
+const BookReader = lazy(() => retryLoadComponent(() => import('@/pages/BookReader')));
+const PrivacyPolicy = lazy(() => retryLoadComponent(() => import('@/pages/PrivacyPolicy')));
+const ChangePassword = lazy(() => retryLoadComponent(() => import('@/pages/ChangePassword')));
+const Questions = lazy(() => retryLoadComponent(() => import('@/pages/Questions')));
+const Commit = lazy(() => retryLoadComponent(() => import('@/pages/Commit')));
+const Contact = lazy(() => retryLoadComponent(() => import('@/pages/Contact')));
+const Feedback = lazy(() => retryLoadComponent(() => import('@/pages/Feedback')));
+const Orders = lazy(() => retryLoadComponent(() => import('@/pages/Orders')));
 
 const Dashboard = lazy(() => retryLoadComponent(() => import('@/pages/Dashboard')));
 
@@ -31,6 +44,7 @@ export const LayoutPaths = {
   Auth: '/auth',
   Guest: '/',
   Admin: '/admin',
+  Profile: '/thong-tin',
 };
 
 export const ModulePaths = {
@@ -45,6 +59,19 @@ export const Paths = {
   BookDetail: (id) => `${ModulePaths.Book}/chi-tiet/${id || ':id'}`,
   BooksCategory: '/danh-sach',
   NewDetail: (id) => `${ModulePaths.New}/chi-tiet/${id || ':id'}`,
+  Checkout: '/thanh-toan',
+
+  ProfileInfomation: '/thong-tin-ca-nhan',
+  ProfileInfomationEdit: '/thong-tin-ca-nhan/chinh-sua',
+  MyBooks: '/sach-cua-toi',
+  BookReader: (id) => `${ModulePaths.Book}/doc-sach/${id || ':id'}`,
+  PrivacyPolicy: '/dieu-khoan-chinh-sach',
+  ChangePassword: '/doi-mat-khau',
+  Questions: '/cau-hoi',
+  Commit: '/cam-ket',
+  Contact: '/lien-he',
+  Feedback: '/gop-y',
+  Orders: '/don-hang',
 
   Auth: '/',
 
@@ -59,6 +86,19 @@ export const Pages = {
   BookDetail,
   BooksCategory,
   NewDetail,
+  Checkout,
+
+  ProfileInfomation,
+  ProfileInfomationEdit,
+  MyBooks,
+  BookReader,
+  PrivacyPolicy,
+  ChangePassword,
+  Questions,
+  Commit,
+  Contact,
+  Feedback,
+  Orders,
 
   Dashboard,
 };

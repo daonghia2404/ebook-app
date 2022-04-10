@@ -19,6 +19,23 @@ export const EIconName = {
   Filter: 'Filter',
   CaretDown: 'CaretDown',
   Star: 'Star',
+  AngleRight: 'AngleRight',
+  MapMarkerFill: 'MapMarkerFill',
+  PlusCircle: 'PlusCircle',
+  BookArrow: 'BookArrow',
+  Book: 'Book',
+  BookMark: 'BookMark',
+  Chat: 'Chat',
+  GridPlus: 'GridPlus',
+  L: 'L',
+  Locked: 'Locked',
+  Logout: 'Logout',
+  Question: 'Question',
+  UserSquare: 'UserSquare',
+  MailFill: 'MailFill',
+  Camera: 'Camera',
+  Website: 'Website',
+  PhoneFill: 'PhoneFill',
 };
 
 export const EIconColor = {
@@ -30,4 +47,6 @@ export const EIconColor = {
   BLUE_ZODIAC: '#0F2E53',
   GRAY: '#808080',
   SUNGLOW: '#FBBA32',
+  GRENADIER: '#CF3605',
+  ALTO: '#e0e0e0',
 };

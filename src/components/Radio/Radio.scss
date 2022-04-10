@@ -1,0 +1,36 @@
+@import '../../assets/styles/global';
+
+.Radio {
+  .ant-form label {
+    font-size: 1.6rem;
+  }
+
+  .ant-form-item input[type=radio] {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .ant-radio-wrapper:hover .ant-radio,
+  .ant-radio:hover .ant-radio-inner,
+  .ant-radio-input:focus+.ant-radio-inner {
+    border-color: $fun-green;
+  }
+
+  .ant-radio-inner {
+    width: 2rem;
+    height: 2rem;
+    border-color: $fun-green;
+    position: relative;
+
+    &::after {
+      position: absolute;
+      width: 1.5rem;
+      height: 1.5rem;
+      background: $fun-green;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      margin: 0;
+    }
+  }
+}

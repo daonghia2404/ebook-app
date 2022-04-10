@@ -111,7 +111,7 @@ export const validationRules = {
   onlyNumeric: (message) => ({
     validator: (rule, value) => {
       if (!value || ERegex.numeric.test(value)) return Promise.resolve();
-      return Promise.reject(message || 'This is a field where only numeric characters are entered');
+      return Promise.reject(message || 'Vui lòng chỉ nhập ký tự là chữ số');
     },
   }),
   onlyAlphanumerial: (message) => ({

@@ -1,0 +1,23 @@
+@import '../../assets/styles/global';
+
+.Commit {
+  &-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+  }
+
+  &-main {
+    border-radius: .6rem;
+    padding: 4rem 2.4rem 10rem 2.4rem;
+    background: url('../../assets/images/bg-subtract.png');
+    background-size: cover;
+    background-position: bottom center;
+
+    p {
+      margin-bottom: 1.5rem;
+      font-size: 1.6rem;
+      font-weight: 300;
+    }
+  }
+}

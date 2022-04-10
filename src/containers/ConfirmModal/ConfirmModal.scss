@@ -1,0 +1,29 @@
+@import '../../assets/styles/global';
+
+.ConfirmModal {
+  &-wrapper {
+    .Modal-body {
+      padding: 1.5rem 3rem;
+    }
+  }
+
+  &-title {
+    font-size: 2rem;
+    text-align: center;
+    margin: 1.5rem 0 5.5rem;
+  }
+
+  &-actions {
+    &.single {
+      .Button {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+
+    .Button {
+      flex: 0 0 calc(50% - .75rem);
+      max-width: calc(50% - .75rem);
+    }
+  }
+}

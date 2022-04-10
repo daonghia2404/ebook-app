@@ -1,0 +1,11 @@
+@import '../../assets/styles/global';
+
+.MyBooks {
+  .BooksList {
+    &-title {
+      font-size: 3.2rem;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+  }
+}

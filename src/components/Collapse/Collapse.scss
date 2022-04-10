@@ -1,0 +1,76 @@
+@import '../../assets/styles/global';
+
+.Collapse {
+  &-icon {
+    transition: $common-transition;
+    transform: translate(-100%, -50%) !important;
+  }
+
+  &-title {
+    font-size: 1.6rem;
+    color: $white;
+  }
+
+  .ant-collapse {
+    border: none;
+    background-color: transparent;
+  }
+
+  .ant-collapse>.ant-collapse-item {
+    border-bottom: none;
+  }
+
+  .ant-collapse-icon-position-right>.ant-collapse-item>.ant-collapse-header .ant-collapse-arrow {
+    right: 0;
+  }
+
+  .ant-collapse>.ant-collapse-item>.ant-collapse-header {
+    color: $black;
+  }
+
+  .ant-collapse-content {
+    border: none;
+    background: $harp;
+    padding: 2rem 2.5rem;
+  }
+
+  .ant-collapse-item {
+    position: relative;
+    background: $harp;
+    border-radius: .8rem !important;
+    overflow: hidden;
+    &:not(:last-child) {
+      margin-bottom: 2.4rem;
+    }
+
+    &:last-of-type,
+    &:nth-last-of-type(2) {
+      &:after {
+        display: block;
+      }
+    }
+  }
+
+  .ant-collapse-header,
+  .ant-collapse-content-box {
+    padding: 0;
+    font-size: 1.6rem;
+
+    &>div {
+      white-space: pre-wrap;
+    }
+  }
+
+  .ant-collapse-header {
+    background: $fun-green;
+    padding: 2rem 4rem 2rem 2.5rem !important;
+    border-radius: .8rem;
+    transition: $common-transition;
+  }
+
+  .ant-collapse-item-active {
+    .Collapse-icon {
+      transform: translate(-100%, -50%) rotate(90deg) !important;
+    }
+  }
+}

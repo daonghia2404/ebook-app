@@ -24,6 +24,23 @@ import Trash from './Trash';
 import Filter from './Filter';
 import CaretDown from './CaretDown';
 import Star from './Star';
+import AngleRight from './AngleRight';
+import MapMarkerFill from './MapMarkerFill';
+import PlusCircle from './PlusCircle';
+import BookArrow from './BookArrow';
+import Book from './Book';
+import BookMark from './BookMark';
+import Chat from './Chat';
+import GridPlus from './GridPlus';
+import L from './L';
+import Locked from './Locked';
+import Logout from './Logout';
+import Question from './Question';
+import UserSquare from './UserSquare';
+import MailFill from './MailFill';
+import Camera from './Camera';
+import Website from './Website';
+import PhoneFill from './PhoneFill';
 
 const Icon = ({ name, className, color, onClick }) => {
   const renderIcon = () => {
@@ -68,6 +85,41 @@ const Icon = ({ name, className, color, onClick }) => {
         return <CaretDown color={color} />;
       case EIconName.Star:
         return <Star color={color} />;
+      case EIconName.AngleRight:
+        return <AngleRight color={color} />;
+      case EIconName.MapMarkerFill:
+        return <MapMarkerFill color={color} />;
+      case EIconName.PlusCircle:
+        return <PlusCircle color={color} />;
+      case EIconName.BookArrow:
+        return <BookArrow color={color} />;
+      case EIconName.Book:
+        return <Book color={color} />;
+      case EIconName.BookMark:
+        return <BookMark color={color} />;
+      case EIconName.Chat:
+        return <Chat color={color} />;
+      case EIconName.GridPlus:
+        return <GridPlus color={color} />;
+      case EIconName.Locked:
+        return <Locked color={color} />;
+      case EIconName.L:
+        return <L color={color} />;
+      case EIconName.Logout:
+        return <Logout color={color} />;
+      case EIconName.Question:
+        return <Question color={color} />;
+      case EIconName.UserSquare:
+        return <UserSquare color={color} />;
+      case EIconName.MailFill:
+        return <MailFill color={color} />;
+      case EIconName.Camera:
+        return <Camera color={color} />;
+      case EIconName.Website:
+        return <Website color={color} />;
+      case EIconName.PhoneFill:
+        return <PhoneFill color={color} />;
+
       default:
         return <></>;
     }
