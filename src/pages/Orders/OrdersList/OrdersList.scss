@@ -1,6 +1,9 @@
 @import '../../../assets/styles/global';
 
 .OrdersList {
+  position: relative;
+  z-index: 2;
+
   &-item {
     padding: 1.5rem 2rem;
     border-bottom: .2rem solid $ebb;

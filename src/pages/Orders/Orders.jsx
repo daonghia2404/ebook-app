@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import OrdersList from '@/pages/Orders/OrdersList';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import OrdersDetail from '@/pages/Orders/OrderDetail';
+import ReviewBookModal from '@/containers/ReviewBookModal';
 
 import './Orders.scss';
 
@@ -10,9 +11,20 @@ const Orders = () => {
   const [orderDetailState, setOrderDetailState] = useState({
     data: null,
   });
+  const [visibleReviewBookModal, setVisibleReviewBookModal] = useState(false);
 
   const handleClickOrderItem = (data) => {
     setOrderDetailState({ data });
+  };
+
+  const handleOpenReviewBookModal = () => {
+    setVisibleReviewBookModal(true);
+  };
+  const handleCloseReviewBookModal = () => {
+    setVisibleReviewBookModal(false);
+  };
+  const handleSubmitReviewBookModal = () => {
+    handleCloseReviewBookModal();
   };
 
   return (
@@ -48,6 +60,8 @@ const Orders = () => {
         </div>
       </div>
       {orderDetailState.data ? <OrdersDetail /> : <OrdersList onClickOrderItem={handleClickOrderItem} />}
+
+      <ReviewBookModal visible={visibleReviewBookModal} onClose={handleCloseReviewBookModal} />
     </div>
   );
 };
