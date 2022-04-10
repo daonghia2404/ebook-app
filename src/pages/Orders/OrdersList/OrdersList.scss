@@ -2,8 +2,14 @@
 
 .OrdersList {
   &-item {
-    padding: 1.5rem 0;
+    padding: 1.5rem 2rem;
     border-bottom: .2rem solid $ebb;
+    transition: $common-transition;
+    cursor: pointer;
+
+    &:hover {
+      background: $fun-green-alpha-01;
+    }
 
     &-image {
       flex: 0 0 12.3rem;
@@ -14,6 +20,7 @@
       margin-right: 2.5rem;
       display: flex;
       padding: .8rem;
+      background: $white;
 
       img {
         margin: auto;

@@ -20,17 +20,17 @@ const ChangePassword = () => {
       <Form form={form} layout="vertical" className="ChangePassword-form style-form">
         <div className="ChangePassword-form-title">Đổi mật khẩu</div>
         <Form.Item label="Mật khẩu hiện tại" name="oldPassword" rules={[validationRules.required()]}>
-          <Input size="large" type="password" onChange={handleChangePassword} />
+          <Input placeholder="Nhập mật khẩu hiện tại" size="large" type="password" onChange={handleChangePassword} />
         </Form.Item>
         <Form.Item label="Mật khẩu mới" name="password" rules={[validationRules.required()]}>
-          <Input size="large" type="password" onChange={handleChangePassword} />
+          <Input placeholder="Nhập mật khẩu mới" size="large" type="password" onChange={handleChangePassword} />
         </Form.Item>
         <Form.Item
           label="Xác nhận mật khẩu mới"
           name="confirmPassword"
           rules={[validationRules.required(), validationRules.confirmPassword(password)]}
         >
-          <Input size="large" type="password" />
+          <Input placeholder="Nhập lại mật khẩu mới" size="large" type="password" />
         </Form.Item>
 
         <Form.Item className="ChangePasswordForm-submit">

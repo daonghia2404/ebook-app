@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
-import { globalHistory } from '@reach/router';
+import { globalHistory, navigate } from '@reach/router';
 
 import Avatar from '@/components/Avatar';
 import Button from '@/components/Button';
 import ConfirmModal from '@/containers/ConfirmModal/ConfirmModal';
+import { LayoutPaths, Paths } from '@/pages/routers';
 
 import { dataMenuListProfile } from './ProfileCard.data';
 import './ProfileCard.scss';
-import { LayoutPaths, Paths } from '@/pages/routers';
 
 const ProfileCard = () => {
   const [pathName, setPathName] = useState('');
@@ -19,6 +19,7 @@ const ProfileCard = () => {
   };
 
   const handleClickMenu = (data) => {
+    console.log(data);
     switch (true) {
       case data.isAction: {
         if (data?.key === 'logout') handleOpenLogoutModal();

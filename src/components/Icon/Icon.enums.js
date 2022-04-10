@@ -36,6 +36,9 @@ export const EIconName = {
   Camera: 'Camera',
   Website: 'Website',
   PhoneFill: 'PhoneFill',
+  Check: 'Check',
+  Play: 'Play',
+  Pdf: 'Pdf',
 };
 
 export const EIconColor = {

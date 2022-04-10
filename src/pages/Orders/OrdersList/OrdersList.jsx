@@ -4,11 +4,11 @@ import ImageBook from '@/assets/images/image-book-1.png';
 
 import './OrdersList.scss';
 
-const OrdersList = () => {
+const OrdersList = ({ onClickOrderItem }) => {
   return (
     <div className="OrdersList">
       {[1, 2, 3, 4].map((item) => (
-        <div className="OrdersList-item flex" key={item}>
+        <div className="OrdersList-item flex" key={item} onClick={() => onClickOrderItem?.(item)}>
           <div className="OrdersList-item-image">
             <img src={ImageBook} alt="" />
           </div>

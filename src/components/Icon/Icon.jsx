@@ -41,6 +41,9 @@ import MailFill from './MailFill';
 import Camera from './Camera';
 import Website from './Website';
 import PhoneFill from './PhoneFill';
+import Check from './Check';
+import Play from './Play';
+import Pdf from './Pdf';
 
 const Icon = ({ name, className, color, onClick }) => {
   const renderIcon = () => {
@@ -119,6 +122,12 @@ const Icon = ({ name, className, color, onClick }) => {
         return <Website color={color} />;
       case EIconName.PhoneFill:
         return <PhoneFill color={color} />;
+      case EIconName.Check:
+        return <Check color={color} />;
+      case EIconName.Play:
+        return <Play color={color} />;
+      case EIconName.Pdf:
+        return <Pdf color={color} />;
 
       default:
         return <></>;

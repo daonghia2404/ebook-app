@@ -19,6 +19,8 @@ const App = () => {
           <PublicRoute path={Paths.BooksCategory} component={Pages.BooksCategory} />
           <PublicRoute path={Paths.NewDetail()} component={Pages.NewDetail} />
           <PublicRoute path={Paths.BookDetail()} component={Pages.BookDetail} />
+          <PublicRoute path={Paths.BookListenDetail()} component={Pages.BookListenDetail} />
+          <PublicRoute path={Paths.BookListenControl()} component={Pages.BookListenControl} />
           <PublicRoute path={Paths.Checkout} component={Pages.Checkout} />
 
           <PublicRoute path={Paths.BookReader()} component={Pages.BookReader} />
