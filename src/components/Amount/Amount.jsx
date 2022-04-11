@@ -5,7 +5,7 @@ import './Amount.scss';
 
 const DEFAULT_VALUE = 1;
 
-const Amount = ({ value, step = 1, onChange, min = 0, max }) => {
+const Amount = ({ value, step = 1, onChange, min = 1, max }) => {
   const [stateValue, setStateValue] = useState(DEFAULT_VALUE);
   const isHaveValueProp = value !== undefined;
 

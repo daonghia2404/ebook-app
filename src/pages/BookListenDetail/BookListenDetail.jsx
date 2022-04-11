@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 
-import BooksList from '@/containers/BooksList';
-import { dataBookCarousel } from '@/common/data';
 import ImageBookListenDetail from '@/assets/images/image-book-1.png';
 import Button from '@/components/Button';
-import Amount from '@/components/Amount';
 import ReviewsModal from '@/containers/ReviewsModal';
+import BookListenListTab from '@/pages/BookListenDetail/BookListenListTab';
+import { EKeyTabBookDetail } from '@/pages/BookDetail/BookDetail.enums';
 
 import './BookListenDetail.scss';
-import BookListenListTab from '@/pages/BookListenDetail/BookListenListTab';
 
 const BookListenDetail = () => {
   const [reviewsModalState, setReviewsModalState] = useState({
     visible: false,
   });
+  const [keyTabBookDetail, setKeyTabBookDetail] = useState(EKeyTabBookDetail.INFO_BOOK);
 
   const handleOpenReviewsModal = () => {
     setReviewsModalState({ visible: true });
@@ -21,6 +21,10 @@ const BookListenDetail = () => {
 
   const handleCloseReviewsModal = () => {
     setReviewsModalState({ visible: false });
+  };
+
+  const handleChangeKeyTabBookDetail = (currentKey) => {
+    setKeyTabBookDetail(currentKey);
   };
 
   return (
@@ -57,8 +61,15 @@ const BookListenDetail = () => {
                 </div>
               </div>
               <div className="BookListenDetail-tabs flex items-center">
-                <div className="BookListenDetail-tabs-item active">Thông tin sách</div>
-                <div className="BookListenDetail-tabs-item">Thông tin tác giả</div>
+                {[EKeyTabBookDetail.INFO_BOOK, EKeyTabBookDetail.INFO_AUTHOR].map((item, index) => (
+                  <div
+                    key={index}
+                    className={classNames('BookListenDetail-tabs-item', { active: item === keyTabBookDetail })}
+                    onClick={() => handleChangeKeyTabBookDetail(item)}
+                  >
+                    {item}
+                  </div>
+                ))}
               </div>
 
               <div className="BookListenDetail-tabs-main-item">

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 
 import BooksList from '@/containers/BooksList';
 import { dataBookCarousel } from '@/common/data';
@@ -7,12 +8,14 @@ import Button from '@/components/Button';
 import Amount from '@/components/Amount';
 import ReviewsModal from '@/containers/ReviewsModal';
 
+import { EKeyTabBookDetail } from './BookDetail.enums';
 import './BookDetail.scss';
 
 const BookDetail = () => {
   const [reviewsModalState, setReviewsModalState] = useState({
     visible: false,
   });
+  const [keyTabBookDetail, setKeyTabBookDetail] = useState(EKeyTabBookDetail.INFO_BOOK);
 
   const handleOpenReviewsModal = () => {
     setReviewsModalState({ visible: true });
@@ -20,6 +23,10 @@ const BookDetail = () => {
 
   const handleCloseReviewsModal = () => {
     setReviewsModalState({ visible: false });
+  };
+
+  const handleChangeKeyTabBookDetail = (currentKey) => {
+    setKeyTabBookDetail(currentKey);
   };
 
   return (
@@ -56,8 +63,15 @@ const BookDetail = () => {
                 </div>
               </div>
               <div className="BookDetail-tabs flex items-center">
-                <div className="BookDetail-tabs-item active">Thông tin sách</div>
-                <div className="BookDetail-tabs-item">Thông tin tác giả</div>
+                {[EKeyTabBookDetail.INFO_BOOK, EKeyTabBookDetail.INFO_AUTHOR].map((item, index) => (
+                  <div
+                    key={index}
+                    className={classNames('BookDetail-tabs-item', { active: item === keyTabBookDetail })}
+                    onClick={() => handleChangeKeyTabBookDetail(item)}
+                  >
+                    {item}
+                  </div>
+                ))}
               </div>
 
               <div className="BookDetail-tabs-main-item">

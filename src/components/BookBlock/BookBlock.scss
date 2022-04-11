@@ -20,7 +20,8 @@
     text-align: center;
     font-weight: 500;
     font-size: 1.6rem;
-    margin-bottom: 1.6rem;
+    min-height: 5.2rem;
+    @include ellipsis(2);
   }
 
   &-price {

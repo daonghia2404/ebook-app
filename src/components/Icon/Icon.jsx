@@ -44,6 +44,7 @@ import PhoneFill from './PhoneFill';
 import Check from './Check';
 import Play from './Play';
 import Pdf from './Pdf';
+import Menu from './Menu';
 
 const Icon = ({ name, className, color, onClick }) => {
   const renderIcon = () => {
@@ -128,6 +129,8 @@ const Icon = ({ name, className, color, onClick }) => {
         return <Play color={color} />;
       case EIconName.Pdf:
         return <Pdf color={color} />;
+      case EIconName.Menu:
+        return <Menu color={color} />;
 
       default:
         return <></>;

@@ -7,4 +7,5 @@ export const uiActions = {
     EUIAction.RESET_ACTION_STATUS,
     (resolve) => (actionName) => resolve({ actionName: actionName.replace('_REQUEST', '') }),
   ),
+  setDevice: createActionCreator(EUIAction.SET_DEVICE, (resolve) => (deviceWidth) => resolve({ deviceWidth })),
 };

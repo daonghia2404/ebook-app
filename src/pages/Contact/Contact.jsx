@@ -1,9 +1,9 @@
 import React from 'react';
 
 import ImageContact from '@/assets/images/image-contact.png';
+import Icon, { EIconColor, EIconName } from '@/components/Icon';
 
 import './Contact.scss';
-import Icon, { EIconColor, EIconName } from '@/components/Icon';
 
 const Contact = () => {
   return (

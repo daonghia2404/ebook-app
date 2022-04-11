@@ -32,7 +32,7 @@ const DropdownCustom = ({
       </div>
     ),
     overlayClassName: classNames('DropdownCustom-overlay', overlayClassName),
-    overlayStyle: { ...overlayStyle, maxWidth, minWidth: maxWidth },
+    overlayStyle: { ...overlayStyle, maxWidth },
     getPopupContainer: (node) => node,
     trigger: trigger || ['click'],
     onVisibleChange: handleVisibleChange,

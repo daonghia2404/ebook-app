@@ -1,7 +1,7 @@
 @import '../../assets/styles/global';
 
 .BookDetail {
-  padding: 7rem 16rem;
+  padding: 7rem 0;
 
   &-main {
     margin-bottom: 4rem;
@@ -12,10 +12,19 @@
         max-width: 44rem;
         height: 44rem;
         margin-right: 2rem;
+
+        @media (max-width: 768px) {
+          margin: 0 0 2rem 0;
+        }
       }
 
       &:nth-child(2) {
         flex: 1;
+      }
+
+      @media (max-width: 768px) {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
       }
     }
   }
@@ -111,6 +120,11 @@
       cursor: pointer;
       transition: $common-transition;
       position: relative;
+      white-space: nowrap;
+
+      @media (max-width: 768px) {
+        margin-right: 5rem;
+      }
 
       &:before {
         position: absolute;

@@ -47,6 +47,7 @@
       border-radius: 1rem;
       transition: $common-transition;
       border: 1px solid $mercury;
+      background: $white;
 
       &:not(:last-child) {
         margin-bottom: 2rem;

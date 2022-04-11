@@ -14,6 +14,11 @@
       cursor: pointer;
       position: relative;
       transition: $common-transition;
+      white-space: nowrap;
+
+      @media (max-width: 768px) {
+        margin-right: 5rem;
+      }
 
       &:hover {
         color: $fun-green;

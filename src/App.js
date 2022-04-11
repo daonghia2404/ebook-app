@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, Router } from '@reach/router';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { AuthRoute, LayoutPaths, Pages, Paths, ProtectedRoute, PublicRoute } from '@/pages/routers';
 import Guest from '@/layouts/Guest';
 import Admin from '@/layouts/Admin';
 import Auth from '@/layouts/Auth';
+import Profile from '@/layouts/Profile';
+import { uiActions } from '@/redux/actions';
 
 import './App.scss';
-import Profile from '@/layouts/Profile';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const updateSize = () => {
+      dispatch(uiActions.setDevice(window.innerWidth));
+    };
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, [dispatch]);
+
   return (
     <div className="App">
       <Router primary={false}>

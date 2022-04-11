@@ -59,6 +59,11 @@
       padding: 0 1rem;
       margin-bottom: 2rem;
 
+      @media (max-width: 768px) {
+        flex: 0 0 calc(100% / 2);
+        max-width: calc(100% / 2);
+      }
+
       &-image {
         height: 12rem;
         width: 100%;

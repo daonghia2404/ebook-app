@@ -3,6 +3,10 @@
 .Orders {
   padding: 3rem;
 
+  @media (max-width: 768px) {
+    padding: 3rem 0;
+  }
+
   &-steps {
     padding: 1.5rem 3.2rem;
     background-color: $alabaster;

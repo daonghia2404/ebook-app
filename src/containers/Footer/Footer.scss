@@ -34,6 +34,12 @@
     &:first-child {
       flex: 1;
     }
+
+    @media (max-width: 768px) {
+      flex: 0 0 100% !important;
+      max-width: 100% !important;
+      margin-bottom: 3rem;
+    }
   }
 
   &-description,

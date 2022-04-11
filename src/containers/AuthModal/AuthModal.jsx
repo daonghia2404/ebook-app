@@ -25,7 +25,7 @@ const AuthModal = ({ visible, onClose, type, onClickForgotPassword }) => {
 
   return (
     <Modal radius visible={visible} onClose={onClose} closeable={false} maxWidth="135.5rem">
-      <div className="AuthModal-body flex">
+      <div className="AuthModal-body flex flex-wrap">
         <div className="AuthModal-body-item info flex flex-col">
           <div className="AuthModal-back" onClick={handleClickBack}>
             <Icon name={EIconName.ArrowLeft} color={EIconColor.BLUE_ZODIAC} />

@@ -10,7 +10,7 @@ import { LayoutPaths, Paths } from '@/pages/routers';
 import { dataMenuListProfile } from './ProfileCard.data';
 import './ProfileCard.scss';
 
-const ProfileCard = () => {
+const ProfileCard = ({ onClickMenu }) => {
   const [pathName, setPathName] = useState('');
   const [visibleLogoutModal, setVisibleLogoutModal] = useState(false);
 
@@ -19,7 +19,6 @@ const ProfileCard = () => {
   };
 
   const handleClickMenu = (data) => {
-    console.log(data);
     switch (true) {
       case data.isAction: {
         if (data?.key === 'logout') handleOpenLogoutModal();
@@ -27,6 +26,7 @@ const ProfileCard = () => {
       }
       case Boolean(data.link):
         navigate(data?.link || '');
+        onClickMenu?.();
         break;
       default:
         break;
@@ -62,7 +62,11 @@ const ProfileCard = () => {
         <div className="ProfileCard-name">Nguyenthanh</div>
         <div className="ProfileCard-email">Huyentruong123@gmail.com</div>
         <div className="ProfileCard-edit-btn flex justify-center">
-          <Button size="small" title="Chỉnh sửa hồ sơ" link={`${LayoutPaths.Profile}${Paths.ProfileInfomationEdit}`} />
+          <Button
+            size="small"
+            title="Chỉnh sửa hồ sơ"
+            onClick={() => handleClickMenu({ link: `${LayoutPaths.Profile}${Paths.ProfileInfomationEdit}` })}
+          />
         </div>
       </div>
       <div className="ProfileCard-list">

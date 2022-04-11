@@ -7,6 +7,10 @@
   transition: $common-transition;
   cursor: pointer;
 
+  @media (max-width: 768px) {
+    padding: 1.5rem 3rem;
+  }
+
   &:hover {
     background: $fun-green-alpha-01;
   }

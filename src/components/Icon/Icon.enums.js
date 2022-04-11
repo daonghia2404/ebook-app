@@ -39,6 +39,7 @@ export const EIconName = {
   Check: 'Check',
   Play: 'Play',
   Pdf: 'Pdf',
+  Menu: 'Menu',
 };
 
 export const EIconColor = {

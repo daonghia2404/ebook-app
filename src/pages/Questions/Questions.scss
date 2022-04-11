@@ -4,6 +4,10 @@
   height: 100%;
   padding: 4rem 1.5rem;
 
+  @media (max-width: 768px) {
+    padding: 4rem 0;
+  }
+
   &-logo {
     max-width: 17rem;
     margin: 0 auto 5rem;

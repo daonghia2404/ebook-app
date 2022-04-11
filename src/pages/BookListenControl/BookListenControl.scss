@@ -16,6 +16,10 @@
   &-list {
     padding: 6rem 4rem;
 
+    @media (max-width: 768px) {
+      padding: 3rem 1.5rem;
+    }
+
     &-title {
       font-size: 1.8rem;
       font-weight: 500;

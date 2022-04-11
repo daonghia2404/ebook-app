@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import Logo from '@/assets/images/logo.svg';
 import Avatar from '@/components/Avatar';
@@ -6,16 +7,20 @@ import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import AuthModal from '@/containers/AuthModal/AuthModal';
-
-import './HeaderSearch.scss';
 import { ETypeAuthModal } from '@/containers/AuthModal/AuthModal.enums';
 import DropdownCustom from '@/components/DropdownCustom';
 import CartDropdown from '@/containers/CartDropdown/CartDropdown';
 import ForgotPasswordModal from '@/containers/ForgotPasswordModal';
 import { Link } from '@reach/router';
 import { Paths } from '@/pages/routers';
+import { EDeviceType } from '@/redux/reducers/ui';
+
+import './HeaderSearch.scss';
 
 const HeaderSearch = () => {
+  const windowType = useSelector((state) => state.uiState.device);
+  const isMobile = windowType.type === EDeviceType.MOBILE;
+
   const [authModalState, setAuthModalState] = useState({
     visible: false,
   });
@@ -23,6 +28,7 @@ const HeaderSearch = () => {
     visible: false,
   });
   const [visibleCartDropdown, setVisibleCartDropdown] = useState(false);
+  const [visibleMenuDropdown, setVisibleMenuDropdown] = useState(false);
 
   const handleCartDropdownVisibleChange = (visible) => {
     setVisibleCartDropdown(visible);
@@ -32,6 +38,12 @@ const HeaderSearch = () => {
   };
   const handleCloseCartDropdown = () => {
     setVisibleCartDropdown(false);
+  };
+  const handleOpenMenuDropdown = () => {
+    setVisibleMenuDropdown(true);
+  };
+  const handleCloseMenuDropdown = () => {
+    setVisibleMenuDropdown(false);
   };
 
   const handleOpenForgotPasswordModal = () => {
@@ -49,6 +61,7 @@ const HeaderSearch = () => {
   };
 
   const handleOpenAuthModal = (type) => {
+    handleCloseMenuDropdown();
     setAuthModalState({
       visible: true,
       type,
@@ -61,6 +74,25 @@ const HeaderSearch = () => {
     });
   };
 
+  const renderDropdownMenuMobile = () => {
+    return (
+      <div className="HeaderSearch-menu-mobile">
+        <div className="HeaderSearch-menu-mobile-item" onClick={() => handleOpenAuthModal(ETypeAuthModal.SIGN_UP)}>
+          Đăng Ký
+        </div>
+        <div className="HeaderSearch-menu-mobile-item" onClick={() => handleOpenAuthModal(ETypeAuthModal.SIGN_IN)}>
+          Đăng Nhập
+        </div>
+        <div className="HeaderSearch-menu-mobile-item">
+          <div className="HeaderSearch-menu-mobile-item-search flex items-center">
+            <Input placeholder="Tìm kiếm" />
+            <Button type="primary" icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />} />
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="HeaderSearch">
       <div className="container">
@@ -70,20 +102,37 @@ const HeaderSearch = () => {
               <img src={Logo} alt="" />
             </Link>
           </div>
-          <div className="HeaderSearch-search flex items-center">
-            <Input placeholder="Tìm kiếm" />
-            <Button type="primary" icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />} />
-          </div>
-          <div className="HeaderSearch-account flex items-center">
-            <Avatar />
-            <div className="HeaderSearch-account-link" onClick={() => handleOpenAuthModal(ETypeAuthModal.SIGN_UP)}>
-              Đăng Ký
-            </div>
-            /
-            <div className="HeaderSearch-account-link" onClick={() => handleOpenAuthModal(ETypeAuthModal.SIGN_IN)}>
-              Đăng Nhập
-            </div>
-          </div>
+          {isMobile ? (
+            <DropdownCustom
+              visible={visibleMenuDropdown}
+              onClose={handleCloseMenuDropdown}
+              maxWidth="50rem"
+              placement="bottomRight"
+              overlay={renderDropdownMenuMobile()}
+            >
+              <div className="HeaderSearch-menu" onClick={handleOpenMenuDropdown}>
+                <Icon name={EIconName.Menu} color={EIconColor.FUN_GREEN} />
+              </div>
+            </DropdownCustom>
+          ) : (
+            <>
+              <div className="HeaderSearch-search flex items-center">
+                <Input placeholder="Tìm kiếm" />
+                <Button type="primary" icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />} />
+              </div>
+              <div className="HeaderSearch-account flex items-center">
+                <Avatar />
+                <div className="HeaderSearch-account-link" onClick={() => handleOpenAuthModal(ETypeAuthModal.SIGN_UP)}>
+                  Đăng Ký
+                </div>
+                /
+                <div className="HeaderSearch-account-link" onClick={() => handleOpenAuthModal(ETypeAuthModal.SIGN_IN)}>
+                  Đăng Nhập
+                </div>
+              </div>
+            </>
+          )}
+
           <DropdownCustom
             visible={visibleCartDropdown}
             onClose={handleCloseCartDropdown}

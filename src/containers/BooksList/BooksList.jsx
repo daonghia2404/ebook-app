@@ -3,10 +3,27 @@ import React from 'react';
 import BookBlock from '@/components/BookBlock';
 import Button from '@/components/Button';
 import Icon, { EIconName } from '@/components/Icon';
+import { useSelector } from 'react-redux';
 
 import './BooksList.scss';
 
 const BooksList = ({ owner, title, data, layout = 4, onClickFilter }) => {
+  const windowType = useSelector((state) => state.uiState.device);
+
+  const renderLayoutColumns = () => {
+    switch (true) {
+      case windowType.width <= 768:
+        return 2;
+      case windowType.width <= 991:
+        return 3;
+      case windowType.width <= 1200:
+        return 4;
+
+      default:
+        return layout;
+    }
+  };
+
   return (
     <div className="BooksList">
       <div className="container">
@@ -33,7 +50,7 @@ const BooksList = ({ owner, title, data, layout = 4, onClickFilter }) => {
               <div
                 key={index}
                 className="BooksList-list-item"
-                style={{ flex: `0 0 ${100 / layout}%`, maxWidth: `${100 / layout}%` }}
+                style={{ flex: `0 0 ${100 / renderLayoutColumns()}%`, maxWidth: `${100 / renderLayoutColumns()}%` }}
               >
                 <BookBlock {...item} owner={owner} />
               </div>

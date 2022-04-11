@@ -12,6 +12,11 @@
       margin-right: 6.4rem;
       cursor: pointer;
       transition: $common-transition;
+      white-space: nowrap;
+
+      @media (max-width: 575px) {
+        margin-right: 3rem;
+      }
 
       &:hover {
         color: $fun-green;
@@ -33,6 +38,16 @@
       max-width: calc(100% / 4);
       padding: 0 2rem;
       margin-bottom: 4rem;
+
+      @media (max-width: 991px) {
+        flex: 0 0 calc(100% / 2);
+        max-width: calc(100% / 2);
+      }
+
+      @media (max-width: 575px) {
+        flex: 0 0 calc(100% / 1);
+        max-width: calc(100% / 1);
+      }
     }
   }
 }
