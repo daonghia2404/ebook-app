@@ -7,18 +7,18 @@ import { Paths } from '@/pages/routers';
 
 import './BookBlock.scss';
 
-const BookBlock = ({ image, owner, title, price, oldPrice, onAddCart, onBuy }) => {
+const BookBlock = ({ image, owner, name, price, prePrice, onAddCart, onBuy }) => {
   return (
     <div className="BookBlock" onClick={() => navigate(Paths.BookDetail(1))}>
       <div className="BookBlock-image">
         <img src={image} alt="" />
       </div>
-      <div className="BookBlock-title">{title}</div>
+      <div className="BookBlock-title">{name}</div>
       {!owner && (
         <>
           <div className="BookBlock-price flex justify-center">
             <span>{price}</span>
-            {oldPrice && <del>{oldPrice}</del>}
+            {prePrice && <del>{prePrice}</del>}
           </div>
           <div className="BookBlock-action flex justify-between">
             <Button
