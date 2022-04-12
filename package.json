@@ -52,7 +52,7 @@
   "scripts": {
     "start": "env-cmd -f .env react-app-rewired start",
     "build": "react-app-rewired build",
-    "build:nelify": "REACT_APP_ROOT_URL= REACT_APP_SERVICE_BASE_URL= CI=false react-app-rewired build",
+    "build:nelify": "REACT_APP_ROOT_URL= REACT_APP_SERVICE_BASE_URL=https://ebook.nibicom.com CI=false react-app-rewired build",
     "build:dev": "env-cmd -f .env.dev react-app-rewired build",
     "build:production": "env-cmd -f .env.production react-app-rewired build",
     "test": "react-app-rewired test",
