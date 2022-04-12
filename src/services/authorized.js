@@ -33,7 +33,9 @@ const AuthorizedInstance = (baseURL) => {
   const onRequest = (request) => {
     const authBearer = AuthHelpers.getAccessToken();
     if (authBearer) {
-      request.headers.Authorization = `Bearer ${authBearer}`;
+      request.headers = `${authBearer}`;
+      // request.headers.mode = 'cors';
+      // request.headers['Access-Control-Allow-Origin'] = '*';
     }
     return request;
   };
@@ -77,7 +79,7 @@ const AuthorizedInstance = (baseURL) => {
         tokenSubscribers.push((error, newAccessToken) => {
           if (error) return reject(error);
 
-          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          originalRequest.headers = `${newAccessToken}`;
 
           return resolve(axios(originalRequest));
         });

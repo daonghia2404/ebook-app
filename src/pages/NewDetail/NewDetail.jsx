@@ -4,11 +4,14 @@ import ImageNewDetail from '@/assets/images/image-new-detail.png';
 import { scrollToTop } from '@/utils/functions';
 
 import './NewDetail.scss';
+import { useParams } from '@reach/router';
 
 const NewDetail = () => {
   useEffect(() => {
     scrollToTop();
   }, []);
+  let { id } = useParams();
+  console.log('id', id);
   return (
     <div className="NewDetail">
       <div className="container">

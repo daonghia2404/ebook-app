@@ -7,6 +7,7 @@ import authState from './auth';
 import productState from './products';
 import uiState from './ui';
 import newState from './news';
+import profileState from './profile';
 
 const rootReducer = combineReducers({
   loading,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   productState,
   uiState,
   newState,
+  profileState,
 });
 
 export default rootReducer;
