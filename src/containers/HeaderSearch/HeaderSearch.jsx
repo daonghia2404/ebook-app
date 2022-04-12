@@ -69,7 +69,6 @@ const HeaderSearch = () => {
   const handleOpenForgotPasswordModal = (defaultStep, prevAction) => {
     handleCloseAuthModal();
     setForgotPasswordModalState({ visible: true, defaultStep, prevAction });
-    console.log('forgotPasswordModalState', forgotPasswordModalState);
   };
 
   const handleCloseForgotPasswordModal = () => {
@@ -200,8 +199,9 @@ const HeaderSearch = () => {
         {...forgotPasswordModalState}
         onClose={handleCloseForgotPasswordModal}
         onSuccess={handleSuccessForgotPasswordModal}
+        onClickForgotPassword={handleOpenForgotPasswordModal}
       />
-      {logoutModalState.visible === true ? (
+      {logoutModalState.visible ? (
         <ConfirmModal
           title="Đăng Xuất?"
           onSubmit={onSubmitLogout}
