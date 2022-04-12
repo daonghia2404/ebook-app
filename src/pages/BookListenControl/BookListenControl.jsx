@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import ImageBookListenControl from '@/assets/images/image-listen-book-placeholder.png';
 import VideoFileCard from '@/components/VideoFileCard/VideoFileCard';
+import { scrollToTop } from '@/utils/functions';
 
 import './BookListenControl.scss';
 
 const BookListenControl = () => {
+  useEffect(() => {
+    scrollToTop();
+  }, []);
+
   return (
     <div className="BookListenControl">
       <div className="container">

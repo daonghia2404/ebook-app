@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import BooksList from '@/containers/BooksList';
 import { dataBookCarousel } from '@/common/data';
 import FilterBooksModal from '@/containers/FilterBooksModal';
+import { scrollToTop } from '@/utils/functions';
 
 import './BooksCategory.scss';
 
@@ -17,6 +18,10 @@ const BooksCategory = () => {
   const handleCloseFilterModal = () => {
     setFilterBooksModalState({ visible: false });
   };
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <div className="BooksCategory">

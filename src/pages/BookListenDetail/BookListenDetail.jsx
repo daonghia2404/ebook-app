@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import ImageBookListenDetail from '@/assets/images/image-book-1.png';
@@ -6,6 +6,7 @@ import Button from '@/components/Button';
 import ReviewsModal from '@/containers/ReviewsModal';
 import BookListenListTab from '@/pages/BookListenDetail/BookListenListTab';
 import { EKeyTabBookDetail } from '@/pages/BookDetail/BookDetail.enums';
+import { scrollToTop } from '@/utils/functions';
 
 import './BookListenDetail.scss';
 
@@ -26,6 +27,10 @@ const BookListenDetail = () => {
   const handleChangeKeyTabBookDetail = (currentKey) => {
     setKeyTabBookDetail(currentKey);
   };
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <div className="BookListenDetail">

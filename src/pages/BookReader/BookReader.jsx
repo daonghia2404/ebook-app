@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ImageBookReader from '@/assets/images/image-new-detail.png';
 import ConfirmModal from '@/containers/ConfirmModal/ConfirmModal';
+import { scrollToTop } from '@/utils/functions';
 
 import './BookReader.scss';
 
@@ -17,6 +18,10 @@ const BookReader = () => {
   const handleSubmitNextPageModal = () => {
     handleCloseNextPageModal();
   };
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <div className="BookReader">

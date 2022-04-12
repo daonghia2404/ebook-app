@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import ImageNewDetail from '@/assets/images/image-new-detail.png';
+import { scrollToTop } from '@/utils/functions';
 
 import './NewDetail.scss';
 
 const NewDetail = () => {
+  useEffect(() => {
+    scrollToTop();
+  }, []);
   return (
     <div className="NewDetail">
       <div className="container">

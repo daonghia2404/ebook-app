@@ -5,9 +5,9 @@ import BooksCarousel from '@/containers/BooksCarousel';
 import { dataBookCarousel, dataNewsList } from '@/common/data';
 import NewsTab from '@/containers/NewsTab';
 
-const Dashboard = () => {
+const Home = () => {
   return (
-    <div className="Dashboard">
+    <div className="Home">
       <HomeBanner />
 
       <BooksCarousel title="Sách Giấy" data={dataBookCarousel} />
@@ -18,4 +18,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Home;
