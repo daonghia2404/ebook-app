@@ -50,7 +50,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "PORT=3001 env-cmd -f .env react-app-rewired start",
+    "start": "env-cmd -f .env react-app-rewired start",
     "build": "react-app-rewired build",
     "build:nelify": "REACT_APP_ROOT_URL= REACT_APP_SERVICE_BASE_URL= CI=false react-app-rewired build",
     "build:dev": "env-cmd -f .env.dev react-app-rewired build",

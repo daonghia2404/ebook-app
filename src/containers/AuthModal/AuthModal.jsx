@@ -9,7 +9,7 @@ import SignIn from '@/containers/AuthModal/SingIn';
 
 import './AuthModal.scss';
 
-const AuthModal = ({ visible, onClose, type, onClickForgotPassword }) => {
+const AuthModal = ({ visible, onClose, type, onClickForgotPassword, onSignUpSuccess, onSignInSuccess }) => {
   const [typeAuthModal, setTypeAuthModal] = useState(type || ETypeAuthModal.SIGN_IN);
 
   const isSignInModal = typeAuthModal === ETypeAuthModal.SIGN_IN;
@@ -34,7 +34,11 @@ const AuthModal = ({ visible, onClose, type, onClickForgotPassword }) => {
           <div className="AuthModal-description">
             {isSignInModal ? 'Đăng nhập để tiếp tục' : 'Để trải nghiệm dịch vụ tốt nhất từ chúng tôi.'}
           </div>
-          {isSignInModal ? <SignIn onClickForgotPassword={onClickForgotPassword} /> : <SignUp />}
+          {isSignInModal ? (
+            <SignIn onClickForgotPassword={onClickForgotPassword} onSignInSuccess={onSignInSuccess} />
+          ) : (
+            <SignUp onSignUpSuccess={onSignUpSuccess} />
+          )}
           {isSignInModal ? (
             <div className="AuthModal-link">
               Bạn chưa có tài khoản? <span onClick={() => setTypeAuthModal(ETypeAuthModal.SIGN_UP)}>Đăng ký</span>

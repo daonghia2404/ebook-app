@@ -10,8 +10,9 @@ import ChangePassword from '@/containers/ForgotPasswordModal/ChangePassword';
 
 import { EKeyStepForgotPasswordModal } from './ForgotPasswordModal.enums';
 import './ForgotPasswordModal.scss';
+import { ETypeAuthModal } from '../AuthModal/AuthModal.enums';
 
-const ForgotPasswordModal = ({ visible, onClose, onSuccess }) => {
+const ForgotPasswordModal = ({ visible, onClose, onSuccess, defaultStep, prevAction }) => {
   const [keyStepForgotPasswordModal, setKeyStepForgotPasswordModal] = useState(
     EKeyStepForgotPasswordModal.FIND_ACCOUNT,
   );
@@ -47,13 +48,17 @@ const ForgotPasswordModal = ({ visible, onClose, onSuccess }) => {
         break;
     }
   };
-
+  const handlerSubmitVertifyAccount = () => {
+    if (prevAction === ETypeAuthModal.SIGN_UP) {
+      onClose(ETypeAuthModal.SIGN_IN);
+    }
+  };
   const renderStepSection = () => {
     switch (keyStepForgotPasswordModal) {
       case EKeyStepForgotPasswordModal.FIND_ACCOUNT:
         return <FindAccount onSuccess={handleNextStep} />;
       case EKeyStepForgotPasswordModal.VETIFY_ACCOUNT:
-        return <VetifyAccount onSuccess={handleNextStep} />;
+        return <VetifyAccount onSuccess={handlerSubmitVertifyAccount} />;
       case EKeyStepForgotPasswordModal.CHANGE_PASSWORD:
         return <ChangePassword onSuccess={handleNextStep} />;
       default:
@@ -63,9 +68,9 @@ const ForgotPasswordModal = ({ visible, onClose, onSuccess }) => {
 
   useEffect(() => {
     if (visible) {
-      setKeyStepForgotPasswordModal(EKeyStepForgotPasswordModal.FIND_ACCOUNT);
+      setKeyStepForgotPasswordModal(defaultStep || EKeyStepForgotPasswordModal.FIND_ACCOUNT);
     }
-  }, [visible]);
+  }, [visible, defaultStep]);
 
   return (
     <Modal
