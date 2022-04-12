@@ -11,12 +11,12 @@ import ChangePassword from '@/containers/ForgotPasswordModal/ChangePassword';
 import { EKeyStepForgotPasswordModal } from './ForgotPasswordModal.enums';
 import './ForgotPasswordModal.scss';
 import { ETypeAuthModal } from '../AuthModal/AuthModal.enums';
+import VertifyForgot from './VertifyForgot';
 
-const ForgotPasswordModal = ({ visible, onClose, onSuccess, defaultStep, prevAction }) => {
+const ForgotPasswordModal = ({ visible, onClose, onSuccess, defaultStep, prevAction, onShowForgotPasswordModal }) => {
   const [keyStepForgotPasswordModal, setKeyStepForgotPasswordModal] = useState(
     EKeyStepForgotPasswordModal.FIND_ACCOUNT,
   );
-
   const handleClickBack = () => {
     switch (keyStepForgotPasswordModal) {
       case EKeyStepForgotPasswordModal.FIND_ACCOUNT:
@@ -25,8 +25,11 @@ const ForgotPasswordModal = ({ visible, onClose, onSuccess, defaultStep, prevAct
       case EKeyStepForgotPasswordModal.VETIFY_ACCOUNT:
         setKeyStepForgotPasswordModal(EKeyStepForgotPasswordModal.FIND_ACCOUNT);
         break;
+      case EKeyStepForgotPasswordModal.VERTIFY_FORGOT:
+        setKeyStepForgotPasswordModal(EKeyStepForgotPasswordModal.CHANGE_PASSWORD);
+        break;
       case EKeyStepForgotPasswordModal.CHANGE_PASSWORD:
-        setKeyStepForgotPasswordModal(EKeyStepForgotPasswordModal.VETIFY_ACCOUNT);
+        setKeyStepForgotPasswordModal(EKeyStepForgotPasswordModal.VERTIFY_FORGOT);
         break;
       default:
         break;
@@ -56,11 +59,13 @@ const ForgotPasswordModal = ({ visible, onClose, onSuccess, defaultStep, prevAct
   const renderStepSection = () => {
     switch (keyStepForgotPasswordModal) {
       case EKeyStepForgotPasswordModal.FIND_ACCOUNT:
-        return <FindAccount onSuccess={handleNextStep} />;
+        return <FindAccount onShowForgotPasswordModal={onShowForgotPasswordModal} />;
       case EKeyStepForgotPasswordModal.VETIFY_ACCOUNT:
         return <VetifyAccount onSuccess={handlerSubmitVertifyAccount} />;
       case EKeyStepForgotPasswordModal.CHANGE_PASSWORD:
         return <ChangePassword onSuccess={handleNextStep} />;
+      case EKeyStepForgotPasswordModal.VERTIFY_FORGOT:
+        return <VertifyForgot onShowForgotPasswordModal={onShowForgotPasswordModal} />;
       default:
         return <></>;
     }
@@ -68,7 +73,7 @@ const ForgotPasswordModal = ({ visible, onClose, onSuccess, defaultStep, prevAct
 
   useEffect(() => {
     if (visible) {
-      setKeyStepForgotPasswordModal(defaultStep || EKeyStepForgotPasswordModal.FIND_ACCOUNT);
+      setKeyStepForgotPasswordModal(defaultStep);
     }
   }, [visible, defaultStep]);
 

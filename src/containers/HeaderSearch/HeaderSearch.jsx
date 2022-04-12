@@ -65,12 +65,14 @@ const HeaderSearch = () => {
   const handleCloseMenuDropdown = () => {
     setVisibleMenuDropdown(false);
   };
-
   const handleOpenForgotPasswordModal = (defaultStep, prevAction) => {
     handleCloseAuthModal();
     setForgotPasswordModalState({ visible: true, defaultStep, prevAction });
   };
-
+  const onShowForgotPasswordModal = (defaultStep, prevAction) => {
+    console.log('defaultStep', defaultStep);
+    setForgotPasswordModalState({ visible: true, defaultStep, prevAction });
+  };
   const handleCloseForgotPasswordModal = () => {
     setForgotPasswordModalState({ visible: false });
   };
@@ -199,7 +201,7 @@ const HeaderSearch = () => {
         {...forgotPasswordModalState}
         onClose={handleCloseForgotPasswordModal}
         onSuccess={handleSuccessForgotPasswordModal}
-        onClickForgotPassword={handleOpenForgotPasswordModal}
+        onShowForgotPasswordModal={onShowForgotPasswordModal}
       />
       {logoutModalState.visible ? (
         <ConfirmModal

@@ -6,6 +6,7 @@ import Button from '@/components/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginAction } from '@/redux/actions';
 import { EAuthAction } from '@/redux/actions/auth/constants';
+import { EKeyStepForgotPasswordModal } from '@/containers/ForgotPasswordModal/ForgotPasswordModal.enums';
 
 const SingIn = ({ onClickForgotPassword, onSignInSuccess }) => {
   const [form] = Form.useForm();
@@ -28,7 +29,10 @@ const SingIn = ({ onClickForgotPassword, onSignInSuccess }) => {
         <Input size="large" placeholder="Nhập password..." type="password" />
       </Form.Item>
       <Form.Item>
-        <div className="AuthModal-forgot-password" onClick={onClickForgotPassword}>
+        <div
+          className="AuthModal-forgot-password"
+          onClick={() => onClickForgotPassword(EKeyStepForgotPasswordModal.FIND_ACCOUNT)}
+        >
           Quên mật khẩu
         </div>
       </Form.Item>

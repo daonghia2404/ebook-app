@@ -19,8 +19,24 @@ export const vertifyOtpAction = {
   success: createActionCreator(EAuthAction.VERTIFY_OTP_SUCCESS, (resolve) => (response) => resolve({ response })),
   failure: createActionCreator(EAuthAction.VERTIFY_OTP_FAILED, (resolve) => (error) => resolve({ error })),
 };
-export const logoutAction = {
-  request: createActionCreator(EAuthAction.LOGOUT_REQUEST, (resolve) => (cb) => resolve({ cb })),
-  success: createActionCreator(EAuthAction.LOGOUT_SUCCESS, (resolve) => (response) => resolve({ response })),
-  failure: createActionCreator(EAuthAction.LOGOUT_FAILED, (resolve) => (error) => resolve({ error })),
+export const forgotPasswordAction = {
+  request: createActionCreator(EAuthAction.FORGOT_PASSWORD_REQUEST, (resolve) => (body, cb) => resolve({ body, cb })),
+  success: createActionCreator(EAuthAction.FORGOT_PASSWORD_SUCCESS, (resolve) => (response) => resolve({ response })),
+  failure: createActionCreator(EAuthAction.FORGOT_PASSWORD_FAILED, (resolve) => (error) => resolve({ error })),
+};
+export const vertifyForgotAction = {
+  request: createActionCreator(
+    EAuthAction.VERTIFY_FORGOT_PASSWORD_REQUEST,
+    (resolve) => (body, token, cb) => resolve({ body, token, cb }),
+  ),
+  success: createActionCreator(
+    EAuthAction.VERTIFY_FORGOT_PASSWORD_SUCCESS,
+    (resolve) => (response) => resolve({ response }),
+  ),
+  failure: createActionCreator(EAuthAction.VERTIFY_FORGOT_PASSWORD_FAILED, (resolve) => (error) => resolve({ error })),
+};
+export const resetPasswordAction = {
+  request: createActionCreator(EAuthAction.RESET_PASSWORD_REQUEST, (resolve) => (body, cb) => resolve({ body, cb })),
+  success: createActionCreator(EAuthAction.RESET_PASSWORD_SUCCESS, (resolve) => (response) => resolve({ response })),
+  failure: createActionCreator(EAuthAction.RESET_PASSWORD_FAILED, (resolve) => (error) => resolve({ error })),
 };

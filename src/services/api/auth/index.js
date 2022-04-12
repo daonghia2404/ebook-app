@@ -9,8 +9,24 @@ class Auth {
     const response = await ApiService.post(`/auth/register`, body);
     return response.data;
   }
+  async forgotPassword(body) {
+    const response = await ApiService.post(`/auth/forgot`, body);
+    return response.data;
+  }
+  async resetPassword(body) {
+    const response = await ApiService.post(`/auth/forgot-reset`, body);
+    return response.data;
+  }
   async vertifyOtpSignUp(body, token) {
     const response = await ApiService.post(`/auth/verify`, body, {
+      'headers': {
+        token,
+      },
+    });
+    return response.data;
+  }
+  async vertifyOtpForgot(body, token) {
+    const response = await ApiService.post(`/auth/forgot-verify`, body, {
       'headers': {
         token,
       },

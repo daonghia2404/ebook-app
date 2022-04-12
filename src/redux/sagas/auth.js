@@ -2,7 +2,14 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import AuthInstance from '@/services/api/auth';
 import AuthHelpers from '@/services/auth-helpers';
-import { loginAction, registerAction, vertifyOtpAction } from '@/redux/actions';
+import {
+  loginAction,
+  registerAction,
+  vertifyOtpAction,
+  forgotPasswordAction,
+  resetPasswordAction,
+  vertifyForgotAction,
+} from '@/redux/actions';
 
 export function* loginSaga(action) {
   try {
@@ -38,8 +45,41 @@ export function* vertifyOtpSaga(action) {
     yield put(vertifyOtpAction.failure(err));
   }
 }
+export function* forgotPasswordSaga(action) {
+  try {
+    const { body, cb } = action.payload;
+    const response = yield call(AuthInstance.forgotPassword, body);
+    yield put(forgotPasswordAction.success(response));
+    cb?.();
+  } catch (err) {
+    yield put(forgotPasswordAction.failure(err));
+  }
+}
+export function* vertifyOtpPasswordSaga(action) {
+  try {
+    const { body, token, cb } = action.payload;
+    const response = yield call(AuthInstance.vertifyOtpForgot, body, token);
+    yield put(vertifyForgotAction.success(response));
+    cb?.();
+  } catch (err) {
+    yield put(vertifyForgotAction.failure(err));
+  }
+}
+export function* resetPasswordSaga(action) {
+  try {
+    const { body, cb } = action.payload;
+    const response = yield call(AuthInstance.resetPassword, body);
+    yield put(resetPasswordAction.success(response));
+    cb?.();
+  } catch (err) {
+    yield put(resetPasswordAction.failure(err));
+  }
+}
 export default function* root() {
   yield all([takeLatest(loginAction.request.type, loginSaga)]);
   yield all([takeLatest(registerAction.request.type, registerSaga)]);
   yield all([takeLatest(vertifyOtpAction.request.type, vertifyOtpSaga)]);
+  yield all([takeLatest(forgotPasswordAction.request.type, forgotPasswordSaga)]);
+  yield all([takeLatest(resetPasswordAction.request.type, resetPasswordSaga)]);
+  yield all([takeLatest(vertifyForgotAction.request.type, vertifyOtpPasswordSaga)]);
 }

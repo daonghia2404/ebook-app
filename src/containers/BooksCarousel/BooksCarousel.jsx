@@ -41,7 +41,7 @@ const BooksCarousel = ({ title, data, darkBackground }) => {
             <Carousels arrows dots={false} slidesToShow={renderSlidesToShow()}>
               {data?.map((item) => (
                 <div className="BooksCarousel-list-item">
-                  <BookBlock {...item} />
+                  <BookBlock key={item.id} {...item} />
                 </div>
               ))}
             </Carousels>

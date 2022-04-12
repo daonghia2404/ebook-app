@@ -23,7 +23,8 @@ const SignUp = ({ onSignUpSuccess }) => {
       password,
       referCode,
     };
-    dispatch(registerAction.request(newObj, handleSignUpSuccess));
+    // dispatch(registerAction.request(newObj, handleSignUpSuccess));
+    handleSignUpSuccess();
   };
   const handleSignUpSuccess = () => {
     showNotification('success', 'Đăng ký tài khoản thành công ! Vui Lòng kiểm tra Email');
