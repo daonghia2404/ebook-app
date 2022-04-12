@@ -1,14 +1,24 @@
 import React from 'react';
 
 import { Form } from 'antd';
-import { validationRules } from '@/utils/functions';
+import { showNotification, validationRules } from '@/utils/functions';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { EAuthAction } from '@/redux/actions/auth/constants';
+import { vertifyOtpAction } from '@/redux/actions';
 
 const VetifyAccount = ({ onSuccess }) => {
   const [form] = Form.useForm();
-
-  const handleSubmit = () => {
+  const dispatch = useDispatch();
+  const loadingVertify = useSelector((state) => state.loading[EAuthAction.VERTIFY_OTP]);
+  const tokenUser = useSelector((state) => state.authState.token);
+  console.log('tokenUser', tokenUser);
+  const handleSubmit = (values) => {
+    dispatch(vertifyOtpAction.request({ ...values }, tokenUser, handleVertifySuccess));
+  };
+  const handleVertifySuccess = () => {
+    showNotification('success', 'Kích hoạt tài khoản thành công ! Vui lòng đăng nhập');
     onSuccess?.();
   };
 
@@ -21,11 +31,11 @@ const VetifyAccount = ({ onSuccess }) => {
         <span>huyentruong123@gmail.com</span>
       </div>
       <Form form={form} layout="vertical" className="ForgotPasswordModal-form style-form" onFinish={handleSubmit}>
-        <Form.Item name="email" label="Mã xác thực" rules={[validationRules.required()]}>
+        <Form.Item name="otp" label="Mã xác thực" rules={[validationRules.required()]}>
           <Input size="large" />
         </Form.Item>
         <Form.Item>
-          <Button size="large" title="Xác nhận" type="primary" uppercase htmlType="submit" />
+          <Button size="large" loading={loadingVertify} title="Xác nhận" type="primary" uppercase htmlType="submit" />
         </Form.Item>
 
         <div className="ForgotPasswordModal-resend">

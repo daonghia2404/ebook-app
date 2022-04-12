@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Logo from '@/assets/images/logo.svg';
 import Avatar from '@/components/Avatar';
@@ -14,14 +14,22 @@ import ForgotPasswordModal from '@/containers/ForgotPasswordModal';
 import { Link } from '@reach/router';
 import { Paths } from '@/pages/routers';
 import { EDeviceType } from '@/redux/reducers/ui';
-
+import AuthHelpers from '@/services/auth-helpers';
 import './HeaderSearch.scss';
+import { EKeyStepForgotPasswordModal } from '../ForgotPasswordModal/ForgotPasswordModal.enums';
+import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import { showNotification } from '@/utils/functions';
+import { logoutAction } from '@/redux/actions';
 
 const HeaderSearch = () => {
   const windowType = useSelector((state) => state.uiState.device);
   const isMobile = windowType.type === EDeviceType.MOBILE;
-
+  const checkAuth = AuthHelpers.getAccessToken();
+  const dispatch = useDispatch();
   const [authModalState, setAuthModalState] = useState({
+    visible: false,
+  });
+  const [logoutModalState, setLogoutModalState] = useState({
     visible: false,
   });
   const [forgotPasswordModalState, setForgotPasswordModalState] = useState({
@@ -32,6 +40,20 @@ const HeaderSearch = () => {
 
   const handleCartDropdownVisibleChange = (visible) => {
     setVisibleCartDropdown(visible);
+  };
+  const handleOpenLogoutModal = () => {
+    setLogoutModalState(true);
+  };
+  const onSubmitLogout = () => {
+    handleLogoutSuccess();
+  };
+  const handleLogoutSuccess = () => {
+    AuthHelpers.clearTokens();
+    showNotification('success', 'Đăng xuất thành công');
+    setLogoutModalState(false);
+  };
+  const handleCloseLogoutModal = () => {
+    setLogoutModalState(false);
   };
   const handleOpenCartDropdown = () => {
     setVisibleCartDropdown(true);
@@ -46,9 +68,10 @@ const HeaderSearch = () => {
     setVisibleMenuDropdown(false);
   };
 
-  const handleOpenForgotPasswordModal = () => {
+  const handleOpenForgotPasswordModal = (defaultStep, prevAction) => {
     handleCloseAuthModal();
-    setForgotPasswordModalState({ visible: true });
+    setForgotPasswordModalState({ visible: true, defaultStep, prevAction });
+    console.log('forgotPasswordModalState', forgotPasswordModalState);
   };
 
   const handleCloseForgotPasswordModal = () => {
@@ -73,7 +96,13 @@ const HeaderSearch = () => {
       visible: false,
     });
   };
-
+  const handleSignUpSuccess = () => {
+    handleCloseAuthModal();
+    handleOpenForgotPasswordModal(EKeyStepForgotPasswordModal.VETIFY_ACCOUNT, ETypeAuthModal.SIGN_UP);
+  };
+  const handleSignInSuccess = () => {
+    handleCloseAuthModal();
+  };
   const renderDropdownMenuMobile = () => {
     return (
       <div className="HeaderSearch-menu-mobile">
@@ -120,16 +149,29 @@ const HeaderSearch = () => {
                 <Input placeholder="Tìm kiếm" />
                 <Button type="primary" icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />} />
               </div>
-              <div className="HeaderSearch-account flex items-center">
-                <Avatar />
-                <div className="HeaderSearch-account-link" onClick={() => handleOpenAuthModal(ETypeAuthModal.SIGN_UP)}>
-                  Đăng Ký
+              {checkAuth ? (
+                <div className="avatar-auth flex items-center" onClick={() => handleOpenLogoutModal()}>
+                  <Avatar />
+                  <span>Thu Quỳnh</span>
                 </div>
-                /
-                <div className="HeaderSearch-account-link" onClick={() => handleOpenAuthModal(ETypeAuthModal.SIGN_IN)}>
-                  Đăng Nhập
+              ) : (
+                <div className="HeaderSearch-account flex items-center">
+                  <Avatar />
+                  <div
+                    className="HeaderSearch-account-link"
+                    onClick={() => handleOpenAuthModal(ETypeAuthModal.SIGN_UP)}
+                  >
+                    Đăng Ký
+                  </div>
+                  /
+                  <div
+                    className="HeaderSearch-account-link"
+                    onClick={() => handleOpenAuthModal(ETypeAuthModal.SIGN_IN)}
+                  >
+                    Đăng Nhập
+                  </div>
                 </div>
-              </div>
+              )}
             </>
           )}
 
@@ -152,6 +194,8 @@ const HeaderSearch = () => {
         {...authModalState}
         onClickForgotPassword={handleOpenForgotPasswordModal}
         onClose={handleCloseAuthModal}
+        onSignUpSuccess={handleSignUpSuccess}
+        onSignInSuccess={handleSignInSuccess}
       />
 
       <ForgotPasswordModal
@@ -159,6 +203,16 @@ const HeaderSearch = () => {
         onClose={handleCloseForgotPasswordModal}
         onSuccess={handleSuccessForgotPasswordModal}
       />
+      {logoutModalState === true ? (
+        <ConfirmModal
+          title="Đăng Xuất?"
+          onSubmit={onSubmitLogout}
+          visible={logoutModalState}
+          onClose={handleCloseLogoutModal}
+        />
+      ) : (
+        ''
+      )}
     </div>
   );
 };
