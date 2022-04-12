@@ -12,7 +12,7 @@ class Auth {
   async vertifyOtpSignUp(body, token) {
     const response = await ApiService.post(`/auth/verify`, body, {
       'headers': {
-        'token': token,
+        token,
       },
     });
     return response.data;

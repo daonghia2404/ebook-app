@@ -12,7 +12,6 @@ const SignUp = ({ onSignUpSuccess }) => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const loadingSignUp = useSelector((state) => state.loading[EAuthAction.REGISTER]);
-  const formRef = useRef();
   const handleChangePassword = (passwordValue) => {
     setPassword(passwordValue);
   };
@@ -28,6 +27,7 @@ const SignUp = ({ onSignUpSuccess }) => {
   };
   const handleSignUpSuccess = () => {
     showNotification('success', 'Đăng ký tài khoản thành công ! Vui Lòng kiểm tra Email');
+    form.resetFields();
     onSignUpSuccess?.();
   };
   return (

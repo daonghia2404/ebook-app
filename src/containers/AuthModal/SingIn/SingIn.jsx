@@ -11,12 +11,12 @@ const SingIn = ({ onClickForgotPassword, onSignInSuccess }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const loadingSignIn = useSelector((state) => state.loading[EAuthAction.LOGIN]);
-  const formRef = useRef();
   const handerSubmit = (values) => {
     dispatch(loginAction.request({ ...values }, handleSignInSuccess));
   };
   const handleSignInSuccess = () => {
     showNotification('success', 'Đăng nhập thành công !');
+    form.resetFields();
     onSignInSuccess?.();
   };
   return (

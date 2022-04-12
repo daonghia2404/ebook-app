@@ -13,7 +13,6 @@ const VetifyAccount = ({ onSuccess }) => {
   const dispatch = useDispatch();
   const loadingVertify = useSelector((state) => state.loading[EAuthAction.VERTIFY_OTP]);
   const tokenUser = useSelector((state) => state.authState.token);
-  console.log('tokenUser', tokenUser);
   const handleSubmit = (values) => {
     dispatch(vertifyOtpAction.request({ ...values }, tokenUser, handleVertifySuccess));
   };

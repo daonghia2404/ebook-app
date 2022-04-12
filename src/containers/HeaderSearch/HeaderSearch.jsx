@@ -16,16 +16,14 @@ import { Paths } from '@/pages/routers';
 import { EDeviceType } from '@/redux/reducers/ui';
 import AuthHelpers from '@/services/auth-helpers';
 import './HeaderSearch.scss';
-import { EKeyStepForgotPasswordModal } from '../ForgotPasswordModal/ForgotPasswordModal.enums';
-import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import { EKeyStepForgotPasswordModal } from '@/containers/ForgotPasswordModal/ForgotPasswordModal.enums';
+import ConfirmModal from '@/containers/ConfirmModal/ConfirmModal';
 import { showNotification } from '@/utils/functions';
-import { logoutAction } from '@/redux/actions';
 
 const HeaderSearch = () => {
   const windowType = useSelector((state) => state.uiState.device);
   const isMobile = windowType.type === EDeviceType.MOBILE;
   const checkAuth = AuthHelpers.getAccessToken();
-  const dispatch = useDispatch();
   const [authModalState, setAuthModalState] = useState({
     visible: false,
   });
@@ -42,7 +40,7 @@ const HeaderSearch = () => {
     setVisibleCartDropdown(visible);
   };
   const handleOpenLogoutModal = () => {
-    setLogoutModalState(true);
+    setLogoutModalState({ visible: true });
   };
   const onSubmitLogout = () => {
     handleLogoutSuccess();
@@ -50,10 +48,10 @@ const HeaderSearch = () => {
   const handleLogoutSuccess = () => {
     AuthHelpers.clearTokens();
     showNotification('success', 'Đăng xuất thành công');
-    setLogoutModalState(false);
+    setLogoutModalState({ visible: false });
   };
   const handleCloseLogoutModal = () => {
-    setLogoutModalState(false);
+    setLogoutModalState({ visible: false });
   };
   const handleOpenCartDropdown = () => {
     setVisibleCartDropdown(true);
@@ -150,7 +148,7 @@ const HeaderSearch = () => {
                 <Button type="primary" icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />} />
               </div>
               {checkAuth ? (
-                <div className="avatar-auth flex items-center" onClick={() => handleOpenLogoutModal()}>
+                <div className="HeaderSearch-avatar flex items-center" onClick={() => handleOpenLogoutModal()}>
                   <Avatar />
                   <span>Thu Quỳnh</span>
                 </div>
@@ -203,7 +201,7 @@ const HeaderSearch = () => {
         onClose={handleCloseForgotPasswordModal}
         onSuccess={handleSuccessForgotPasswordModal}
       />
-      {logoutModalState === true ? (
+      {logoutModalState.visible === true ? (
         <ConfirmModal
           title="Đăng Xuất?"
           onSubmit={onSubmitLogout}
