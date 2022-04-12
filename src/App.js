@@ -41,21 +41,21 @@ const App = () => {
         </Guest>
 
         <Profile path={LayoutPaths.Profile}>
-          <PublicRoute path={Paths.ProfileInfomation} component={Pages.ProfileInfomation} />
-          <PublicRoute path={Paths.ProfileInfomationEdit} component={Pages.ProfileInfomationEdit} />
-          <PublicRoute path={Paths.MyBooks} component={Pages.MyBooks} />
-          <PublicRoute path={Paths.PrivacyPolicy} component={Pages.PrivacyPolicy} />
-          <PublicRoute path={Paths.ChangePassword} component={Pages.ChangePassword} />
-          <PublicRoute path={Paths.Questions} component={Pages.Questions} />
-          <PublicRoute path={Paths.Commit} component={Pages.Commit} />
-          <PublicRoute path={Paths.Contact} component={Pages.Contact} />
-          <PublicRoute path={Paths.Feedback} component={Pages.Feedback} />
-          <PublicRoute path={Paths.Orders} component={Pages.Orders} />
+          <ProtectedRoute path={Paths.ProfileInfomation} component={Pages.ProfileInfomation} />
+          <ProtectedRoute path={Paths.ProfileInfomationEdit} component={Pages.ProfileInfomationEdit} />
+          <ProtectedRoute path={Paths.MyBooks} component={Pages.MyBooks} />
+          <ProtectedRoute path={Paths.PrivacyPolicy} component={Pages.PrivacyPolicy} />
+          <ProtectedRoute path={Paths.ChangePassword} component={Pages.ChangePassword} />
+          <ProtectedRoute path={Paths.Questions} component={Pages.Questions} />
+          <ProtectedRoute path={Paths.Commit} component={Pages.Commit} />
+          <ProtectedRoute path={Paths.Contact} component={Pages.Contact} />
+          <ProtectedRoute path={Paths.Feedback} component={Pages.Feedback} />
+          <ProtectedRoute path={Paths.Orders} component={Pages.Orders} />
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Profile}${Paths.ProfileInfomation}`} />
         </Profile>
 
         <Auth path={LayoutPaths.Auth}>
-          {/* <AuthRoute path={Paths.Login} component={Pages.Login} /> */}
+          <AuthRoute path={Paths.Login} component={Pages.Login} />
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Auth}${Paths.Login}`} />
         </Auth>
 

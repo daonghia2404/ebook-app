@@ -11,7 +11,7 @@ import { ETypeAuthModal } from '@/containers/AuthModal/AuthModal.enums';
 import DropdownCustom from '@/components/DropdownCustom';
 import CartDropdown from '@/containers/CartDropdown/CartDropdown';
 import ForgotPasswordModal from '@/containers/ForgotPasswordModal';
-import { Link } from '@reach/router';
+import { Link, navigate } from '@reach/router';
 import { Paths } from '@/pages/routers';
 import { EDeviceType } from '@/redux/reducers/ui';
 import AuthHelpers from '@/services/auth-helpers';
@@ -49,6 +49,7 @@ const HeaderSearch = () => {
     AuthHelpers.clearTokens();
     showNotification('success', 'Đăng xuất thành công');
     setLogoutModalState({ visible: false });
+    navigate('/');
   };
   const handleCloseLogoutModal = () => {
     setLogoutModalState({ visible: false });
