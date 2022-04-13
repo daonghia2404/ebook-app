@@ -33,9 +33,7 @@ const AuthorizedInstance = (baseURL) => {
   const onRequest = (request) => {
     const authBearer = AuthHelpers.getAccessToken();
     if (authBearer) {
-      request.headers = `${authBearer}`;
-      // request.headers.mode = 'cors';
-      // request.headers['Access-Control-Allow-Origin'] = '*';
+      request.headers.Authorization = `Bearer ${authBearer}`;
     }
     return request;
   };
@@ -51,42 +49,42 @@ const AuthorizedInstance = (baseURL) => {
     const responseStatus = response?.status;
     const originalRequest = axiosError.config;
 
-    if (responseStatus === EResponseCode.UNAUTHORIZED && originalRequest) {
-      if (!isRefreshingAccessToken) {
-        isRefreshingAccessToken = true;
+    // if (responseStatus === EResponseCode.UNAUTHORIZED && originalRequest) {
+    //   if (!isRefreshingAccessToken) {
+    //     isRefreshingAccessToken = true;
 
-        refreshTokens()
-          .then((newAccessToken) => {
-            onTokenRefreshed(null, newAccessToken);
-          })
-          .catch((err) => {
-            onTokenRefreshed(new Error('Failed to refresh access token'));
-            const refreshTokenFailed = err?.response?.config?.url === ' '; // Config refresh token URL
+    //     refreshTokens()
+    //       .then((newAccessToken) => {
+    //         onTokenRefreshed(null, newAccessToken);
+    //       })
+    //       .catch((err) => {
+    //         onTokenRefreshed(new Error('Failed to refresh access token'));
+    //         const refreshTokenFailed = err?.response?.config?.url === ' '; // Config refresh token URL
 
-            if (refreshTokenFailed) {
-              AuthHelpers.clearTokens();
-              // Navigate to Auth Layout
-              navigate(LayoutPaths.Auth);
-            }
-          })
-          .finally(() => {
-            isRefreshingAccessToken = false;
-            tokenSubscribers = [];
-          });
-      }
+    //         if (refreshTokenFailed) {
+    //           AuthHelpers.clearTokens();
+    //           // Navigate to Auth Layout
+    //           navigate(LayoutPaths.Auth);
+    //         }
+    //       })
+    //       .finally(() => {
+    //         isRefreshingAccessToken = false;
+    //         tokenSubscribers = [];
+    //       });
+    //   }
 
-      const storeOriginalRequest = new Promise((resolve, reject) => {
-        tokenSubscribers.push((error, newAccessToken) => {
-          if (error) return reject(error);
+    //   const storeOriginalRequest = new Promise((resolve, reject) => {
+    //     tokenSubscribers.push((error, newAccessToken) => {
+    //       if (error) return reject(error);
 
-          originalRequest.headers = `${newAccessToken}`;
+    //       originalRequest.headers = `${newAccessToken}`;
 
-          return resolve(axios(originalRequest));
-        });
-      });
+    //       return resolve(axios(originalRequest));
+    //     });
+    //   });
 
-      return storeOriginalRequest;
-    }
+    //   return storeOriginalRequest;
+    // }
 
     return Promise.reject(axiosError);
   };
