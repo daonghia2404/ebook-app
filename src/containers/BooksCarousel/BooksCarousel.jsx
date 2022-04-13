@@ -7,8 +7,9 @@ import Carousels from '@/components/Carousels';
 import BookBlock from '@/components/BookBlock';
 
 import './BooksCarousel.scss';
+import { Skeleton } from 'antd';
 
-const BooksCarousel = ({ title, data, darkBackground }) => {
+const BooksCarousel = ({ title, data, darkBackground, loading }) => {
   const windowType = useSelector((state) => state.uiState.device);
 
   const renderSlidesToShow = () => {
@@ -40,9 +41,11 @@ const BooksCarousel = ({ title, data, darkBackground }) => {
           <div className="BooksCarousel-list">
             <Carousels arrows dots={false} slidesToShow={renderSlidesToShow()}>
               {data?.map((item) => (
-                <div className="BooksCarousel-list-item">
-                  <BookBlock key={item.id} {...item} />
-                </div>
+                <Skeleton avatar loading={loading}>
+                  <div className="BooksCarousel-list-item">
+                    <BookBlock key={item._id} {...item} />
+                  </div>
+                </Skeleton>
               ))}
             </Carousels>
           </div>

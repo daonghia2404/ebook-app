@@ -1,6 +1,6 @@
 import ApiService from '@/services/api';
 
-class Product {
+class Order {
   async getList(params) {
     const response = await ApiService.get(`/product`, { params });
     return response.data;

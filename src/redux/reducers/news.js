@@ -1,10 +1,11 @@
 import { createReducer } from 'deox';
 
-import { getListNewAction, getListNewLatestAction } from '@/redux/actions';
+import { getListNewAction, getListNewLatestAction, getDetailNewAction } from '@/redux/actions';
 
 const initialState = {
   news: [],
   newLatests: [],
+  new: {},
 };
 
 const reducer = createReducer(initialState, (handleAction) => [
@@ -15,6 +16,10 @@ const reducer = createReducer(initialState, (handleAction) => [
   handleAction(getListNewLatestAction.success, (state, action) => {
     const { response } = action.payload;
     return { ...state, newLatests: response.data.records };
+  }),
+  handleAction(getDetailNewAction.success, (state, action) => {
+    const { response } = action.payload;
+    return { ...state, new: response.data };
   }),
 ]);
 

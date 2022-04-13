@@ -8,6 +8,8 @@ import productState from './products';
 import uiState from './ui';
 import newState from './news';
 import profileState from './profile';
+import notificationState from './notification';
+import addresState from './address';
 
 const rootReducer = combineReducers({
   loading,
@@ -18,6 +20,8 @@ const rootReducer = combineReducers({
   uiState,
   newState,
   profileState,
+  notificationState,
+  addresState,
 });
 
 export default rootReducer;

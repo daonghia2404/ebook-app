@@ -4,21 +4,38 @@ import Input from '@/components/Input';
 import { showNotification, validationRules } from '@/utils/functions';
 import Button from '@/components/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginAction } from '@/redux/actions';
+import { getListCartAction, getNoticeAction, getProfileAction, loginAction } from '@/redux/actions';
 import { EAuthAction } from '@/redux/actions/auth/constants';
 import { EKeyStepForgotPasswordModal } from '@/containers/ForgotPasswordModal/ForgotPasswordModal.enums';
+import { ETypeNotification, ETypePage } from '@/utils/constants';
 
 const SingIn = ({ onClickForgotPassword, onSignInSuccess }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const loadingSignIn = useSelector((state) => state.loading[EAuthAction.LOGIN]);
+  const paramGetProductRequest = {
+    page: ETypePage.DEFAULT_PAGE,
+    pageSize: ETypePage.DEFAULT_PAGE_SIZE,
+  };
+  const getProfile = () => {
+    dispatch(getProfileAction.request());
+  };
   const handerSubmit = (values) => {
     dispatch(loginAction.request({ ...values }, handleSignInSuccess));
   };
   const handleSignInSuccess = () => {
-    showNotification('success', 'Đăng nhập thành công !');
+    showNotification(ETypeNotification.SUCCESS, 'Đăng nhập thành công !');
     form.resetFields();
+    getProfile();
+    getNotification();
+    getListCart();
     onSignInSuccess?.();
+  };
+  const getNotification = () => {
+    dispatch(getNoticeAction.request(paramGetProductRequest));
+  };
+  const getListCart = () => {
+    dispatch(getListCartAction.request());
   };
   return (
     <Form layout="vertical" className="AuthModal-form style-form" form={form} onFinish={handerSubmit}>

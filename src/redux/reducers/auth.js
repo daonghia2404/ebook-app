@@ -7,6 +7,7 @@ import {
   forgotPasswordAction,
   resetPasswordAction,
   vertifyForgotAction,
+  updatePasswordAction,
 } from '@/redux/actions';
 
 const initialState = {
@@ -37,6 +38,10 @@ const reducer = createReducer(initialState, (handleAction) => [
     return { ...state, tokenForgot: response.data.token };
   }),
   handleAction(resetPasswordAction.success, (state, action) => {
+    const { response } = action.payload;
+    return { ...state };
+  }),
+  handleAction(updatePasswordAction.success, (state, action) => {
     const { response } = action.payload;
     return { ...state };
   }),

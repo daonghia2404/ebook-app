@@ -11,3 +11,8 @@ export const updateProfileAction = {
   success: createActionCreator(EProfileAction.UPDATE_PROFILE_SUCCESS, (resolve) => (response) => resolve({ response })),
   failure: createActionCreator(EProfileAction.UPDATE_PROFILE_FAILED, (resolve) => (error) => resolve({ error })),
 };
+export const getListMyBookAction = {
+  request: createActionCreator(EProfileAction.MY_BOOK_REQUEST, (resolve) => (params, cb) => resolve({ params, cb })),
+  success: createActionCreator(EProfileAction.MY_BOOK_SUCCESS, (resolve) => (response) => resolve({ response })),
+  failure: createActionCreator(EProfileAction.MY_BOOK_FAILED, (resolve) => (error) => resolve({ error })),
+};

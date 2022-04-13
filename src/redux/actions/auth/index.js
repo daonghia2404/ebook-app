@@ -40,3 +40,8 @@ export const resetPasswordAction = {
   success: createActionCreator(EAuthAction.RESET_PASSWORD_SUCCESS, (resolve) => (response) => resolve({ response })),
   failure: createActionCreator(EAuthAction.RESET_PASSWORD_FAILED, (resolve) => (error) => resolve({ error })),
 };
+export const updatePasswordAction = {
+  request: createActionCreator(EAuthAction.UPDATE_PASSWORD_REQUEST, (resolve) => (body, cb) => resolve({ body, cb })),
+  success: createActionCreator(EAuthAction.UPDATE_PASSWORD_SUCCESS, (resolve) => (response) => resolve({ response })),
+  failure: createActionCreator(EAuthAction.UPDATE_PASSWORD_FAILED, (resolve) => (error) => resolve({ error })),
+};

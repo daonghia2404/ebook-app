@@ -8,11 +8,28 @@ import AddressListExisted from '@/containers/AddressListModal/AddressListExisted
 
 import { ETypeAddressListModal } from './AddressListModal.enums';
 import './AddressListModal.scss';
+import { addressListAction } from '@/redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { ETypePage } from '@/utils/constants';
 
 const AddressListModal = ({ visible, onClose }) => {
+  const dispatch = useDispatch();
+  const params = {
+    page: ETypePage.DEFAULT_PAGE,
+    pageSize: ETypePage.DEFAULT_PAGE_SIZE,
+  };
+  useEffect(() => {
+    if (visible) {
+      setTypeAddressListModal(ETypeAddressListModal.LIST);
+    }
+    getListAddress();
+  }, [visible]);
+  const getListAddress = () => {
+    dispatch(addressListAction.request(params));
+  };
   const [typeAddressListModal, setTypeAddressListModal] = useState(ETypeAddressListModal.LIST);
   const isListAddressModal = typeAddressListModal === ETypeAddressListModal.LIST;
-
+  const listAddress = useSelector((state) => state.addresState.address) ?? [];
   const handleBack = () => {
     switch (typeAddressListModal) {
       case ETypeAddressListModal.LIST:
@@ -34,7 +51,6 @@ const AddressListModal = ({ visible, onClose }) => {
   const handleCreateAddress = () => {
     setTypeAddressListModal(ETypeAddressListModal.CREATE);
   };
-
   const titleModal = () => {
     switch (typeAddressListModal) {
       case ETypeAddressListModal.LIST:
@@ -47,12 +63,6 @@ const AddressListModal = ({ visible, onClose }) => {
         return '';
     }
   };
-
-  useEffect(() => {
-    if (visible) {
-      setTypeAddressListModal(ETypeAddressListModal.LIST);
-    }
-  }, [visible]);
 
   return (
     <Modal
@@ -73,7 +83,12 @@ const AddressListModal = ({ visible, onClose }) => {
       </div>
 
       {isListAddressModal ? (
-        <AddressListExisted onEdit={handleEditAddress} onAdd={handleCreateAddress} />
+        <AddressListExisted
+          data={listAddress}
+          onClose={onClose}
+          onEdit={handleEditAddress}
+          onAdd={handleCreateAddress}
+        />
       ) : (
         <AddressListConfig />
       )}

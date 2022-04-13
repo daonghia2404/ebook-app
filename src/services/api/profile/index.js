@@ -9,6 +9,10 @@ class Profile {
     const response = await ApiService.post(`/profile`, body);
     return response.data;
   }
+  async getMyBook(params) {
+    const response = await ApiService.get(`/my-book`, { params });
+    return response.data;
+  }
 }
 
 const ProfileInstance = new Profile();

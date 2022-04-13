@@ -8,19 +8,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { EAuthAction } from '@/redux/actions/auth/constants';
 import { vertifyForgotAction } from '@/redux/actions';
 import { EKeyStepForgotPasswordModal } from '../ForgotPasswordModal.enums';
+import { ETypeNotification } from '@/utils/constants';
 
 const VetifyAccount = ({ onShowForgotPasswordModal }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading[EAuthAction.VERTIFY_FORGOT_PASSWORD]);
   const token = useSelector((state) => state.authState.tokenForgot);
-  console.log('token', token);
   const handleSubmit = (values) => {
     handleForgotPasswordSuccess();
     dispatch(vertifyForgotAction.request({ ...values }, token, handleForgotPasswordSuccess));
   };
   const handleForgotPasswordSuccess = () => {
-    showNotification('success', 'Xác nhận thành công ! Hãy đổi mật khẩu của bạn !');
+    showNotification(ETypeNotification.SUCCESS, 'Xác nhận thành công ! Hãy đổi mật khẩu của bạn !');
     onShowForgotPasswordModal?.(EKeyStepForgotPasswordModal.CHANGE_PASSWORD);
   };
 

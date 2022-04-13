@@ -9,6 +9,7 @@ import {
   forgotPasswordAction,
   resetPasswordAction,
   vertifyForgotAction,
+  updatePasswordAction,
 } from '@/redux/actions';
 
 export function* loginSaga(action) {
@@ -75,6 +76,16 @@ export function* resetPasswordSaga(action) {
     yield put(resetPasswordAction.failure(err));
   }
 }
+export function* updatePasswordSaga(action) {
+  try {
+    const { body, cb } = action.payload;
+    const response = yield call(AuthInstance.updatePassword, body);
+    yield put(updatePasswordAction.success(response));
+    cb?.();
+  } catch (err) {
+    yield put(updatePasswordAction.failure(err));
+  }
+}
 export default function* root() {
   yield all([takeLatest(loginAction.request.type, loginSaga)]);
   yield all([takeLatest(registerAction.request.type, registerSaga)]);
@@ -82,4 +93,5 @@ export default function* root() {
   yield all([takeLatest(forgotPasswordAction.request.type, forgotPasswordSaga)]);
   yield all([takeLatest(resetPasswordAction.request.type, resetPasswordSaga)]);
   yield all([takeLatest(vertifyForgotAction.request.type, vertifyOtpPasswordSaga)]);
+  yield all([takeLatest(updatePasswordAction.request.type, updatePasswordSaga)]);
 }

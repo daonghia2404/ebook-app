@@ -6,6 +6,7 @@ import Button from '@/components/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { EAuthAction } from '@/redux/actions/auth/constants';
 import { registerAction } from '@/redux/actions';
+import { ETypeNotification } from '@/utils/constants';
 
 const SignUp = ({ onSignUpSuccess }) => {
   const [form] = Form.useForm();
@@ -24,10 +25,9 @@ const SignUp = ({ onSignUpSuccess }) => {
       referCode,
     };
     dispatch(registerAction.request(newObj, handleSignUpSuccess));
-    // handleSignUpSuccess();
   };
   const handleSignUpSuccess = () => {
-    showNotification('success', 'Đăng ký tài khoản thành công ! Vui Lòng kiểm tra Email');
+    showNotification(ETypeNotification.SUCCESS, 'Đăng ký tài khoản thành công ! Vui Lòng kiểm tra Email');
     form.resetFields();
     onSignUpSuccess?.();
   };

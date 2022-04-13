@@ -8,6 +8,7 @@ import { EKeyStepForgotPasswordModal } from '../ForgotPasswordModal.enums';
 import { useDispatch, useSelector } from 'react-redux';
 import { EAuthAction } from '@/redux/actions/auth/constants';
 import { forgotPasswordAction } from '@/redux/actions';
+import { ETypeNotification } from '@/utils/constants';
 
 const FindAccount = ({ onShowForgotPasswordModal }) => {
   const [form] = Form.useForm();
@@ -17,7 +18,7 @@ const FindAccount = ({ onShowForgotPasswordModal }) => {
     dispatch(forgotPasswordAction.request({ ...values }, handleForgotPasswordSuccess));
   };
   const handleForgotPasswordSuccess = () => {
-    showNotification('success', 'Xác nhận mã OTP đã được gửi vào Email của bạn !');
+    showNotification(ETypeNotification.SUCCESS, 'Xác nhận mã OTP đã được gửi vào Email của bạn !');
     onShowForgotPasswordModal?.(EKeyStepForgotPasswordModal.VERTIFY_FORGOT);
   };
   return (

@@ -37,6 +37,10 @@ class Auth {
     const response = await ApiService.post(`/auth/refresh-token`);
     return response.data;
   }
+  async updatePassword(body) {
+    const response = await ApiService.post(`/auth/change-password`, body);
+    return response.data;
+  }
 }
 
 const AuthInstance = new Auth();

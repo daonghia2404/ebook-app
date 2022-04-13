@@ -6,20 +6,29 @@ import Button from '@/components/Button';
 import ReviewsModal from '@/containers/ReviewsModal';
 import BookListenListTab from '@/pages/BookListenDetail/BookListenListTab';
 import { EKeyTabBookDetail } from '@/pages/BookDetail/BookDetail.enums';
-import { scrollToTop } from '@/utils/functions';
-
+import { scrollToTop, showNotification } from '@/utils/functions';
+import AuthHelpers from '@/services/auth-helpers';
 import './BookListenDetail.scss';
+import { addToCartAction, getListCartAction, getProductDetailAction } from '@/redux/actions';
+import { useParams } from '@reach/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { ETypeNotification } from '@/utils/constants';
 
 const BookListenDetail = () => {
+  useEffect(() => {
+    scrollToTop();
+    getProductById();
+  }, []);
+  const dispatch = useDispatch();
   const [reviewsModalState, setReviewsModalState] = useState({
     visible: false,
   });
   const [keyTabBookDetail, setKeyTabBookDetail] = useState(EKeyTabBookDetail.INFO_BOOK);
-
+  let { id } = useParams();
   const handleOpenReviewsModal = () => {
     setReviewsModalState({ visible: true });
   };
-
+  const checkAuth = AuthHelpers.getAccessToken();
   const handleCloseReviewsModal = () => {
     setReviewsModalState({ visible: false });
   };
@@ -27,11 +36,21 @@ const BookListenDetail = () => {
   const handleChangeKeyTabBookDetail = (currentKey) => {
     setKeyTabBookDetail(currentKey);
   };
-
-  useEffect(() => {
-    scrollToTop();
-  }, []);
-
+  const getProductById = () => {
+    dispatch(getProductDetailAction.request(id));
+  };
+  const handlerAddToCart = () => {
+    const cart = { product: id, amount: 1 };
+    dispatch(addToCartAction.request({ ...cart }, addToCartSuccess));
+  };
+  const addToCartSuccess = () => {
+    showNotification(ETypeNotification.SUCCESS, 'Sản phẩm đã được thêm vào giỏ hàng');
+    getListCart();
+  };
+  const getListCart = () => {
+    dispatch(getListCartAction.request());
+  };
+  const product = useSelector((state) => state.productState.book) ?? {};
   return (
     <div className="BookListenDetail">
       <div className="container">
@@ -43,26 +62,28 @@ const BookListenDetail = () => {
               </div>
             </div>
             <div className="BookListenDetail-main-item">
-              <div className="BookListenDetail-title">Đắc nhân tâm</div>
+              <div className="BookListenDetail-title">
+                {product.name} <span>({product.type == 'PAPER_BOOK' ? 'Sách giấy' : 'Sách nói'})</span>
+              </div>
               <div className="BookListenDetail-row flex justify-between items-center">
                 <div className="BookListenDetail-author">Dale Carnegie</div>
                 <div className="BookListenDetail-price">
-                  <del>150.000đ</del>
-                  <span>150.000đ</span>
+                  <del>{product.price} đ</del>
+                  <span>{product.prePrice} đ</span>
                 </div>
               </div>
               <div className="BookListenDetail-overview flex items-center">
                 <div className="BookListenDetail-overview-item" onClick={handleOpenReviewsModal}>
                   <div className="BookListenDetail-overview-item-title">Đánh giá</div>
-                  <div className="BookListenDetail-overview-item-description">4.1</div>
+                  <div className="BookListenDetail-overview-item-description">{product.rate}</div>
                 </div>
                 <div className="BookListenDetail-overview-item">
                   <div className="BookListenDetail-overview-item-title">Số trang</div>
-                  <div className="BookListenDetail-overview-item-description">1500</div>
+                  <div className="BookListenDetail-overview-item-description">{product.numberOfPage}</div>
                 </div>
                 <div className="BookListenDetail-overview-item">
                   <div className="BookListenDetail-overview-item-title">Ngôn ngữ</div>
-                  <div className="BookListenDetail-overview-item-description">Tiếng Việt</div>
+                  <div className="BookListenDetail-overview-item-description">{product.language}</div>
                 </div>
               </div>
               <div className="BookListenDetail-tabs flex items-center">
@@ -80,17 +101,15 @@ const BookListenDetail = () => {
               <div className="BookListenDetail-tabs-main-item">
                 <div className="BookListenDetail-row-info flex justify-between">
                   <span>Dịch giả:</span>
-                  <span>Influence </span>
+                  <span>{product.translator} </span>
                 </div>
                 <div className="BookListenDetail-row-info flex justify-between">
                   <span>Năm xuất bản:</span>
-                  <span>1990</span>
+                  <span>{product.publishingYear}</span>
                 </div>
                 <div className="BookListenDetail-row-info flex justify-between">
                   <span>
-                    Đắc nhân tâm - How to win friends and Influence People của Dale Carnegie là quyển sách nổi tiếng
-                    nhất, bán chạy nhất và có tầm ảnh hưởng nhất của mọi thời đại. Tác phẩm đã được chuyển ngữ sang hầu
-                    hết các thứ tiếng trên thế giới và có mặt ở hàng trăm quốc gia. <br />
+                    {product.description} <br />
                     <span className="BookListenDetail-row-info-see-more">Xem thêm</span>
                   </span>
                 </div>
@@ -99,7 +118,11 @@ const BookListenDetail = () => {
               <div className="BookListenDetail-actions flex justify-between items-center">
                 <div className="BookListenDetail-actions-amount" />
                 <div className="BookListenDetail-actions-add-cart">
-                  <Button title="Thêm vào giỏ hàng" type="primary" />
+                  <Button
+                    title="Thêm vào giỏ hàng"
+                    type="primary"
+                    onClick={checkAuth ? handlerAddToCart : checkAuthAddToCart}
+                  />
                 </div>
               </div>
             </div>
