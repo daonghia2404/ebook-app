@@ -38,7 +38,7 @@ const ShippingTypeModal = ({ visible, onClose }) => {
           </div>
         </div>
 
-        <div className="ShippingTypeModal-list-item">
+        {/* <div className="ShippingTypeModal-list-item">
           <div className="ShippingTypeModal-list-item-title">
             Giao thường <span>26.000 vnđ</span>
           </div>
@@ -46,7 +46,7 @@ const ShippingTypeModal = ({ visible, onClose }) => {
           <div className="ShippingTypeModal-list-item-description">
             (Nhanh tay vào mã khuyến mãi để có mã giao hàng miễn phí nhé)
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="ShippingTypeModal-submit">

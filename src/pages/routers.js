@@ -130,7 +130,7 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
       <Component {...rest} />
     </Suspense>
   ) : (
-    <Redirect from="" to={LayoutPaths.Auth} noThrow />
+    <Redirect from="" to={LayoutPaths.Guest} noThrow />
   );
 };
 

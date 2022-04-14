@@ -11,7 +11,6 @@ const NewsTab = ({ data }) => {
   const handleChangeTabKey = (index) => {
     setKeyTab(index);
   };
-
   return (
     <div className="NewsTab">
       <div className="container">

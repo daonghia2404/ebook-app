@@ -6,7 +6,7 @@ import Header from '@/containers/Header';
 import ProfileCard from '@/containers/ProfileCard';
 import HeaderSearch from '@/containers/HeaderSearch/HeaderSearch';
 import { EDeviceType } from '@/redux/reducers/ui';
-
+import ConfirmModal from '@/containers/ConfirmModal/ConfirmModal';
 import './Profile.scss';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import classNames from 'classnames';
@@ -15,7 +15,9 @@ const Profile = ({ children }) => {
   const windowType = useSelector((state) => state.uiState.device);
   const isMobile = windowType.width <= 768;
   const [visibleProfileCard, setVisibleProfileCard] = useState(false);
-
+  const [logoutModalState, setLogoutModalState] = useState({
+    visible: false,
+  });
   const handleOpenProfileCard = () => {
     setVisibleProfileCard(true);
   };
@@ -26,7 +28,6 @@ const Profile = ({ children }) => {
   useEffect(() => {
     setVisibleProfileCard(false);
   }, [isMobile]);
-
   return (
     <div className="Profile">
       <div className="Profile-header">
@@ -56,6 +57,16 @@ const Profile = ({ children }) => {
       <div className="Profile-footer">
         <Footer />
       </div>
+      {logoutModalState.visible ? (
+        <ConfirmModal
+          title="Đăng Xuất?"
+          onSubmit={onSubmitLogout}
+          visible={logoutModalState}
+          onClose={handleCloseLogoutModal}
+        />
+      ) : (
+        ''
+      )}
     </div>
   );
 };
