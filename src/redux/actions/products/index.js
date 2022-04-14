@@ -87,3 +87,14 @@ export const updateCartAction = {
   ),
   failure: createActionCreator(EProductAction.UPDATE_CART_PRODUCT_FAILED, (resolve) => (error) => resolve({ error })),
 };
+export const deleteCartAction = {
+  request: createActionCreator(
+    EProductAction.DELETE_CART_PRODUCT_REQUEST,
+    (resolve) => (params, cb) => resolve({ params, cb }),
+  ),
+  success: createActionCreator(
+    EProductAction.DELETE_CART_PRODUCT_SUCCESS,
+    (resolve) => (response) => resolve({ response }),
+  ),
+  failure: createActionCreator(EProductAction.DELETE_CART_PRODUCT_FAILED, (resolve) => (error) => resolve({ error })),
+};

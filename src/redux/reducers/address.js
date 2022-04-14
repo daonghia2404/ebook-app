@@ -6,6 +6,7 @@ import {
   getProvinceAction,
   getDistrictAction,
   getWardAction,
+  caculateAction,
 } from '@/redux/actions';
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   provinces: [],
   districts: [],
   ward: [],
+  feeShip: 0,
 };
 
 const reducer = createReducer(initialState, (handleAction) => [
@@ -35,6 +37,10 @@ const reducer = createReducer(initialState, (handleAction) => [
   handleAction(getWardAction.success, (state, action) => {
     const { response } = action.payload;
     return { ...state, ward: response.data.records };
+  }),
+  handleAction(caculateAction.success, (state, action) => {
+    const { response } = action.payload;
+    return { ...state, feeShip: response.data.total };
   }),
 ]);
 

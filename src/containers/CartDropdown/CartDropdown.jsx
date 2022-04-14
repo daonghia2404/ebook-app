@@ -8,7 +8,7 @@ import BgSpecial from '@/assets/images/bg-special.png';
 import Amount from '@/components/Amount';
 
 import './CartDropdown.scss';
-import { getListCartAction, updateCartAction } from '@/redux/actions';
+import { getListCartAction, updateCartAction, deleteCartAction } from '@/redux/actions';
 import { useDispatch } from 'react-redux';
 import { caculateTotal, showNotification } from '@/utils/functions';
 import { Paths } from '@/pages/routers';
@@ -16,21 +16,16 @@ import { ETypeNotification } from '@/utils/constants';
 
 const CartDropdown = ({ onClose, data }) => {
   const dispatch = useDispatch();
-  const [count, setCount] = useState(1);
-  const updateCart = () => {
-    dispatch(updateCartAction.request({ ...values }, updateCartSuccess));
-  };
-  const updateCartSuccess = () => {
-    showNotification(ETypeNotification.SUCCESS, 'Đăng nhập thành công !');
-    getListCart();
-  };
   const getListCart = () => {
     dispatch(getListCartAction.request());
   };
-  const handlerChange = (values) => {
-    setCount(values);
+  const deleteCart = (item) => {
+    const { _id } = item;
+    dispatch(deleteCartAction.request(_id, handlerDeleteSuccess));
   };
-  const deleteCart = (item) => {};
+  const handlerDeleteSuccess = () => {
+    showNotification(ETypeNotification.SUCCESS, 'Xóa sản phẩm thành công');
+  };
   return (
     <div className="CartDropdown">
       <img className="CartDropdown-bg" src={BgSpecial} alt="" />

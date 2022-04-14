@@ -5,6 +5,7 @@ import {
   getProvinceAction,
   getDistrictAction,
   getWardAction,
+  caculateAction,
 } from '@/redux/actions';
 import AddressInstance from '@/services/api/address';
 
@@ -58,10 +59,21 @@ export function* getWardSaga(action) {
     yield put(getWardAction.failure(err));
   }
 }
+export function* caculateShipSaga(action) {
+  try {
+    const { body, cb } = action.payload;
+    const response = yield call(AddressInstance.caculateFeeShipping, body);
+    yield put(caculateAction.success(response));
+    cb?.();
+  } catch (err) {
+    yield put(caculateAction.failure(err));
+  }
+}
 export default function* root() {
   yield all([takeLatest(addressListAction.request.type, getListAddressSaga)]);
   yield all([takeLatest(addAddressAction.request.type, saveAddressSaga)]);
   yield all([takeLatest(getProvinceAction.request.type, getProvinceSaga)]);
   yield all([takeLatest(getDistrictAction.request.type, getDistrictSaga)]);
   yield all([takeLatest(getWardAction.request.type, getWardSaga)]);
+  yield all([takeLatest(caculateAction.request.type, caculateShipSaga)]);
 }

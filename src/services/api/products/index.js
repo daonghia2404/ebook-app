@@ -21,6 +21,10 @@ class Product {
     const response = await ApiService.put(`/cart/${id}`, body);
     return response.data;
   }
+  async deleteCart(id) {
+    const response = await ApiService.delete(`/cart/${id}`);
+    return response.data;
+  }
 }
 
 const ProductInstance = new Product();

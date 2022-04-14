@@ -9,6 +9,7 @@ import {
   addToCartAction,
   getListCartAction,
   updateCartAction,
+  deleteCartAction,
 } from '@/redux/actions';
 
 export function* getListProducPaperBooktSaga(action) {
@@ -82,6 +83,16 @@ export function* updateCartSaga(action) {
     yield put(updateCartAction.failure(err));
   }
 }
+export function* deleteCartSaga(action) {
+  try {
+    const { params, cb } = action.payload;
+    const response = yield call(ProductInstance.deleteCart, params);
+    yield put(deleteCartAction.success(response));
+    cb?.();
+  } catch (err) {
+    yield put(deleteCartAction.failure(err));
+  }
+}
 export default function* root() {
   yield all([takeLatest(getListProductPaperBookAction.request.type, getListProducPaperBooktSaga)]);
   yield all([takeLatest(getListProductAudioBookAction.request.type, getListProductAudioBooktSaga)]);
@@ -90,4 +101,5 @@ export default function* root() {
   yield all([takeLatest(addToCartAction.request.type, addToCartSaga)]);
   yield all([takeLatest(getListCartAction.request.type, getListCartSaga)]);
   yield all([takeLatest(updateCartAction.request.type, updateCartSaga)]);
+  yield all([takeLatest(deleteCartAction.request.type, deleteCartSaga)]);
 }

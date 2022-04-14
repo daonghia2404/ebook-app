@@ -8,6 +8,7 @@ import {
   addToCartAction,
   getListCartAction,
   updateCartAction,
+  deleteCartAction,
 } from '@/redux/actions';
 
 const initialState = {
@@ -44,6 +45,10 @@ const reducer = createReducer(initialState, (handleAction) => [
     return { ...state, carts: response.data };
   }),
   handleAction(updateCartAction.success, (state, action) => {
+    const { response } = action.payload;
+    return { ...state };
+  }),
+  handleAction(deleteCartAction.success, (state, action) => {
     const { response } = action.payload;
     return { ...state };
   }),
