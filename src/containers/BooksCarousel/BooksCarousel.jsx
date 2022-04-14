@@ -7,8 +7,11 @@ import Carousels from '@/components/Carousels';
 import BookBlock from '@/components/BookBlock';
 
 import './BooksCarousel.scss';
+import { Skeleton } from 'antd';
+import { Paths } from '@/pages/routers';
+import { navigate } from '@reach/router';
 
-const BooksCarousel = ({ title, data, darkBackground }) => {
+const BooksCarousel = ({ title, data, darkBackground, loading }) => {
   const windowType = useSelector((state) => state.uiState.device);
 
   const renderSlidesToShow = () => {
@@ -32,7 +35,12 @@ const BooksCarousel = ({ title, data, darkBackground }) => {
               <div className="BooksCarousel-title">{title}</div>
             </div>
             <div className="BooksCarousel-header-col flex items-center">
-              <Button title="Xem Thêm" className="BooksCarousel-see-more primary-transparent" radius />
+              <Button
+                title="Xem Thêm"
+                className="BooksCarousel-see-more primary-transparent"
+                radius
+                onClick={() => navigate(Paths.BooksCategory)}
+              />
               <div className="BooksCarousel-header-arrow"></div>
             </div>
           </div>
@@ -40,9 +48,11 @@ const BooksCarousel = ({ title, data, darkBackground }) => {
           <div className="BooksCarousel-list">
             <Carousels arrows dots={false} slidesToShow={renderSlidesToShow()}>
               {data?.map((item) => (
-                <div className="BooksCarousel-list-item">
-                  <BookBlock {...item} />
-                </div>
+                <Skeleton avatar loading={loading}>
+                  <div className="BooksCarousel-list-item">
+                    <BookBlock key={item._id} {...item} />
+                  </div>
+                </Skeleton>
               ))}
             </Carousels>
           </div>

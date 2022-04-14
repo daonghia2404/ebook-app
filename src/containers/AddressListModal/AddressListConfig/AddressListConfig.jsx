@@ -23,13 +23,13 @@ const AddressListConfig = () => {
         >
           <Input size="large" placeholder="Nhập số điện thoại" />
         </Form.Item>
-        <Form.Item name="city" label="Tỉnh/Thành phố" rules={[validationRules.required()]}>
+        <Form.Item name="provinceId" label="Tỉnh/Thành phố" rules={[validationRules.required()]}>
           <Select placeholder="Chọn Tỉnh/Thành phố" options={[]} />
         </Form.Item>
-        <Form.Item name="district" label="Quận/Huyện" rules={[validationRules.required()]}>
+        <Form.Item name="districtId" label="Quận/Huyện" rules={[validationRules.required()]}>
           <Select placeholder="Chọn Quận/Huyện" options={[]} />
         </Form.Item>
-        <Form.Item name="commune" label="Phường/Xã" rules={[validationRules.required()]}>
+        <Form.Item name="wardId" label="Phường/Xã" rules={[validationRules.required()]}>
           <Select placeholder="Chọn Phường/Xã" options={[]} />
         </Form.Item>
         <Form.Item name="name" label="Địa chỉ cụ thể" rules={[validationRules.required()]}>

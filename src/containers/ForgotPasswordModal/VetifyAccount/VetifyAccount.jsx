@@ -7,6 +7,7 @@ import Button from '@/components/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { EAuthAction } from '@/redux/actions/auth/constants';
 import { vertifyOtpAction } from '@/redux/actions';
+import { ETypeNotification } from '@/utils/constants';
 
 const VetifyAccount = ({ onSuccess }) => {
   const [form] = Form.useForm();
@@ -17,7 +18,7 @@ const VetifyAccount = ({ onSuccess }) => {
     dispatch(vertifyOtpAction.request({ ...values }, tokenUser, handleVertifySuccess));
   };
   const handleVertifySuccess = () => {
-    showNotification('success', 'Kích hoạt tài khoản thành công ! Vui lòng đăng nhập');
+    showNotification(ETypeNotification.SUCCESS, 'Kích hoạt tài khoản thành công ! Vui lòng đăng nhập');
     onSuccess?.();
   };
 

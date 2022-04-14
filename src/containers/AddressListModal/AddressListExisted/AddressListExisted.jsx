@@ -1,32 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Button from '@/components/Button';
-import Checkbox from '@/components/Checkbox';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
+import Checkbox from '@/components/Checkbox';
 
-const AddressListExisted = ({ onAdd, onEdit }) => {
+const AddressListExisted = ({ data, onAdd, onEdit, onClose }) => {
+  const [checkedAddress, setCheckAdrres] = useState(1);
+  const handlerChange = (e, item) => {
+    setCheckAdrres(item);
+  };
   return (
     <>
       <div className="AddressListModal-list">
         <div className="AddressListModal-list-wrapper">
-          {[1, 2].map((item) => (
-            <div key={item} className="AddressListModal-list-item flex">
-              <div className="AddressListModal-list-item-checkbox">
-                <Checkbox />
-              </div>
-              <div className="AddressListModal-list-item-info">
-                <div className="AddressListModal-list-item-info-name">Hoang Huy</div>
-                <div className="AddressListModal-list-item-info-description">0364 111 222</div>
-                <div className="AddressListModal-list-item-info-description">
-                  15 Pháo Đài Láng, P. Láng Thượng, Q. Đống Đa, TP. Hà Nội
+          {data &&
+            data.map((item) => (
+              <div key={item._id} className="AddressListModal-list-item flex">
+                <div className="AddressListModal-list-item-checkbox">
+                  <Checkbox value={checkedAddress._id === item._id} onChange={(e) => handlerChange(e, item)} />
                 </div>
-                <div className="AddressListModal-list-item-info-change" onClick={onEdit}>
-                  Chỉnh sửa
+                <div className="AddressListModal-list-item-info">
+                  <div className="AddressListModal-list-item-info-name">{item.name}</div>
+                  <div className="AddressListModal-list-item-info-description">{item.phone}</div>
+                  <div className="AddressListModal-list-item-info-description">{item.detailAddress}</div>
+                  <div className="AddressListModal-list-item-info-change" onClick={onEdit}>
+                    Chỉnh sửa
+                  </div>
+                  {item.isDefault == true ? (
+                    <div className="AddressListModal-list-item-info-default">Mặc định</div>
+                  ) : (
+                    ''
+                  )}
                 </div>
-                <div className="AddressListModal-list-item-info-default">Mặc định</div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
 
         <div className="AddressListModal-add flex items-center" onClick={onAdd}>
@@ -38,7 +45,7 @@ const AddressListExisted = ({ onAdd, onEdit }) => {
       </div>
 
       <div className="AddressListModal-submit">
-        <Button size="large" type="primary" title="Giao đến địa chỉ này" />
+        <Button size="large" type="primary" title="Giao đến địa chỉ này" onClick={() => onClose(checkedAddress)} />
       </div>
     </>
   );

@@ -6,7 +6,7 @@ import Logo from '@/assets/images/logo.svg';
 
 import './NotificationDropdown.scss';
 
-const NotificationDropdown = ({ onClose }) => {
+const NotificationDropdown = ({ onClose, data }) => {
   return (
     <div className="NotificationDropdown">
       <img className="NotificationDropdown-bg" src={BgSpecial} alt="" />
@@ -18,21 +18,20 @@ const NotificationDropdown = ({ onClose }) => {
       </div>
 
       <div className="NotificationDropdown-list">
-        {[1, 2, 3].map((item) => (
-          <div key={item} className="NotificationDropdown-list-item flex items-start">
-            <div className="NotificationDropdown-list-item-image">
-              <img src={Logo} alt="" />
-            </div>
-            <div className="NotificationDropdown-list-item-info">
-              <div className="NotificationDropdown-list-item-info-title">Lorem ipsum dolor sit amet </div>
-              <div className="NotificationDropdown-list-item-info-description">
-                Consectadipiscing elit. Maecenas solicitudin metus a elementum.{' '}
+        {data &&
+          data.map((item) => (
+            <div key={item.id} className="NotificationDropdown-list-item flex items-start">
+              <div className="NotificationDropdown-list-item-image">
+                <img src={item.featureImage ?? Logo} alt="" />
               </div>
-              <div className="NotificationDropdown-list-item-info-time">15:30 06/09/2021</div>
+              <div className="NotificationDropdown-list-item-info">
+                <div className="NotificationDropdown-list-item-info-title">{item.title} </div>
+                <div className="NotificationDropdown-list-item-info-description">{item.description}. </div>
+                <div className="NotificationDropdown-list-item-info-time">{item.createdAt}</div>
+              </div>
+              <div className="NotificationDropdown-list-item-unread" />
             </div>
-            <div className="NotificationDropdown-list-item-unread" />
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
