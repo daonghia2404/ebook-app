@@ -5,6 +5,7 @@ import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Checkbox from '@/components/Checkbox';
 
 const AddressListExisted = ({ data, onAdd, onEdit, onClose }) => {
+  console.log('data', data);
   const [checkedAddress, setCheckAdrres] = useState(1);
   const handlerChange = (e, item) => {
     setCheckAdrres(item);

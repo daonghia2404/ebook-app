@@ -16,7 +16,7 @@ const NewsTab = ({ data }) => {
       <div className="container">
         <div className="NewsTab-wrapper">
           <div className="NewsTab-header flex items-center">
-            {['Tin tức', 'Tin mới nhất', 'Tin tức nổi bật'].map((item, index) => (
+            {['Tin mới nhất', 'Tin tức nổi bật'].map((item, index) => (
               <div
                 className={classNames('NewsTab-header-item', { active: keyTab === index })}
                 onClick={() => handleChangeTabKey(index)}

@@ -10,6 +10,7 @@ import newState from './news';
 import profileState from './profile';
 import notificationState from './notification';
 import addresState from './address';
+import rateProductState from './rate';
 
 const rootReducer = combineReducers({
   loading,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   profileState,
   notificationState,
   addresState,
+  rateProductState,
 });
 
 export default rootReducer;

@@ -98,3 +98,14 @@ export const deleteCartAction = {
   ),
   failure: createActionCreator(EProductAction.DELETE_CART_PRODUCT_FAILED, (resolve) => (error) => resolve({ error })),
 };
+export const getSameProductAction = {
+  request: createActionCreator(
+    EProductAction.GET_SAME_PRODUCT_REQUEST,
+    (resolve) => (id, params, cb) => resolve({ id, params, cb }),
+  ),
+  success: createActionCreator(
+    EProductAction.GET_SAME_PRODUCT_SUCCESS,
+    (resolve) => (response) => resolve({ response }),
+  ),
+  failure: createActionCreator(EProductAction.GET_SAME_PRODUCT_FAILED, (resolve) => (error) => resolve({ error })),
+};

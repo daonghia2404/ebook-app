@@ -13,7 +13,7 @@ import { EKeyTabBookDetail } from './BookDetail.enums';
 import './BookDetail.scss';
 import AuthHelpers from '@/services/auth-helpers';
 import { useParams } from '@reach/router';
-import { getProductDetailAction, addToCartAction, getListCartAction } from '@/redux/actions';
+import { getProductDetailAction, addToCartAction, getListCartAction, getSameProductAction } from '@/redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { EProductAction } from '@/redux/actions/products/constants';
 import { ETypeNotification } from '@/utils/constants';
@@ -24,15 +24,21 @@ const BookDetail = () => {
   });
   const dispatch = useDispatch();
   const [keyTabBookDetail, setKeyTabBookDetail] = useState(EKeyTabBookDetail.INFO_BOOK);
+  const sameBooks = useSelector((state) => state.productState.sameBooks);
   const [count, setCount] = useState(1);
   useEffect(() => {
     scrollToTop();
     getProductById();
+    getSameProductById();
   }, []);
   let { id } = useParams();
   const product = useSelector((state) => state.productState.book) ?? {};
   const loadingCart = useSelector((state) => state.loading[EProductAction.ADD_TO_CART_PRODUCT]);
   const checkAuth = AuthHelpers.getAccessToken();
+  const samePaperBook = { pageSize: 10, page: 1 };
+  const getSameProductById = () => {
+    dispatch(getSameProductAction.request(id, samePaperBook));
+  };
   const handleOpenReviewsModal = () => {
     setReviewsModalState({ visible: true });
   };
@@ -66,7 +72,6 @@ const BookDetail = () => {
   const getListCart = () => {
     dispatch(getListCartAction.request());
   };
-  const updateCart = () => {};
   return (
     <div className="BookDetail">
       <div className="container">
@@ -150,7 +155,7 @@ const BookDetail = () => {
         </div>
       </div>
 
-      <BooksList title="Sách tương tự" layout={5} data={dataBookCarousel.slice(0, 5)} />
+      <BooksList title="Sách tương tự" layout={5} data={sameBooks} />
 
       <ReviewsModal {...reviewsModalState} onClose={handleCloseReviewsModal} />
     </div>

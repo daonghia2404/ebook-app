@@ -8,6 +8,8 @@ import BookBlock from '@/components/BookBlock';
 
 import './BooksCarousel.scss';
 import { Skeleton } from 'antd';
+import { Paths } from '@/pages/routers';
+import { navigate } from '@reach/router';
 
 const BooksCarousel = ({ title, data, darkBackground, loading }) => {
   const windowType = useSelector((state) => state.uiState.device);
@@ -33,7 +35,12 @@ const BooksCarousel = ({ title, data, darkBackground, loading }) => {
               <div className="BooksCarousel-title">{title}</div>
             </div>
             <div className="BooksCarousel-header-col flex items-center">
-              <Button title="Xem Thêm" className="BooksCarousel-see-more primary-transparent" radius />
+              <Button
+                title="Xem Thêm"
+                className="BooksCarousel-see-more primary-transparent"
+                radius
+                onClick={() => navigate(Paths.BooksCategory)}
+              />
               <div className="BooksCarousel-header-arrow"></div>
             </div>
           </div>

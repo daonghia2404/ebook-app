@@ -16,15 +16,26 @@ import { ETypeNotification } from '@/utils/constants';
 
 const CartDropdown = ({ onClose, data }) => {
   const dispatch = useDispatch();
+  const updateCart = (amount, id) => {
+    dispatch(updateCartAction.request(id, { amount }, updateCartSuccess));
+  };
+  const updateCartSuccess = () => {
+    showNotification('success', 'Cập nhật thành công !');
+    getListCart();
+  };
   const getListCart = () => {
     dispatch(getListCartAction.request());
   };
   const deleteCart = (item) => {
     const { _id } = item;
     dispatch(deleteCartAction.request(_id, handlerDeleteSuccess));
+    getListCart();
   };
   const handlerDeleteSuccess = () => {
     showNotification(ETypeNotification.SUCCESS, 'Xóa sản phẩm thành công');
+  };
+  const handlerChange = (e, item) => {
+    updateCart(e, item._id);
   };
   return (
     <div className="CartDropdown">
@@ -53,7 +64,7 @@ const CartDropdown = ({ onClose, data }) => {
                   </div>
                   <div className="CartDropdown-list-item-book-info-price">{item.product.price}đ</div>
                   <div className="CartDropdown-list-item-book-info-actions">
-                    <Amount value={item.amount} />
+                    <Amount value={item.amount} onChange={(e) => handlerChange(e, item)} />
                   </div>
                 </div>
               </div>

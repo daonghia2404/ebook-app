@@ -25,6 +25,10 @@ class Product {
     const response = await ApiService.delete(`/cart/${id}`);
     return response.data;
   }
+  async getSameProduct(id, params) {
+    const response = await ApiService.get(`/product/same/${id}`, { params });
+    return response.data;
+  }
 }
 
 const ProductInstance = new Product();
