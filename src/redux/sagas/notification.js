@@ -7,7 +7,7 @@ export function* getListNotiSaga(action) {
     const { params, cb } = action.payload;
     const response = yield call(NotificationInstance.getList, params);
     yield put(getNoticeAction.success(response));
-    cb?.();
+    cb?.(response);
   } catch (err) {
     yield put(getNoticeAction.failure(err));
   }

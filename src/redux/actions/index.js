@@ -5,3 +5,4 @@ export * from './news';
 export * from './profile';
 export * from './notification';
 export * from './address';
+export * from './rate';

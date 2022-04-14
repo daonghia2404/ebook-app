@@ -1,4 +1,5 @@
 import { notification } from 'antd';
+import moment from 'moment';
 
 import { ETypeNotification, ERegex } from './constants';
 
@@ -160,4 +161,14 @@ export const formatAbbreviationsName = (value) => {
   const secondLastWordFirstLetter = arrayString[arrayString.length - 1].trim().charAt(0);
 
   return `${firstLastWordFirstLetter}${secondLastWordFirstLetter}`.toUpperCase();
+};
+
+export const formatMoneyVND = (config) => {
+  const separateMoney = Intl.NumberFormat('vi-VN').format(Number(config.amount));
+  const unit = config.uppercaseUnit ? 'Đ' : 'đ';
+  return `${separateMoney} ${config.showSuffix ? unit : ''}`;
+};
+
+export const formatISODateToDateTime = (date) => {
+  return moment(date).format('DD/MM/YYYY - HH:MM');
 };

@@ -7,19 +7,26 @@ import ShippingTypeModal from '@/containers/ShippingTypeModal';
 import CheckoutSuccessModal from '@/containers/CheckoutSuccessModal';
 
 import './CheckoutCard.scss';
+import { caculateAction } from '@/redux/actions';
+import { ETypeNotification } from '@/utils/constants';
+import { useDispatch, useSelector } from 'react-redux';
 
-const CheckoutCard = ({ countCart, subTotal, total }) => {
+const CheckoutCard = ({ countCart, subTotal, carts }) => {
+  const dispatch = useDispatch();
   const [visibleAddressListModal, setVisibleAddressListModal] = useState(false);
   const [visibleShippingTypeModal, setVisibleShippingTypeModal] = useState(false);
   const [visibleCheckoutSuccessModal, setVisibleCheckoutSuccessModal] = useState(false);
   const [address, setAddress] = useState({});
-
+  const [addressId, setAddressId] = useState(1);
+  const feeship = useSelector((state) => state.addresState.feeShip);
   const handleOpenAddressListModal = () => {
     setVisibleAddressListModal(true);
   };
   const handleCloseAddressListModal = (item) => {
     setAddress(item);
     setVisibleAddressListModal(false);
+    setAddressId(item?._id);
+    getFeeShip();
   };
   const handleOpenShippingTypeModalModal = () => {
     setVisibleShippingTypeModal(true);
@@ -33,7 +40,21 @@ const CheckoutCard = ({ countCart, subTotal, total }) => {
   const handleCloseCheckoutSuccessModal = () => {
     setVisibleCheckoutSuccessModal(false);
   };
-
+  const getFeeShip = () => {
+    const cartArray = [];
+    carts &&
+      carts.forEach((element) => {
+        cartArray.push(element._id);
+      });
+    const body = {
+      carts: cartArray,
+      addressId,
+    };
+    dispatch(caculateAction.request(body), handlerFeeShipSuccess);
+  };
+  const handlerFeeShipSuccess = () => {
+    showNotification(ETypeNotification.SUCCESS, 'Tính phí vận chuyển thành công');
+  };
   return (
     <div className="CheckoutCard">
       <div className="CheckoutCard-header flex items-center justify-center">Thanh toán</div>
@@ -81,13 +102,13 @@ const CheckoutCard = ({ countCart, subTotal, total }) => {
 
           <div className="CheckoutCard-row flex justify-between">
             <div className="CheckoutCard-row-label">Phí vận chuyển</div>
-            <div className="CheckoutCard-row-label">10.000 đ</div>
+            <div className="CheckoutCard-row-label">{feeship ? feeship : 0} đ</div>
           </div>
 
           <div className="CheckoutCard-row flex justify-between">
             <div className="CheckoutCard-row-label">Tổng giá tiền</div>
             <div className="CheckoutCard-row-label">
-              <strong>{subTotal + 10000} đ</strong>
+              <strong>{subTotal + feeship} đ</strong>
             </div>
           </div>
         </div>

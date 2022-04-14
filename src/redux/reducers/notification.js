@@ -9,7 +9,7 @@ const initialState = {
 const reducer = createReducer(initialState, (handleAction) => [
   handleAction(getNoticeAction.success, (state, action) => {
     const { response } = action.payload;
-    return { ...state, noticeList: response.data.records };
+    return { ...state, noticeList: response.data };
   }),
 ]);
 

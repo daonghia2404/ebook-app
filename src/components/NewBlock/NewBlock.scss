@@ -33,6 +33,7 @@
     font-weight: 600;
     font-size: 1.6rem;
     margin-bottom: 2rem;
+    min-height: 5.2rem;
     @include ellipsis(2);
   }
 
@@ -40,6 +41,8 @@
     color: $gray;
     font-size: 1.6rem;
     margin-bottom: 1rem;
+    min-height: 5.2rem;
+    @include ellipsis(2);
   }
 
   &-date {

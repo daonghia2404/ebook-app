@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 import './BookListenListTab.scss';
 
-const BookListenListTab = () => {
+const BookListenListTab = ({ file, video, voice }) => {
   const [keyTabList, setKeyTabList] = useState(0);
 
   return (
@@ -23,23 +23,21 @@ const BookListenListTab = () => {
       <div className="BookListenListTab-tabs-main">
         {keyTabList === 0 && (
           <>
-            {[1, 2, 3, 4, 5].map((item) => (
-              <VideoFileCard key={item} title="Chương 1: Introduction (Giới thiệu)" description="1:129:12" />
+            {voice?.map((item) => (
+              <VideoFileCard key={item} title={item.name} description={item.description} />
             ))}
           </>
         )}
         {keyTabList === 1 && (
           <>
-            {[1, 2, 3, 4, 5].map((item) => (
-              <VideoFileCard pdf key={item} title="Chương 1: Introduction (Giới thiệu)" description="1:129:12" />
+            {file?.map((item) => (
+              <VideoFileCard pdf key={item} title={item.name} description={item.description} />
             ))}
           </>
         )}
         {keyTabList === 2 && (
           <>
-            {[1, 2, 3, 4, 5].map((item) => (
-              <VideoFileCard video key={item} title="Chương 1: Introduction (Giới thiệu)" description="1:129:12" />
-            ))}
+            <VideoFileCard video title={video.name} description="1:129:12" />
           </>
         )}
       </div>

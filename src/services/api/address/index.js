@@ -21,6 +21,10 @@ class Address {
     const response = await ApiService.post(`/address-shipping/list/ward`, { params });
     return response.data;
   }
+  async caculateFeeShipping(body) {
+    const response = await ApiService.post(`/order/shipping-fee`, body);
+    return response.data;
+  }
 }
 
 const AddressInstance = new Address();

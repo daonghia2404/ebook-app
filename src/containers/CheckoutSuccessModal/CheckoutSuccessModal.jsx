@@ -30,14 +30,14 @@ const CheckoutSuccessModal = ({ visible, onClose }) => {
         <img src={ImageCheckoutSuccess} alt="" />
       </div>
 
-      <Form className="CheckoutSuccessModal-form style-form" layout="vertical">
+      {/* <Form className="CheckoutSuccessModal-form style-form" layout="vertical">
         <Form.Item name="code" label="Mã kích hoạt sách">
           <Input placeholder="Nhập mã kích hoạt sách" size="large" />
         </Form.Item>
         <Form.Item name="reCode" label="Nhập lại kích hoạt sách">
           <Input placeholder="Nhập lại mã kích hoạt sách" size="large" />
         </Form.Item>
-      </Form>
+      </Form> */}
 
       <div className="CheckoutSuccessModal-submit">
         <Button size="large" type="primary" title="VỀ TRANG CHỦ" uppercase />

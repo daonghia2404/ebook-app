@@ -9,9 +9,11 @@ import {
   addToCartAction,
   getListCartAction,
   updateCartAction,
+  getSameProductAction,
+  deleteCartAction,
 } from '@/redux/actions';
 
-export function* getListProducPaperBooktSaga(action) {
+export function* getListProducPaperBookSaga(action) {
   try {
     const { params, cb } = action.payload;
     const response = yield call(ProductInstance.getList, params);
@@ -35,7 +37,7 @@ export function* getListProductAudioBooktSaga(action) {
 export function* getListProductSearchtSaga(action) {
   try {
     const { params, cb } = action.payload;
-    const response = yield call(ProductInstance.search, params);
+    const response = yield call(ProductInstance.getListSearch, params);
     yield put(getListProductSearchAction.success(response));
     cb?.();
   } catch (err) {
@@ -82,12 +84,34 @@ export function* updateCartSaga(action) {
     yield put(updateCartAction.failure(err));
   }
 }
+export function* deleteCartSaga(action) {
+  try {
+    const { params, cb } = action.payload;
+    const response = yield call(ProductInstance.deleteCart, params);
+    yield put(deleteCartAction.success(response));
+    cb?.();
+  } catch (err) {
+    yield put(deleteCartAction.failure(err));
+  }
+}
+export function* getSameProductSaga(action) {
+  try {
+    const { id, params, cb } = action.payload;
+    const response = yield call(ProductInstance.getSameProduct, id, params);
+    yield put(getSameProductAction.success(response));
+    cb?.();
+  } catch (err) {
+    yield put(getSameProductAction.failure(err));
+  }
+}
 export default function* root() {
-  yield all([takeLatest(getListProductPaperBookAction.request.type, getListProducPaperBooktSaga)]);
+  yield all([takeLatest(getListProductPaperBookAction.request.type, getListProducPaperBookSaga)]);
   yield all([takeLatest(getListProductAudioBookAction.request.type, getListProductAudioBooktSaga)]);
   yield all([takeLatest(getListProductSearchAction.request.type, getListProductSearchtSaga)]);
   yield all([takeLatest(getProductDetailAction.request.type, getProductByIdSaga)]);
   yield all([takeLatest(addToCartAction.request.type, addToCartSaga)]);
   yield all([takeLatest(getListCartAction.request.type, getListCartSaga)]);
   yield all([takeLatest(updateCartAction.request.type, updateCartSaga)]);
+  yield all([takeLatest(deleteCartAction.request.type, deleteCartSaga)]);
+  yield all([takeLatest(getSameProductAction.request.type, getSameProductSaga)]);
 }

@@ -45,3 +45,22 @@ export const updatePasswordAction = {
   success: createActionCreator(EAuthAction.UPDATE_PASSWORD_SUCCESS, (resolve) => (response) => resolve({ response })),
   failure: createActionCreator(EAuthAction.UPDATE_PASSWORD_FAILED, (resolve) => (error) => resolve({ error })),
 };
+export const resendRegisterOtpAction = {
+  request: createActionCreator(
+    EAuthAction.RESEND_REGISTER_OTP_REQUEST,
+    (resolve) => (token, cb) => resolve({ token, cb }),
+  ),
+  success: createActionCreator(
+    EAuthAction.RESEND_REGISTER_OTP_SUCCESS,
+    (resolve) => (response) => resolve({ response }),
+  ),
+  failure: createActionCreator(EAuthAction.RESEND_REGISTER_OTP_FAILED, (resolve) => (error) => resolve({ error })),
+};
+export const resendForgotOtpAction = {
+  request: createActionCreator(
+    EAuthAction.RESEND_FORGOT_OTP_REQUEST,
+    (resolve) => (token, cb) => resolve({ token, cb }),
+  ),
+  success: createActionCreator(EAuthAction.RESEND_FORGOT_OTP_SUCCESS, (resolve) => (response) => resolve({ response })),
+  failure: createActionCreator(EAuthAction.RESEND_FORGOT_OTP_FAILED, (resolve) => (error) => resolve({ error })),
+};

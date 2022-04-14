@@ -41,6 +41,30 @@ class Auth {
     const response = await ApiService.post(`/auth/change-password`, body);
     return response.data;
   }
+  async resendRegisterOtp(token) {
+    const response = await ApiService.post(
+      `/auth/register-resend-otp`,
+      {},
+      {
+        headers: {
+          token,
+        },
+      },
+    );
+    return response.data;
+  }
+  async resendForgotOtp(token) {
+    const response = await ApiService.post(
+      `/auth/forgot-resend-otp`,
+      {},
+      {
+        headers: {
+          token,
+        },
+      },
+    );
+    return response.data;
+  }
 }
 
 const AuthInstance = new Auth();

@@ -1,0 +1,9 @@
+@import '../../assets/styles/global';
+
+.Loading {
+  .ant-spin {
+    .ant-spin-dot-item {
+      background: $fun-green;
+    }
+  }
+}

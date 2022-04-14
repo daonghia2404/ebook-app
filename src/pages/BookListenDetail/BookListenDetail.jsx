@@ -128,7 +128,7 @@ const BookListenDetail = () => {
             </div>
           </div>
 
-          <BookListenListTab />
+          <BookListenListTab {...product} />
         </div>
       </div>
 

@@ -1,19 +1,36 @@
 import React, { useState } from 'react';
 
 import { Form } from 'antd';
-import { validationRules } from '@/utils/functions';
+import { showNotification, validationRules } from '@/utils/functions';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { EAuthAction } from '@/redux/actions/auth/constants';
+import { resetPasswordAction } from '@/redux/actions';
+import { ETypeNotification } from '@/utils/constants';
 
 const ChangePassword = ({ onSuccess }) => {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [password, setPassword] = useState('');
+
+  const vetifyForgotLoading = useSelector((state) => state.loading[EAuthAction.RESET_PASSWORD]);
 
   const handleChangePassword = (passwordValue) => {
     setPassword(passwordValue);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (values) => {
+    const body = {
+      password: values.password,
+      newPassword: values.newPassword,
+    };
+
+    dispatch(resetPasswordAction.request(body, handleResetPasswordSuccess));
+  };
+
+  const handleResetPasswordSuccess = () => {
+    showNotification(ETypeNotification.SUCCESS, 'Đổi mật khẩu thành công. Vui lòng đăng nhập');
     onSuccess?.();
   };
 
@@ -33,7 +50,14 @@ const ChangePassword = ({ onSuccess }) => {
           <Input size="large" type="password" />
         </Form.Item>
         <Form.Item>
-          <Button size="large" title="Tiếp theo" type="primary" uppercase htmlType="submit" />
+          <Button
+            size="large"
+            title="Tiếp theo"
+            type="primary"
+            uppercase
+            htmlType="submit"
+            loading={vetifyForgotLoading}
+          />
         </Form.Item>
       </Form>
     </>

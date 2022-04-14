@@ -11,9 +11,7 @@
       padding: 2rem 0;
     }
   }
-.profile{
-  color: black;
-}
+
   &-logo {
     margin-right: auto;
     max-width: 18.5rem;
@@ -116,6 +114,7 @@
 
     &-mobile {
       padding: 1rem 0;
+
       &-item {
         padding: 1rem 2rem;
         font-size: 1.6rem;
@@ -148,6 +147,13 @@
           }
         }
       }
+    }
+  }
+
+  &-avatar {
+    span {
+      margin-right: 1rem;
+      color: $black;
     }
   }
 }
