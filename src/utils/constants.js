@@ -67,7 +67,10 @@ export const ETypeNotification = {
   ERROR: 'error',
   INFO: 'info',
 };
-
+export const ETypePage = {
+  DEFAULT_PAGE: 1,
+  DEFAULT_PAGE_SIZE: 10,
+};
 export const ERegex = {
   email:
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i,

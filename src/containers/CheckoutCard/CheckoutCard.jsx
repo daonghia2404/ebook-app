@@ -8,15 +8,17 @@ import CheckoutSuccessModal from '@/containers/CheckoutSuccessModal';
 
 import './CheckoutCard.scss';
 
-const CheckoutCard = () => {
+const CheckoutCard = ({ countCart, subTotal, total }) => {
   const [visibleAddressListModal, setVisibleAddressListModal] = useState(false);
   const [visibleShippingTypeModal, setVisibleShippingTypeModal] = useState(false);
   const [visibleCheckoutSuccessModal, setVisibleCheckoutSuccessModal] = useState(false);
+  const [address, setAddress] = useState({});
 
   const handleOpenAddressListModal = () => {
     setVisibleAddressListModal(true);
   };
-  const handleCloseAddressListModal = () => {
+  const handleCloseAddressListModal = (item) => {
+    setAddress(item);
     setVisibleAddressListModal(false);
   };
   const handleOpenShippingTypeModalModal = () => {
@@ -48,9 +50,9 @@ const CheckoutCard = () => {
             </div>
             <div className="CheckoutCard-address-item">
               <div className="CheckoutCard-address-item-info">
-                <div className="CheckoutCard-address-item-info-name">Hoang Huy</div>
-                <div className="CheckoutCard-address-item-info-description">0966 123 456</div>
-                <div className="CheckoutCard-address-item-info-description">Số 123 Nguyễn Trãi, Thanh Xuân, Hà Nội</div>
+                <div className="CheckoutCard-address-item-info-name">{address?.name}</div>
+                <div className="CheckoutCard-address-item-info-description">{address?.phone}</div>
+                <div className="CheckoutCard-address-item-info-description">{address?.detailAddress}</div>
                 <div className="CheckoutCard-address-item-info-change" onClick={handleOpenAddressListModal}>
                   Thay đổi
                 </div>
@@ -73,8 +75,8 @@ const CheckoutCard = () => {
             Lưu ý: Bạn chỉ có thể thanh toán online khi mua 2 loại sách khách nhau
           </div>
           <div className="CheckoutCard-row flex justify-between">
-            <div className="CheckoutCard-row-label">2 sản phẩm</div>
-            <div className="CheckoutCard-row-label">2.000.000 đ</div>
+            <div className="CheckoutCard-row-label">{countCart} sản phẩm</div>
+            <div className="CheckoutCard-row-label">{subTotal} đ</div>
           </div>
 
           <div className="CheckoutCard-row flex justify-between">
@@ -85,7 +87,7 @@ const CheckoutCard = () => {
           <div className="CheckoutCard-row flex justify-between">
             <div className="CheckoutCard-row-label">Tổng giá tiền</div>
             <div className="CheckoutCard-row-label">
-              <strong>1.900.000 đ</strong>
+              <strong>{subTotal + 10000} đ</strong>
             </div>
           </div>
         </div>

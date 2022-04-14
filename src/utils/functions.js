@@ -35,7 +35,14 @@ export const removeAccents = (str) => {
 
   return '';
 };
-
+export const caculateTotal = (arr) => {
+  const total =
+    arr &&
+    arr.reduce((caculate, item) => {
+      return caculate + item.product.price * item.amount;
+    }, 0);
+  return total;
+};
 export const showNotification = (type, description) => {
   const options = {
     message: '',

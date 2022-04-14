@@ -6,9 +6,11 @@ import Avatar from '@/components/Avatar';
 import Button from '@/components/Button';
 import ConfirmModal from '@/containers/ConfirmModal/ConfirmModal';
 import { LayoutPaths, Paths } from '@/pages/routers';
-
+import AuthHelpers from '@/services/auth-helpers';
 import { dataMenuListProfile } from './ProfileCard.data';
 import './ProfileCard.scss';
+import { showNotification } from '@/utils/functions';
+import { ETypeNotification } from '@/utils/constants';
 
 const ProfileCard = ({ onClickMenu }) => {
   const [pathName, setPathName] = useState('');
@@ -40,6 +42,9 @@ const ProfileCard = ({ onClickMenu }) => {
     setVisibleLogoutModal(false);
   };
   const handleSubmitLogoutModal = () => {
+    AuthHelpers.clearTokens();
+    showNotification(ETypeNotification.SUCCESS, 'Đăng xuất thành công');
+    navigate('/');
     handleCloseLogoutModal();
   };
 

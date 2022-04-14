@@ -23,12 +23,9 @@ const errorReducer = (state = {}, action) => {
 
   let error = action.payload?.error;
   let code;
-
   if (error instanceof Error) {
     const axiosErrorData = error?.response?.data;
-
     code = axiosErrorData?.statusCode;
-
     error =
       axiosErrorData?.message ||
       axiosErrorData?.error_description ||
