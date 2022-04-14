@@ -32,3 +32,14 @@ export const getWardAction = {
   success: createActionCreator(EAddressAction.GET_WARD_SUCCESS, (resolve) => (response) => resolve({ response })),
   failure: createActionCreator(EAddressAction.GET_WARD_FAILED, (resolve) => (error) => resolve({ error })),
 };
+export const caculateAction = {
+  request: createActionCreator(
+    EAddressAction.CACULATE_FEE_SHIP_REQUEST,
+    (resolve) => (body, cb) => resolve({ body, cb }),
+  ),
+  success: createActionCreator(
+    EAddressAction.CACULATE_FEE_SHIP_SUCCESS,
+    (resolve) => (response) => resolve({ response }),
+  ),
+  failure: createActionCreator(EAddressAction.CACULATE_FEE_SHIP_FAILED, (resolve) => (error) => resolve({ error })),
+};

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 
 import ImageBook from '@/assets/images/image-book-1.png';
-
+import { EAddressAction } from '@/redux/actions/auth/constants';
 import './Checkout.scss';
 import CheckoutCard from '@/containers/CheckoutCard';
 import { useSelector } from 'react-redux';
-import { caculateTotal } from '@/utils/functions';
+import { caculateTotal, showNotification } from '@/utils/functions';
 
 const Checkout = () => {
   const listCart = useSelector((state) => state.productState.carts) ?? [];
@@ -34,7 +34,7 @@ const Checkout = () => {
             </div>
           </div>
           <div className="Checkout-wrapper-item">
-            <CheckoutCard countCart={listCart.length} subTotal={caculateTotal(listCart)} />
+            <CheckoutCard countCart={listCart.length} subTotal={caculateTotal(listCart)} carts={listCart} />
           </div>
         </div>
       </div>

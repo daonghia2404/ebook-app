@@ -8,6 +8,8 @@ import {
   addToCartAction,
   getListCartAction,
   updateCartAction,
+  deleteCartAction,
+  getSameProductAction,
 } from '@/redux/actions';
 
 const initialState = {
@@ -15,6 +17,7 @@ const initialState = {
   audioBooks: [],
   books: [],
   book: {},
+  sameBooks: [],
   carts: [],
 };
 
@@ -46,6 +49,14 @@ const reducer = createReducer(initialState, (handleAction) => [
   handleAction(updateCartAction.success, (state, action) => {
     const { response } = action.payload;
     return { ...state };
+  }),
+  handleAction(deleteCartAction.success, (state, action) => {
+    const { response } = action.payload;
+    return { ...state };
+  }),
+  handleAction(getSameProductAction.success, (state, action) => {
+    const { response } = action.payload;
+    return { ...state, sameBooks: response.data.records };
   }),
 ]);
 
