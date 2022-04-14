@@ -13,6 +13,7 @@
       margin: auto;
       object-fit: cover;
       object-position: center;
+      border-radius: 1rem;
     }
   }
 
@@ -38,6 +39,7 @@
       color: $fun-green;
       font-size: 1.8rem;
       font-weight: 600;
+      line-height: 1.3;
     }
 
     del {

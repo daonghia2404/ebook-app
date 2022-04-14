@@ -32,7 +32,7 @@ const reducer = createReducer(initialState, (handleAction) => [
   }),
   handleAction(getListProductSearchAction.success, (state, action) => {
     const { response } = action.payload;
-    return { ...state, books: response.data.records };
+    return { ...state, books: response.data };
   }),
   handleAction(getProductDetailAction.success, (state, action) => {
     const { response } = action.payload;

@@ -10,6 +10,8 @@ import {
   resetPasswordAction,
   vertifyForgotAction,
   updatePasswordAction,
+  resendRegisterOtpAction,
+  resendForgotOtpAction,
 } from '@/redux/actions';
 
 export function* loginSaga(action) {
@@ -31,7 +33,7 @@ export function* registerSaga(action) {
     const { body, cb } = action.payload;
     const response = yield call(AuthInstance.register, body);
     yield put(registerAction.success(response));
-    cb?.();
+    cb?.(response);
   } catch (err) {
     yield put(registerAction.failure(err));
   }
@@ -51,7 +53,7 @@ export function* forgotPasswordSaga(action) {
     const { body, cb } = action.payload;
     const response = yield call(AuthInstance.forgotPassword, body);
     yield put(forgotPasswordAction.success(response));
-    cb?.();
+    cb?.(response);
   } catch (err) {
     yield put(forgotPasswordAction.failure(err));
   }
@@ -86,6 +88,27 @@ export function* updatePasswordSaga(action) {
     yield put(updatePasswordAction.failure(err));
   }
 }
+export function* resendRegisterOtpSaga(action) {
+  try {
+    const { token, cb } = action.payload;
+    const response = yield call(AuthInstance.resendRegisterOtp, token);
+    yield put(resendRegisterOtpAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(resendRegisterOtpAction.failure(err));
+  }
+}
+export function* resendForgotOtpSaga(action) {
+  try {
+    const { token, cb } = action.payload;
+    const response = yield call(AuthInstance.resendForgotOtp, token);
+    yield put(resendForgotOtpAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(resendForgotOtpAction.failure(err));
+  }
+}
+
 export default function* root() {
   yield all([takeLatest(loginAction.request.type, loginSaga)]);
   yield all([takeLatest(registerAction.request.type, registerSaga)]);
@@ -94,4 +117,6 @@ export default function* root() {
   yield all([takeLatest(resetPasswordAction.request.type, resetPasswordSaga)]);
   yield all([takeLatest(vertifyForgotAction.request.type, vertifyOtpPasswordSaga)]);
   yield all([takeLatest(updatePasswordAction.request.type, updatePasswordSaga)]);
+  yield all([takeLatest(resendRegisterOtpAction.request.type, resendRegisterOtpSaga)]);
+  yield all([takeLatest(resendForgotOtpAction.request.type, resendForgotOtpSaga)]);
 }

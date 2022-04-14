@@ -5,11 +5,11 @@ import { useSelector } from 'react-redux';
 import Button from '@/components/Button';
 import Carousels from '@/components/Carousels';
 import BookBlock from '@/components/BookBlock';
-
-import './BooksCarousel.scss';
-import { Skeleton } from 'antd';
 import { Paths } from '@/pages/routers';
 import { navigate } from '@reach/router';
+import Loading from '@/containers/Loading/Loading';
+
+import './BooksCarousel.scss';
 
 const BooksCarousel = ({ title, data, darkBackground, loading }) => {
   const windowType = useSelector((state) => state.uiState.device);
@@ -45,17 +45,19 @@ const BooksCarousel = ({ title, data, darkBackground, loading }) => {
             </div>
           </div>
 
-          <div className="BooksCarousel-list">
-            <Carousels arrows dots={false} slidesToShow={renderSlidesToShow()}>
-              {data?.map((item) => (
-                <Skeleton avatar loading={loading}>
-                  <div className="BooksCarousel-list-item">
+          {loading ? (
+            <Loading />
+          ) : (
+            <div className="BooksCarousel-list">
+              <Carousels arrows dots={false} slidesToShow={renderSlidesToShow()}>
+                {data?.map((item, index) => (
+                  <div key={index} className="BooksCarousel-list-item">
                     <BookBlock key={item._id} {...item} />
                   </div>
-                </Skeleton>
-              ))}
-            </Carousels>
-          </div>
+                ))}
+              </Carousels>
+            </div>
+          )}
         </div>
       </div>
     </div>

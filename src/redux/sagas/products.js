@@ -13,7 +13,7 @@ import {
   deleteCartAction,
 } from '@/redux/actions';
 
-export function* getListProducPaperBooktSaga(action) {
+export function* getListProducPaperBookSaga(action) {
   try {
     const { params, cb } = action.payload;
     const response = yield call(ProductInstance.getList, params);
@@ -37,7 +37,7 @@ export function* getListProductAudioBooktSaga(action) {
 export function* getListProductSearchtSaga(action) {
   try {
     const { params, cb } = action.payload;
-    const response = yield call(ProductInstance.search, params);
+    const response = yield call(ProductInstance.getListSearch, params);
     yield put(getListProductSearchAction.success(response));
     cb?.();
   } catch (err) {
@@ -105,7 +105,7 @@ export function* getSameProductSaga(action) {
   }
 }
 export default function* root() {
-  yield all([takeLatest(getListProductPaperBookAction.request.type, getListProducPaperBooktSaga)]);
+  yield all([takeLatest(getListProductPaperBookAction.request.type, getListProducPaperBookSaga)]);
   yield all([takeLatest(getListProductAudioBookAction.request.type, getListProductAudioBooktSaga)]);
   yield all([takeLatest(getListProductSearchAction.request.type, getListProductSearchtSaga)]);
   yield all([takeLatest(getProductDetailAction.request.type, getProductByIdSaga)]);

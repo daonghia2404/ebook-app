@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Logo from '@/assets/images/logo.svg';
@@ -24,50 +24,48 @@ import { getListCartAction, getListProductSearchAction, getProfileAction } from 
 import { ETypePage } from '@/utils/constants';
 
 const HeaderSearch = () => {
+  const dispatch = useDispatch();
   const windowType = useSelector((state) => state.uiState.device);
   const isMobile = windowType.type === EDeviceType.MOBILE;
-  const checkAuth = AuthHelpers.getAccessToken();
-  const dispatch = useDispatch();
+  const atk = AuthHelpers.getAccessToken();
+
+  const listCart = useSelector((state) => state.productState.carts) ?? [];
+  const profile = useSelector((state) => state.profileState.profile) ?? {};
+  const getListProductSearchLoading = useSelector((state) => state.loading[EProductAction.GET_LIST_PRODUCT_SEARCH]);
+
   const [authModalState, setAuthModalState] = useState({
     visible: false,
   });
+
   const [forgotPasswordModalState, setForgotPasswordModalState] = useState({
     visible: false,
   });
+
   const [visibleCartDropdown, setVisibleCartDropdown] = useState(false);
   const [visibleMenuDropdown, setVisibleMenuDropdown] = useState(false);
-  const [params, setKeywordParams] = useState({
+
+  const [getListProductSearchParamsRequest, setGetListProductSearchParamsRequest] = useState({
     page: ETypePage.DEFAULT_PAGE,
     pageSize: ETypePage.DEFAULT_PAGE_SIZE,
     name: '',
   });
-  const listCart = useSelector((state) => state.productState.carts) ?? [];
-  const handlerChangeKeyword = (values) => {
-    setKeywordParams({
-      ...params,
+
+  const handleChangeKeyword = (values) => {
+    setGetListProductSearchParamsRequest({
+      ...getListProductSearchParamsRequest,
       name: values,
     });
   };
-  const loadingSearch = useSelector((state) => state.loading[EProductAction.GET_LIST_PRODUCT_SEARCH]);
-  useEffect(() => {
-    getProfile();
-    getListCart();
-  }, []);
-  const getProfile = () => {
-    if (checkAuth) {
-      dispatch(getProfileAction.request());
-    }
-  };
 
   const handlerClickSearch = () => {
-    dispatch(getListProductSearchAction.request(params));
-    setKeywordParams({
-      ...params,
+    dispatch(getListProductSearchAction.request(getListProductSearchParamsRequest));
+    navigate(Paths.SearchResult);
+    setGetListProductSearchParamsRequest({
+      ...getListProductSearchParamsRequest,
       name: '',
     });
-    navigate(`${Paths.SearchResult}`);
   };
-  const profile = useSelector((state) => state.profileState.profile) ?? {};
+
   const handleCartDropdownVisibleChange = (visible) => {
     setVisibleCartDropdown(visible);
   };
@@ -83,20 +81,12 @@ const HeaderSearch = () => {
   const handleCloseMenuDropdown = () => {
     setVisibleMenuDropdown(false);
   };
-  const handleOpenForgotPasswordModal = (defaultStep, prevAction) => {
+  const handleOpenForgotPasswordModal = (defaultStep, prevAction, data) => {
     handleCloseAuthModal();
-    setForgotPasswordModalState({ visible: true, defaultStep, prevAction });
-  };
-  const onShowForgotPasswordModal = (defaultStep, prevAction) => {
-    setForgotPasswordModalState({ visible: true, defaultStep, prevAction });
+    setForgotPasswordModalState({ visible: true, defaultStep, prevAction, data });
   };
   const handleCloseForgotPasswordModal = () => {
     setForgotPasswordModalState({ visible: false });
-  };
-
-  const handleSuccessForgotPasswordModal = () => {
-    handleCloseForgotPasswordModal();
-    handleOpenAuthModal(ETypeAuthModal.SIGN_IN);
   };
 
   const handleOpenAuthModal = (type) => {
@@ -111,18 +101,14 @@ const HeaderSearch = () => {
       visible: false,
     });
   };
-  const handleSignUpSuccess = () => {
+  const handleSignUpSuccess = (data) => {
     handleCloseAuthModal();
-    handleOpenForgotPasswordModal(EKeyStepForgotPasswordModal.VETIFY_ACCOUNT, ETypeAuthModal.SIGN_UP);
+    handleOpenForgotPasswordModal(EKeyStepForgotPasswordModal.VETIFY_ACCOUNT, ETypeAuthModal.SIGN_UP, data);
   };
   const handleSignInSuccess = () => {
     handleCloseAuthModal();
   };
-  const getListCart = () => {
-    if (checkAuth) {
-      dispatch(getListCartAction.request());
-    }
-  };
+
   const renderDropdownMenuMobile = () => {
     return (
       <div className="HeaderSearch-menu-mobile">
@@ -141,6 +127,21 @@ const HeaderSearch = () => {
       </div>
     );
   };
+
+  const getProfile = useCallback(() => {
+    dispatch(getProfileAction.request());
+  }, [dispatch]);
+
+  const getListCart = useCallback(() => {
+    dispatch(getListCartAction.request());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (atk) {
+      getProfile();
+      getListCart();
+    }
+  }, [atk]);
 
   return (
     <div className="HeaderSearch">
@@ -166,16 +167,20 @@ const HeaderSearch = () => {
           ) : (
             <>
               <div className="HeaderSearch-search flex items-center">
-                <Input placeholder="Tìm kiếm" onChange={handlerChangeKeyword} />
+                <Input
+                  placeholder="Tìm kiếm"
+                  value={getListProductSearchParamsRequest.name}
+                  onChange={handleChangeKeyword}
+                />
                 <Button
                   type="primary"
                   onClick={handlerClickSearch}
-                  loading={loadingSearch}
+                  loading={getListProductSearchLoading}
                   icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />}
                 />
               </div>
-              {checkAuth ? (
-                <a href="/thong-tin" className="profile">
+              {atk ? (
+                <a href="/thong-tin">
                   <div className="HeaderSearch-avatar flex items-center">
                     <Avatar />
                     <span>{profile.name}</span>
@@ -201,7 +206,7 @@ const HeaderSearch = () => {
               )}
             </>
           )}
-          {checkAuth && (
+          {atk && (
             <DropdownCustom
               visible={visibleCartDropdown}
               onClose={handleCloseCartDropdown}
@@ -220,18 +225,18 @@ const HeaderSearch = () => {
 
       <AuthModal
         {...authModalState}
-        onClickForgotPassword={handleOpenForgotPasswordModal}
+        onClickForgotPassword={() =>
+          handleOpenForgotPasswordModal(
+            EKeyStepForgotPasswordModal.FIND_ACCOUNT,
+            EKeyStepForgotPasswordModal.FIND_ACCOUNT,
+          )
+        }
         onClose={handleCloseAuthModal}
         onSignUpSuccess={handleSignUpSuccess}
         onSignInSuccess={handleSignInSuccess}
       />
 
-      <ForgotPasswordModal
-        {...forgotPasswordModalState}
-        onClose={handleCloseForgotPasswordModal}
-        onSuccess={handleSuccessForgotPasswordModal}
-        onShowForgotPasswordModal={onShowForgotPasswordModal}
-      />
+      <ForgotPasswordModal {...forgotPasswordModalState} onClose={handleCloseForgotPasswordModal} />
     </div>
   );
 };

@@ -10,24 +10,30 @@ import { EAuthAction } from '@/redux/actions/auth/constants';
 import { forgotPasswordAction } from '@/redux/actions';
 import { ETypeNotification } from '@/utils/constants';
 
-const FindAccount = ({ onShowForgotPasswordModal }) => {
-  const [form] = Form.useForm();
+const FindAccount = ({ onSubmit }) => {
   const dispatch = useDispatch();
+  const [form] = Form.useForm();
   const loading = useSelector((state) => state.loading[EAuthAction.FORGOT_PASSWORD]);
+
   const handleSubmit = (values) => {
-    dispatch(forgotPasswordAction.request({ ...values }, handleForgotPasswordSuccess));
+    dispatch(forgotPasswordAction.request({ ...values }, (response) => handleForgotPasswordSuccess(response, values)));
   };
-  const handleForgotPasswordSuccess = () => {
-    showNotification(ETypeNotification.SUCCESS, 'Xác nhận mã OTP đã được gửi vào Email của bạn !');
-    onShowForgotPasswordModal?.(EKeyStepForgotPasswordModal.VERTIFY_FORGOT);
+
+  const handleForgotPasswordSuccess = (response, values) => {
+    showNotification(ETypeNotification.SUCCESS, 'Xác nhận mã OTP đã được gửi vào email của bạn !');
+    onSubmit?.(EKeyStepForgotPasswordModal.VERTIFY_FORGOT, {
+      token: response.data.token,
+      email: values.email,
+    });
   };
+
   return (
     <>
       <div className="ForgotPasswordModal-title">Quên mật khẩu</div>
       <div className="ForgotPasswordModal-description">Vui lòng nhập email đăng ký tài khoản</div>
       <Form form={form} layout="vertical" className="ForgotPasswordModal-form style-form" onFinish={handleSubmit}>
         <Form.Item name="email" label="Email" rules={[validationRules.required(), validationRules.email()]}>
-          <Input size="large" />
+          <Input size="large" placeholder="Nhập email" />
         </Form.Item>
         <Form.Item>
           <Button size="large" loading={loading} title="Tiếp theo" type="primary" uppercase htmlType="submit" />

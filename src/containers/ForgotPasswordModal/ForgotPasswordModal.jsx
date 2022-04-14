@@ -7,73 +7,91 @@ import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import FindAccount from '@/containers/ForgotPasswordModal/FindAccount';
 import VetifyAccount from '@/containers/ForgotPasswordModal/VetifyAccount';
 import ChangePassword from '@/containers/ForgotPasswordModal/ChangePassword';
+import { ETypeAuthModal } from '@/containers/AuthModal/AuthModal.enums';
 
 import { EKeyStepForgotPasswordModal } from './ForgotPasswordModal.enums';
 import './ForgotPasswordModal.scss';
-import { ETypeAuthModal } from '../AuthModal/AuthModal.enums';
-import VertifyForgot from './VertifyForgot';
+import VetifyForgot from '@/containers/ForgotPasswordModal/VertifyForgot/VetifyForgot';
 
-const ForgotPasswordModal = ({ visible, onClose, onSuccess, defaultStep, prevAction, onShowForgotPasswordModal }) => {
-  const [keyStepForgotPasswordModal, setKeyStepForgotPasswordModal] = useState(
-    EKeyStepForgotPasswordModal.FIND_ACCOUNT,
-  );
+const ForgotPasswordModal = ({ visible, onClose, defaultStep, prevAction, data = {} }) => {
+  const [globalKeyStepState, setGlobalKeyStepState] = useState({
+    key: EKeyStepForgotPasswordModal.FIND_ACCOUNT,
+    prevAction: undefined,
+    data: undefined,
+  });
+
+  const handleFindAccountSuccess = (prevAction, data) => {
+    setGlobalKeyStepState({
+      key: EKeyStepForgotPasswordModal.VERTIFY_FORGOT,
+      prevAction,
+      data,
+    });
+  };
+
+  const handleVetiryForgotSuccess = () => {
+    setGlobalKeyStepState({
+      ...globalKeyStepState,
+      key: EKeyStepForgotPasswordModal.VERTIFY_FORGOT,
+    });
+  };
+
+  const handleChangePasswordSuccess = () => {
+    onClose?.(ETypeAuthModal.SIGN_IN);
+  };
+
+  const handleVetifyAccountSuccess = () => {
+    onClose?.(ETypeAuthModal.SIGN_IN);
+  };
+
   const handleClickBack = () => {
-    switch (keyStepForgotPasswordModal) {
-      case EKeyStepForgotPasswordModal.FIND_ACCOUNT:
-        onClose?.();
+    switch (true) {
+      case globalKeyStepState.prevAction === ETypeAuthModal.SIGN_UP &&
+        globalKeyStepState.key === EKeyStepForgotPasswordModal.VETIFY_ACCOUNT:
+        onClose?.(ETypeAuthModal.SIGN_UP);
         break;
-      case EKeyStepForgotPasswordModal.VETIFY_ACCOUNT:
-        setKeyStepForgotPasswordModal(EKeyStepForgotPasswordModal.FIND_ACCOUNT);
+      case globalKeyStepState.prevAction === ETypeAuthModal.FIND_ACCOUNT &&
+        globalKeyStepState.key === EKeyStepForgotPasswordModal.VERTIFY_FORGOT:
+        setGlobalKeyStepState({
+          ...globalKeyStepState,
+          key: EKeyStepForgotPasswordModal.FIND_ACCOUNT,
+        });
         break;
-      case EKeyStepForgotPasswordModal.VERTIFY_FORGOT:
-        setKeyStepForgotPasswordModal(EKeyStepForgotPasswordModal.CHANGE_PASSWORD);
-        break;
-      case EKeyStepForgotPasswordModal.CHANGE_PASSWORD:
-        setKeyStepForgotPasswordModal(EKeyStepForgotPasswordModal.VERTIFY_FORGOT);
+      case globalKeyStepState.prevAction === ETypeAuthModal.FIND_ACCOUNT &&
+        globalKeyStepState.key === EKeyStepForgotPasswordModal.CHANGE_PASSWORD:
+        setGlobalKeyStepState({
+          ...globalKeyStepState,
+          key: EKeyStepForgotPasswordModal.VERTIFY_FORGOT,
+        });
         break;
       default:
         break;
     }
   };
 
-  const handleNextStep = () => {
-    switch (keyStepForgotPasswordModal) {
-      case EKeyStepForgotPasswordModal.FIND_ACCOUNT:
-        setKeyStepForgotPasswordModal(EKeyStepForgotPasswordModal.VETIFY_ACCOUNT);
-        break;
-      case EKeyStepForgotPasswordModal.VETIFY_ACCOUNT:
-        setKeyStepForgotPasswordModal(EKeyStepForgotPasswordModal.CHANGE_PASSWORD);
-        break;
-      case EKeyStepForgotPasswordModal.CHANGE_PASSWORD:
-        onSuccess?.();
-        break;
-      default:
-        break;
-    }
-  };
-  const handlerSubmitVertifyAccount = () => {
-    if (prevAction === ETypeAuthModal.SIGN_UP) {
-      onClose(ETypeAuthModal.SIGN_IN);
-    }
-  };
   const renderStepSection = () => {
-    switch (keyStepForgotPasswordModal) {
+    switch (globalKeyStepState.key) {
       case EKeyStepForgotPasswordModal.FIND_ACCOUNT:
-        return <FindAccount onShowForgotPasswordModal={onShowForgotPasswordModal} />;
-      case EKeyStepForgotPasswordModal.VETIFY_ACCOUNT:
-        return <VetifyAccount onSuccess={handlerSubmitVertifyAccount} />;
-      case EKeyStepForgotPasswordModal.CHANGE_PASSWORD:
-        return <ChangePassword onSuccess={handleNextStep} />;
+        return <FindAccount onSubmit={handleFindAccountSuccess} />;
       case EKeyStepForgotPasswordModal.VERTIFY_FORGOT:
-        return <VertifyForgot onShowForgotPasswordModal={onShowForgotPasswordModal} />;
+        return <VetifyForgot data={globalKeyStepState.data} onSuccess={handleVetiryForgotSuccess} />;
+      case EKeyStepForgotPasswordModal.CHANGE_PASSWORD:
+        return <ChangePassword onSubmit={handleChangePasswordSuccess} />;
+
+      case EKeyStepForgotPasswordModal.VETIFY_ACCOUNT:
+        return <VetifyAccount data={globalKeyStepState.data} onSuccess={handleVetifyAccountSuccess} />;
+
       default:
         return <></>;
     }
   };
 
   useEffect(() => {
-    if (visible) {
-      setKeyStepForgotPasswordModal(defaultStep);
+    if (visible && defaultStep) {
+      setGlobalKeyStepState({
+        key: defaultStep,
+        prevAction,
+        data,
+      });
     }
   }, [visible, defaultStep]);
 
