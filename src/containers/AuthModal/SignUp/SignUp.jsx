@@ -30,7 +30,6 @@ const SignUp = ({ onSignUpSuccess }) => {
   };
 
   const handleSignUpSuccess = (response, values) => {
-    console.log(values);
     onSignUpSuccess?.({
       token: response.data.token,
       email: values.email,

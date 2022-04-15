@@ -7,6 +7,7 @@ import { useDebounce } from '@/utils/hooks';
 import { DEBOUNCE_SEARCH } from '@/common/static';
 import { getTotalPage, searchString } from '@/utils/functions';
 import WrapperLazyLoad from '@/components/WrapperLazyLoad';
+import Loading from '@/containers/Loading/Loading';
 
 import './Select.scss';
 
@@ -30,7 +31,7 @@ export const Select = ({
   const [isMounted, setIsMounted] = useState(false);
   const searchValueDebounce = useDebounce(keyword, DEBOUNCE_SEARCH);
 
-  const filterOption = (option) => {
+  const filterOption = (inputValue, option) => {
     return searchString(option.label, keyword);
   };
 
@@ -87,10 +88,10 @@ export const Select = ({
         defaultValue={defaultValue}
         labelInValue
         allowClear={allowClear}
-        filterOption={onSearch ? false : filterOption}
-        onSearch={handleSearch}
-        options={options}
         searchValue={keyword}
+        onSearch={handleSearch}
+        filterOption={onSearch ? false : filterOption}
+        options={options}
         dropdownClassName={classNames('Select-dropdown', dropdownClassName)}
         suffixIcon={<Icon name={EIconName.CaretDown} color={EIconColor.GRAY} />}
         getPopupContainer={(trigger) => trigger}

@@ -1,27 +1,38 @@
-import React, { useEffect } from 'react';
-import BooksList from '@/containers/BooksList';
-
-import './MyBooks.scss';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import BooksList from '@/containers/BooksList';
 import { getListMyBookAction } from '@/redux/actions';
 import { ETypePage } from '@/utils/constants';
+import { EProfileAction } from '@/redux/actions/profile/constants';
+import Loading from '@/containers/Loading/Loading';
+
+import './MyBooks.scss';
 
 const MyBooks = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    getListMyBook();
-  }, []);
-  const data = useSelector((state) => state.profileState.myBookList) ?? {};
-  const params = {
+
+  const [getMyBooksParamsRequest, setGetMyBooksParamsRequest] = useState({
     page: ETypePage.DEFAULT_PAGE,
     pageSize: ETypePage.DEFAULT_PAGE_SIZE,
-  };
-  const getListMyBook = () => {
-    dispatch(getListMyBookAction.request(params));
-  };
+  });
+
+  const getMyBooksLoading = useSelector((state) => state.loading[EProfileAction.MY_BOOK]);
+
+  const myBooksData = useSelector((state) => state.profileState.myBookList?.records) ?? [];
+  const isEmpty = myBooksData.length === 0;
+
+  const getListMyBook = useCallback(() => {
+    dispatch(getListMyBookAction.request(getMyBooksParamsRequest));
+  }, [dispatch, getMyBooksParamsRequest]);
+
+  useEffect(() => {
+    getListMyBook();
+  }, [getListMyBook]);
+
   return (
     <div className="MyBooks">
-      {data.length > 0 ? <BooksList owner title="Sách của tôi" data={data} /> : 'Không có sản phẩm nào'}
+      {getMyBooksLoading ? <Loading /> : <BooksList owner title="Sách của tôi" data={myBooksData} />}
     </div>
   );
 };

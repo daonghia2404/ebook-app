@@ -1,24 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from '@reach/router';
 
 import ImageNewDetail from '@/assets/images/image-new-detail.png';
-import { scrollToTop } from '@/utils/functions';
-
-import './NewDetail.scss';
-import { useParams } from '@reach/router';
-import { useDispatch, useSelector } from 'react-redux';
+import { formatISODateToDateTime, scrollToTop } from '@/utils/functions';
 import { getDetailNewAction } from '@/redux/actions';
 
+import './NewDetail.scss';
+
 const NewDetail = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  const blog = useSelector((state) => state.newState.new) ?? {};
+
+  const getNewDetailData = useCallback(() => {
+    dispatch(getDetailNewAction.request(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    getNewDetailData();
+  }, [getNewDetailData]);
+
   useEffect(() => {
     scrollToTop();
-    getById();
   }, []);
-  const dispatch = useDispatch();
-  const blog = useSelector((state) => state.newState.new) ?? {};
-  let { id } = useParams();
-  const getById = () => {
-    dispatch(getDetailNewAction.request(id));
-  };
+
   return (
     <div className="NewDetail">
       <div className="container">
@@ -27,9 +34,9 @@ const NewDetail = () => {
             <img src={ImageNewDetail} alt="" />
           </div>
           <div className="NewDetail-title">{blog.title} </div>
-          <div className="NewDetail-time">{blog.createdAt}</div>
+          <div className="NewDetail-time">{formatISODateToDateTime(blog.createdAt)}</div>
 
-          <div className="NewDetail-main">{blog.content}</div>
+          <div className="NewDetail-main" dangerouslySetInnerHTML={{ __html: blog.content }} />
         </div>
       </div>
     </div>

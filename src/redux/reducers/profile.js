@@ -3,7 +3,7 @@ import { createReducer } from 'deox';
 
 const initialState = {
   profile: {},
-  myBookList: [],
+  myBookList: {},
 };
 
 const reducer = createReducer(initialState, (handleAction) => [
@@ -17,7 +17,7 @@ const reducer = createReducer(initialState, (handleAction) => [
   }),
   handleAction(getListMyBookAction.success, (state, action) => {
     const { response } = action.payload;
-    return { ...state, profile: response.data.records };
+    return { ...state, profile: response.data };
   }),
 ]);
 

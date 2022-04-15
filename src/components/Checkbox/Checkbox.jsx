@@ -1,5 +1,4 @@
 import React from 'react';
-import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import classNames from 'classnames';
 import { Checkbox as AntCheckbox } from 'antd';
 

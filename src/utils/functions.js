@@ -36,6 +36,7 @@ export const removeAccents = (str) => {
 
   return '';
 };
+
 export const caculateTotal = (arr) => {
   const total =
     arr &&
@@ -44,6 +45,7 @@ export const caculateTotal = (arr) => {
     }, 0);
   return total;
 };
+
 export const showNotification = (type, description) => {
   const options = {
     message: '',
@@ -169,6 +171,10 @@ export const formatMoneyVND = (config) => {
   return `${separateMoney} ${config.showSuffix ? unit : ''}`;
 };
 
-export const formatISODateToDateTime = (date) => {
-  return moment(date).format('DD/MM/YYYY - HH:MM');
+export const formatISODateToDateTime = (date, format) => {
+  return moment(date).format(format || 'DD/MM/YYYY - HH:MM');
+};
+
+export const getFullPathUrl = (path) => {
+  return `https://api.kalabooks.com/static/${path}/high`;
 };

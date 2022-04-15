@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { globalHistory, navigate } from '@reach/router';
+import { useSelector } from 'react-redux';
 
 import Avatar from '@/components/Avatar';
 import Button from '@/components/Button';
 import ConfirmModal from '@/containers/ConfirmModal/ConfirmModal';
 import { LayoutPaths, Paths } from '@/pages/routers';
 import AuthHelpers from '@/services/auth-helpers';
-import { dataMenuListProfile } from './ProfileCard.data';
-import './ProfileCard.scss';
 import { showNotification } from '@/utils/functions';
 import { ETypeNotification } from '@/utils/constants';
+
+import { dataMenuListProfile } from './ProfileCard.data';
+import './ProfileCard.scss';
 
 const ProfileCard = ({ onClickMenu }) => {
   const [pathName, setPathName] = useState('');
   const [visibleLogoutModal, setVisibleLogoutModal] = useState(false);
+
+  const profile = useSelector((state) => state.profileState.profile) ?? {};
 
   const handleChangeRouter = (pathname) => {
     setPathName(pathname);
@@ -62,10 +66,10 @@ const ProfileCard = ({ onClickMenu }) => {
     <div className="ProfileCard">
       <div className="ProfileCard-header flex flex-col justify-center items-center">
         <div className="ProfileCard-avatar">
-          <Avatar size={100} />
+          <Avatar size={100} image={profile.avatar} />
         </div>
-        <div className="ProfileCard-name">Nguyenthanh</div>
-        <div className="ProfileCard-email">Huyentruong123@gmail.com</div>
+        <div className="ProfileCard-name">{profile.name}</div>
+        <div className="ProfileCard-email">{profile.email}</div>
         <div className="ProfileCard-edit-btn flex justify-center">
           <Button
             size="small"

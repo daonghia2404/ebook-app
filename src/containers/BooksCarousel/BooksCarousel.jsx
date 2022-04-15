@@ -5,13 +5,12 @@ import { useSelector } from 'react-redux';
 import Button from '@/components/Button';
 import Carousels from '@/components/Carousels';
 import BookBlock from '@/components/BookBlock';
-import { Paths } from '@/pages/routers';
 import { navigate } from '@reach/router';
 import Loading from '@/containers/Loading/Loading';
 
 import './BooksCarousel.scss';
 
-const BooksCarousel = ({ title, data, darkBackground, loading }) => {
+const BooksCarousel = ({ title, data = [], darkBackground, link, loading }) => {
   const windowType = useSelector((state) => state.uiState.device);
 
   const renderSlidesToShow = () => {
@@ -20,10 +19,24 @@ const BooksCarousel = ({ title, data, darkBackground, loading }) => {
         return 2;
       case windowType.width <= 991:
         return 3;
-
       default:
         return 4;
     }
+  };
+
+  const isShowArrow = () => {
+    switch (true) {
+      case windowType.width <= 575:
+        return data.length > 2;
+      case windowType.width <= 991:
+        return data.length > 3;
+      default:
+        return data.length > 4;
+    }
+  };
+
+  const handleClickSeeMore = () => {
+    if (link) navigate(link);
   };
 
   return (
@@ -37,9 +50,9 @@ const BooksCarousel = ({ title, data, darkBackground, loading }) => {
             <div className="BooksCarousel-header-col flex items-center">
               <Button
                 title="Xem Thêm"
-                className="BooksCarousel-see-more primary-transparent"
+                className={classNames('BooksCarousel-see-more primary-transparent', { 'show-arrow': isShowArrow() })}
                 radius
-                onClick={() => navigate(Paths.BooksCategory)}
+                onClick={handleClickSeeMore}
               />
               <div className="BooksCarousel-header-arrow"></div>
             </div>
@@ -49,7 +62,7 @@ const BooksCarousel = ({ title, data, darkBackground, loading }) => {
             <Loading />
           ) : (
             <div className="BooksCarousel-list">
-              <Carousels arrows dots={false} slidesToShow={renderSlidesToShow()}>
+              <Carousels infinite={false} arrows dots={false} slidesToShow={renderSlidesToShow()}>
                 {data?.map((item, index) => (
                   <div key={index} className="BooksCarousel-list-item">
                     <BookBlock key={item._id} {...item} />

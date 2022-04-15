@@ -26,10 +26,10 @@ const SingIn = ({ onClickForgotPassword, onSignInSuccess }) => {
   return (
     <Form layout="vertical" className="AuthModal-form style-form" form={form} onFinish={handerSubmit}>
       <Form.Item label="Email" name="email" rules={[validationRules.required(), validationRules.email()]}>
-        <Input size="large" placeholder="Nhập Email của bạn..." />
+        <Input size="large" placeholder="Nhập email của bạn" />
       </Form.Item>
       <Form.Item label="Mật khẩu" name="password" rules={[validationRules.required()]}>
-        <Input size="large" placeholder="Nhập password..." type="password" />
+        <Input size="large" placeholder="Nhập password" type="password" />
       </Form.Item>
       <Form.Item>
         <div

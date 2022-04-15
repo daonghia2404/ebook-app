@@ -3,7 +3,7 @@ import { Input as AntdInput } from 'antd';
 
 import './Input.scss';
 
-const Input = ({ className, onChange, ...rest }) => {
+const Input = ({ className, onChange, type, ...rest }) => {
   const handleChange = (e) => {
     const { value: currentValue } = e.target;
     onChange?.(currentValue);
@@ -11,7 +11,11 @@ const Input = ({ className, onChange, ...rest }) => {
 
   return (
     <div className="Input">
-      <AntdInput {...rest} onChange={handleChange} />
+      {type === 'password' ? (
+        <AntdInput.Password type={type} onChange={handleChange} {...rest} />
+      ) : (
+        <AntdInput type={type} onChange={handleChange} {...rest} />
+      )}
     </div>
   );
 };

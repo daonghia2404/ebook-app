@@ -9,16 +9,24 @@ class Address {
     const response = await ApiService.post(`/address-shipping`, body);
     return response.data;
   }
+  async updateAddress(id, body) {
+    const response = await ApiService.put(`/address-shipping/${id}`, body);
+    return response.data;
+  }
+  async getDefaultAddress() {
+    const response = await ApiService.get(`/address-shipping/user/default`);
+    return response.data;
+  }
   async getProvince() {
-    const response = await ApiService.post(`/address-shipping/list/province`);
+    const response = await ApiService.get(`/address-shipping/list/province`);
     return response.data;
   }
   async getDistrict(params) {
-    const response = await ApiService.post(`/address-shipping/list/district`, { params });
+    const response = await ApiService.get(`/address-shipping/list/district`, { params });
     return response.data;
   }
   async getWard(params) {
-    const response = await ApiService.post(`/address-shipping/list/ward`, { params });
+    const response = await ApiService.get(`/address-shipping/list/ward`, { params });
     return response.data;
   }
   async caculateFeeShipping(body) {

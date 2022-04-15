@@ -8,61 +8,55 @@ import AddressListExisted from '@/containers/AddressListModal/AddressListExisted
 
 import { ETypeAddressListModal } from './AddressListModal.enums';
 import './AddressListModal.scss';
-import { addressListAction } from '@/redux/actions';
-import { useDispatch, useSelector } from 'react-redux';
-import { ETypePage } from '@/utils/constants';
 
-const AddressListModal = ({ visible, onClose }) => {
-  const dispatch = useDispatch();
-  const params = {
-    page: ETypePage.DEFAULT_PAGE,
-    pageSize: ETypePage.DEFAULT_PAGE_SIZE,
-  };
-  useEffect(() => {
-    if (visible) {
-      setTypeAddressListModal(ETypeAddressListModal.LIST);
-    }
-    getListAddress();
-  }, [visible]);
-  const getListAddress = () => {
-    dispatch(addressListAction.request(params));
-  };
-  const [typeAddressListModal, setTypeAddressListModal] = useState(ETypeAddressListModal.LIST);
-  const isListAddressModal = typeAddressListModal === ETypeAddressListModal.LIST;
-  const listAddress = useSelector((state) => state.addresState.address) ?? [];
+const AddressListModal = ({ visible, currentAddress, onClose, onSubmit }) => {
+  const [addressListState, setAddressListState] = useState({
+    type: ETypeAddressListModal.LIST,
+    data: undefined,
+  });
+
+  const isShowAddressList = addressListState.type === ETypeAddressListModal.LIST;
+
   const handleBack = () => {
-    switch (typeAddressListModal) {
+    switch (addressListState.type) {
       case ETypeAddressListModal.LIST:
         onClose?.();
         break;
       case ETypeAddressListModal.CREATE:
       case ETypeAddressListModal.UPDATE:
-        setTypeAddressListModal(ETypeAddressListModal.LIST);
+        handleChangeTypeAddressListModal(ETypeAddressListModal.LIST);
         break;
       default:
         break;
     }
   };
 
-  const handleEditAddress = () => {
-    setTypeAddressListModal(ETypeAddressListModal.UPDATE);
+  const handleChangeTypeAddressListModal = (type, data) => {
+    setAddressListState({ type, data });
   };
 
-  const handleCreateAddress = () => {
-    setTypeAddressListModal(ETypeAddressListModal.CREATE);
-  };
   const titleModal = () => {
-    switch (typeAddressListModal) {
+    switch (addressListState.type) {
       case ETypeAddressListModal.LIST:
         return 'Địa chỉ của bạn';
       case ETypeAddressListModal.CREATE:
         return 'Thêm địa chỉ mới';
       case ETypeAddressListModal.UPDATE:
-        return 'Cập nhật địa chỉ mới';
+        return 'Cập nhật địa chỉ';
       default:
         return '';
     }
   };
+
+  const handleSubmitAddressListConfig = () => {
+    handleChangeTypeAddressListModal(ETypeAddressListModal.LIST);
+  };
+
+  useEffect(() => {
+    if (visible) {
+      handleChangeTypeAddressListModal(ETypeAddressListModal.LIST);
+    }
+  }, [visible]);
 
   return (
     <Modal
@@ -82,15 +76,15 @@ const AddressListModal = ({ visible, onClose }) => {
         <div className="AddressListModal-title">{titleModal()}</div>
       </div>
 
-      {isListAddressModal ? (
+      {isShowAddressList ? (
         <AddressListExisted
-          data={listAddress}
-          onClose={onClose}
-          onEdit={handleEditAddress}
-          onAdd={handleCreateAddress}
+          currentAddress={currentAddress}
+          onSubmit={onSubmit}
+          onAdd={() => handleChangeTypeAddressListModal(ETypeAddressListModal.CREATE)}
+          onEdit={(data) => handleChangeTypeAddressListModal(ETypeAddressListModal.UPDATE, data)}
         />
       ) : (
-        <AddressListConfig />
+        <AddressListConfig {...addressListState} onSubmit={handleSubmitAddressListConfig} />
       )}
     </Modal>
   );

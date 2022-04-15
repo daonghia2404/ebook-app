@@ -7,6 +7,9 @@ import profileSaga from './profile';
 import notificationSaga from './notification';
 import addressSaga from './address';
 import rateProductSaga from './rate';
+import authorSaga from './author';
+import orderSaga from './order';
+import uploadSaga from './upload';
 
 const rootSaga = function* root() {
   yield all([
@@ -17,6 +20,9 @@ const rootSaga = function* root() {
     fork(notificationSaga),
     fork(addressSaga),
     fork(rateProductSaga),
+    fork(authorSaga),
+    fork(orderSaga),
+    fork(uploadSaga),
   ]);
 };
 

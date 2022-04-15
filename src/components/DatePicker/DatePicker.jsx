@@ -14,6 +14,7 @@ const DatePicker = ({ className, onChange, ...rest }) => {
     <div className="DatePicker">
       <AntdDatePicker
         {...rest}
+        format="DD/MM/YYYY"
         suffixIcon={<Icon name={EIconName.CaretDown} color={EIconColor.GRAY} />}
         onChange={handleChange}
       />

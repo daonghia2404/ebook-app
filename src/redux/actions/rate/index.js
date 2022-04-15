@@ -4,7 +4,7 @@ import { ERateProductAction } from './constants';
 export const postRateProductAction = {
   request: createActionCreator(
     ERateProductAction.POST_RATE_PRODUCT_REQUEST,
-    (resolve) => (body, cb) => resolve({ body, cb }),
+    (resolve) => (id, body, cb) => resolve({ id, body, cb }),
   ),
   success: createActionCreator(
     ERateProductAction.POST_RATE_PRODUCT_SUCCESS,
@@ -16,7 +16,7 @@ export const postRateProductAction = {
 export const getRateProductAction = {
   request: createActionCreator(
     ERateProductAction.GET_RATE_PRODUCT_REQUEST,
-    (resolve) => (body, cb) => resolve({ body, cb }),
+    (resolve) => (id, params, cb) => resolve({ id, params, cb }),
   ),
   success: createActionCreator(
     ERateProductAction.GET_RATE_PRODUCT_SUCCESS,
@@ -28,7 +28,7 @@ export const getRateProductAction = {
 export const getRateStatisticProductAction = {
   request: createActionCreator(
     ERateProductAction.GET_RATE_STATISTIC_PRODUCT_REQUEST,
-    (resolve) => (body, cb) => resolve({ body, cb }),
+    (resolve) => (id, cb) => resolve({ id, cb }),
   ),
   success: createActionCreator(
     ERateProductAction.GET_RATE_STATISTIC_PRODUCT_SUCCESS,

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import BooksList from '@/containers/BooksList';
 import { EProductAction } from '@/redux/actions/products/constants';
 import Loading from '@/containers/Loading/Loading';
+import Empty from '@/components/Empty/Empty';
 
 import './SearchResult.scss';
 
@@ -11,6 +12,8 @@ const SearchResult = () => {
   const productsSearch = useSelector((state) => state.productState?.books?.records) ?? [];
   const productsSearchTotal = useSelector((state) => state.productState?.books?.total) ?? 0;
   const getListProductSearchLoading = useSelector((state) => state.loading[EProductAction.GET_LIST_PRODUCT_SEARCH]);
+
+  const isEmpty = productsSearch.length === 0;
 
   return (
     <div className="SearchResult">
@@ -20,7 +23,7 @@ const SearchResult = () => {
         </div>
       </div>
 
-      {getListProductSearchLoading ? <Loading /> : <BooksList data={productsSearch} />}
+      {getListProductSearchLoading ? <Loading /> : <>{isEmpty ? <Empty /> : <BooksList data={productsSearch} />}</>}
     </div>
   );
 };

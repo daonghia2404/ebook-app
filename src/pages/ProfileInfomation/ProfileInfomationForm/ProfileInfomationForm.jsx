@@ -14,38 +14,47 @@ import { updateProfileAction } from '@/redux/actions';
 import { navigate } from '@reach/router';
 import { LayoutPaths, Paths } from '@/pages/routers';
 import { ETypeNotification } from '@/utils/constants';
+import moment from 'moment';
 
 const ProfileInfomationForm = () => {
   const [form] = Form.useForm();
-  const data = useSelector((state) => state.profileState.profile) ?? {};
-  const loading = useSelector((state) => state.loading[EProfileAction.UPDATE_PROFILE]);
+  const dispatch = useDispatch();
+
+  const profileData = useSelector((state) => state.profileState.profile) ?? {};
+  const updateProfileLoading = useSelector((state) => state.loading[EProfileAction.UPDATE_PROFILE]);
+
+  const handlerSubmit = (values) => {
+    const isChangeEmail = profileData.email !== values.email;
+    const isChangeAvatar = profileData.avatar !== values.avatar;
+
+    const body = {
+      avatar: isChangeAvatar ? values?.avatar : undefined,
+      name: values?.name,
+      email: isChangeEmail ? values?.email : undefined,
+      gender: values?.gender?.value,
+      phone: values?.phone,
+      dob: values?.dob,
+    };
+
+    dispatch(updateProfileAction.request(body, handleUpdateProfileSuccess));
+  };
+
+  const handleUpdateProfileSuccess = () => {
+    showNotification(ETypeNotification.SUCCESS, 'Cập nhật thông tin cá nhân thành công');
+    navigate(`${LayoutPaths.Profile}${Paths.ProfileInfomation}`);
+  };
+
   useEffect(() => {
     form.setFieldsValue({
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      dob: '',
-      avatar: data.avatar,
-      gender: data.gender,
+      name: profileData.name,
+      email: profileData.email,
+      phone: profileData.phone,
+      dob: profileData.dob ? moment(profileData.dob) : undefined,
+      avatar: profileData.avatar,
+      gender: dataGenderOptions.find((item) => profileData.gender === item.value),
     });
-  });
-  const handlerSubmit = (values) => {
-    const { avatar, dob, email, gender, phone, name } = values;
-    const newObj = {
-      name,
-      email,
-      gender: gender?.value,
-      phone,
-      dob,
-    };
-    dispatch(updateProfileAction.request(newObj, handleUpdateProfileSuccess));
-  };
-  const handleUpdateProfileSuccess = () => {
-    showNotification(ETypeNotification.SUCCESS, 'Cập nhật thành công !');
-    form.resetFields();
-    navigate(`${LayoutPaths.Profile}` + `${Paths.ProfileInfomation}`);
-  };
-  const dispatch = useDispatch();
+  }, [form, profileData]);
+
   return (
     <>
       <Form form={form} layout="vertical" className="ProfileInfomation-form style-form" onFinish={handlerSubmit}>
@@ -60,7 +69,7 @@ const ProfileInfomationForm = () => {
           label="Số điện thoại"
           rules={[validationRules.required(), validationRules.onlyNumeric()]}
         >
-          <Input size="large" value={data.phone} placeholder="Nhập số điện thoại" />
+          <Input size="large" placeholder="Nhập số điện thoại" />
         </Form.Item>
         <Form.Item name="email" label="Email" rules={[validationRules.required(), validationRules.email()]}>
           <Input size="large" placeholder="Nhập email" />
@@ -76,7 +85,14 @@ const ProfileInfomationForm = () => {
         </div>
 
         <Form.Item className="ProfileInfomationForm-submit">
-          <Button title="Lưu lại" size="large" loading={loading} htmlType="submit" uppercase type="primary" />
+          <Button
+            title="Lưu lại"
+            size="large"
+            loading={updateProfileLoading}
+            htmlType="submit"
+            uppercase
+            type="primary"
+          />
         </Form.Item>
       </Form>
     </>
