@@ -29,9 +29,9 @@ const App = () => {
           <PublicRoute path={Paths.Home} component={Pages.Home} />
           <PublicRoute path={Paths.SearchResult} component={Pages.SearchResult} />
           <PublicRoute path={Paths.BooksCategory} component={Pages.BooksCategory} />
+          <PublicRoute path={Paths.BooksListenCategory} component={Pages.BooksListenCategory} />
           <PublicRoute path={Paths.NewDetail()} component={Pages.NewDetail} />
           <PublicRoute path={Paths.BookDetail()} component={Pages.BookDetail} />
-          <PublicRoute path={Paths.BookListenDetail()} component={Pages.BookListenDetail} />
           <PublicRoute path={Paths.BookListenControl()} component={Pages.BookListenControl} />
           <ProtectedRoute path={Paths.Checkout} component={Pages.Checkout} />
 

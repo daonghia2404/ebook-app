@@ -59,7 +59,7 @@ export function* addToCartSaga(action) {
     const { body, cb } = action.payload;
     const response = yield call(ProductInstance.addToCart, body);
     yield put(addToCartAction.success(response));
-    cb?.();
+    cb?.(response);
   } catch (err) {
     yield put(addToCartAction.failure(err));
   }

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Form } from 'antd';
 
 import Logo from '@/assets/images/logo.svg';
 import Avatar from '@/components/Avatar';
@@ -15,13 +16,12 @@ import { Link, navigate } from '@reach/router';
 import { Paths } from '@/pages/routers';
 import { EDeviceType } from '@/redux/reducers/ui';
 import AuthHelpers from '@/services/auth-helpers';
-import './HeaderSearch.scss';
 import { EKeyStepForgotPasswordModal } from '@/containers/ForgotPasswordModal/ForgotPasswordModal.enums';
-
-import { showNotification } from '@/utils/functions';
 import { EProductAction } from '@/redux/actions/products/constants';
 import { getListCartAction, getListProductSearchAction, getProfileAction } from '@/redux/actions';
 import { ETypePage } from '@/utils/constants';
+
+import './HeaderSearch.scss';
 
 const HeaderSearch = () => {
   const dispatch = useDispatch();
@@ -69,22 +69,28 @@ const HeaderSearch = () => {
   const handleCartDropdownVisibleChange = (visible) => {
     setVisibleCartDropdown(visible);
   };
+
   const handleOpenCartDropdown = () => {
     setVisibleCartDropdown(true);
   };
+
   const handleCloseCartDropdown = () => {
     setVisibleCartDropdown(false);
   };
+
   const handleOpenMenuDropdown = () => {
     setVisibleMenuDropdown(true);
   };
+
   const handleCloseMenuDropdown = () => {
     setVisibleMenuDropdown(false);
   };
+
   const handleOpenForgotPasswordModal = (defaultStep, prevAction, data) => {
     handleCloseAuthModal();
     setForgotPasswordModalState({ visible: true, defaultStep, prevAction, data });
   };
+
   const handleCloseForgotPasswordModal = () => {
     setForgotPasswordModalState({ visible: false });
   };
@@ -96,15 +102,18 @@ const HeaderSearch = () => {
       type,
     });
   };
+
   const handleCloseAuthModal = () => {
     setAuthModalState({
       visible: false,
     });
   };
+
   const handleSignUpSuccess = (data) => {
     handleCloseAuthModal();
     handleOpenForgotPasswordModal(EKeyStepForgotPasswordModal.VETIFY_ACCOUNT, ETypeAuthModal.SIGN_UP, data);
   };
+
   const handleSignInSuccess = () => {
     handleCloseAuthModal();
   };
@@ -166,7 +175,7 @@ const HeaderSearch = () => {
             </DropdownCustom>
           ) : (
             <>
-              <div className="HeaderSearch-search flex items-center">
+              <Form className="HeaderSearch-search flex items-center" onFinish={handlerClickSearch}>
                 <Input
                   placeholder="Tìm kiếm"
                   value={getListProductSearchParamsRequest.name}
@@ -174,21 +183,21 @@ const HeaderSearch = () => {
                 />
                 <Button
                   type="primary"
-                  onClick={handlerClickSearch}
+                  htmlType="submit"
                   loading={getListProductSearchLoading}
                   icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />}
                 />
-              </div>
+              </Form>
               {atk ? (
                 <a href="/thong-tin">
                   <div className="HeaderSearch-avatar flex items-center">
-                    <Avatar />
+                    <Avatar image={profile.avatar} />
                     <span>{profile.name}</span>
                   </div>
                 </a>
               ) : (
                 <div className="HeaderSearch-account flex items-center">
-                  <Avatar />
+                  <Avatar image={profile.avatar} />
                   <div
                     className="HeaderSearch-account-link"
                     onClick={() => handleOpenAuthModal(ETypeAuthModal.SIGN_UP)}
@@ -212,10 +221,11 @@ const HeaderSearch = () => {
               onClose={handleCloseCartDropdown}
               maxWidth="63rem"
               placement="bottomRight"
-              overlay={<CartDropdown data={listCart} onClose={handleCloseCartDropdown} />}
+              overlay={<CartDropdown onClose={handleCloseCartDropdown} />}
+              onVisibleChange={handleCartDropdownVisibleChange}
             >
               <div className="HeaderSearch-cart" onClick={handleOpenCartDropdown}>
-                <div className="HeaderSearch-cart-badge">{listCart && listCart.length}</div>
+                <div className="HeaderSearch-cart-badge">{listCart?.length || 0}</div>
                 <Icon name={EIconName.ShoppingBag} color={EIconColor.MAKO} />
               </div>
             </DropdownCustom>

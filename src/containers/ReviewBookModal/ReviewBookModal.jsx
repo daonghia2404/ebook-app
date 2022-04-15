@@ -1,18 +1,45 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Rate } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Modal from '@/components/Modal';
 import BgSpecial from '@/assets/images/bg-special.png';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import OrdersList from '@/pages/Orders/OrdersList';
-import { validationRules } from '@/utils/functions';
-
-import './ReviewBookModal.scss';
+import { showNotification, validationRules } from '@/utils/functions';
 import TextArea from '@/components/TextArea';
 import Button from '@/components/Button';
+import { postRateProductAction } from '@/redux/actions';
+import { ETypeNotification } from '@/utils/constants';
+import { ERateProductAction } from '@/redux/actions/rate/constants';
 
-const ReviewBookModal = ({ visible, onClose }) => {
+import './ReviewBookModal.scss';
+
+const ReviewBookModal = ({ data, visible, onClose }) => {
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
+
+  console.log(data);
+
+  const postRateProductLoading = useSelector((state) => state.loading[ERateProductAction.POST_RATE_PRODUCT]);
+
+  const handleSubmit = (values) => {
+    const body = {
+      numberStar: values.numberStar || 1,
+      content: values.content,
+    };
+
+    dispatch(postRateProductAction.request(data.product, body, handleRateProductSuccess));
+  };
+
+  const handleRateProductSuccess = () => {
+    showNotification(ETypeNotification.SUCCESS, 'Đánh giá sản phẩm thành công');
+    onClose?.();
+  };
+
+  useEffect(() => {
+    if (!visible) form.resetFields();
+  }, [visible]);
 
   return (
     <Modal
@@ -34,15 +61,22 @@ const ReviewBookModal = ({ visible, onClose }) => {
 
       <OrdersList />
 
-      <Form className="ReviewBookModal-form" form={form} layout="vertical">
-        <Form.Item name="stars">
-          <Rate allowHalf />
+      <Form className="ReviewBookModal-form" form={form} layout="vertical" onFinish={handleSubmit}>
+        <Form.Item name="numberStar">
+          <Rate defaultValue={1} />
         </Form.Item>
         <Form.Item name="content" rules={[validationRules.required()]}>
           <TextArea placeholder="Viết đánh giá" />
         </Form.Item>
         <Form.Item>
-          <Button size="large" type="primary" title="Cập nhật" uppercase htmlType="submit" />
+          <Button
+            size="large"
+            type="primary"
+            title="Đánh giá"
+            uppercase
+            htmlType="submit"
+            loading={postRateProductLoading}
+          />
         </Form.Item>
       </Form>
     </Modal>

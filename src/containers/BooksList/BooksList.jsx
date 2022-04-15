@@ -1,14 +1,19 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { navigate } from '@reach/router';
 
 import BookBlock from '@/components/BookBlock';
 import Button from '@/components/Button';
 import Icon, { EIconName } from '@/components/Icon';
-import { useSelector } from 'react-redux';
+import Loading from '@/containers/Loading/Loading';
+import Empty from '@/components/Empty/Empty';
 
 import './BooksList.scss';
 
-const BooksList = ({ owner, title, data, layout = 4, onClickFilter }) => {
+const BooksList = ({ owner, title, data = [], link, layout = 4, loading, onClickFilter }) => {
   const windowType = useSelector((state) => state.uiState.device);
+
+  const isEmpty = data.length === 0;
 
   const renderLayoutColumns = () => {
     switch (true) {
@@ -24,39 +29,60 @@ const BooksList = ({ owner, title, data, layout = 4, onClickFilter }) => {
     }
   };
 
+  const handleClickSeeMore = () => {
+    if (link) navigate(link);
+  };
+
   return (
     <div className="BooksList">
       <div className="container">
-        <div className="BooksList-wrapper">
-          {title && (
-            <div className="BooksList-header flex items-center justify-between">
-              <div className="BooksList-header-col">
-                <div className="BooksList-title">{title}</div>
-              </div>
-              {!owner && (
-                <div className="BooksList-header-col flex items-center">
-                  {onClickFilter ? (
-                    <Icon name={EIconName.Filter} onClick={onClickFilter} />
-                  ) : (
-                    <Button title="Xem Thêm" className="BooksList-see-more primary-transparent" radius />
-                  )}
+        {loading ? (
+          <Loading />
+        ) : (
+          <div className="BooksList-wrapper">
+            {title && (
+              <div className="BooksList-header flex items-center justify-between">
+                <div className="BooksList-header-col">
+                  <div className="BooksList-title">{title}</div>
                 </div>
-              )}
-            </div>
-          )}
-
-          <div className="BooksList-list flex flex-wrap">
-            {data?.map((item, index) => (
-              <div
-                key={index}
-                className="BooksList-list-item"
-                style={{ flex: `0 0 ${100 / renderLayoutColumns()}%`, maxWidth: `${100 / renderLayoutColumns()}%` }}
-              >
-                <BookBlock {...item} owner={owner} />
+                {!owner && (
+                  <div className="BooksList-header-col flex items-center">
+                    {onClickFilter ? (
+                      <Icon name={EIconName.Filter} onClick={onClickFilter} />
+                    ) : (
+                      <>
+                        {link && (
+                          <Button
+                            title="Xem Thêm"
+                            className="BooksList-see-more primary-transparent"
+                            radius
+                            onClick={handleClickSeeMore}
+                          />
+                        )}
+                      </>
+                    )}
+                  </div>
+                )}
               </div>
-            ))}
+            )}
+
+            {isEmpty ? (
+              <Empty />
+            ) : (
+              <div className="BooksList-list flex flex-wrap">
+                {data?.map((item, index) => (
+                  <div
+                    key={index}
+                    className="BooksList-list-item"
+                    style={{ flex: `0 0 ${100 / renderLayoutColumns()}%`, maxWidth: `${100 / renderLayoutColumns()}%` }}
+                  >
+                    <BookBlock {...item} owner={owner} />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

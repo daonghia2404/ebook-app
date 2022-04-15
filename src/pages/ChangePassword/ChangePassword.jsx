@@ -12,25 +12,30 @@ import { updatePasswordAction } from '@/redux/actions';
 import { ETypeNotification } from '@/utils/constants';
 
 const ChangePassword = () => {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
-  const loading = useSelector((state) => state.loading[EAuthAction.UPDATE_PASSWORD]);
+
+  const updatePasswordLoading = useSelector((state) => state.loading[EAuthAction.UPDATE_PASSWORD]);
+
   const handleChangePassword = (passwordValue) => {
     setPassword(passwordValue);
   };
+
   const handerSubmit = (values) => {
     const { password, newPassword } = values;
-    const newObj = {
+    const body = {
       password,
       newPassword,
     };
-    dispatch(updatePasswordAction.request(newObj, handleChangePasswordSuccess));
+    dispatch(updatePasswordAction.request(body, handleChangePasswordSuccess));
   };
+
   const handleChangePasswordSuccess = () => {
     showNotification(ETypeNotification.SUCCESS, 'Đổi mật khẩu thành công');
     form.resetFields();
   };
+
   return (
     <div className="ChangePassword flex flex-col items-center justify-center">
       <Form form={form} layout="vertical" className="ChangePassword-form style-form" onFinish={handerSubmit}>
@@ -50,7 +55,14 @@ const ChangePassword = () => {
         </Form.Item>
 
         <Form.Item className="ChangePasswordForm-submit">
-          <Button title="CẬP NHẬT" size="large" loading={loading} htmlType="submit" uppercase type="primary" />
+          <Button
+            title="CẬP NHẬT"
+            size="large"
+            loading={updatePasswordLoading}
+            htmlType="submit"
+            uppercase
+            type="primary"
+          />
         </Form.Item>
       </Form>
     </div>

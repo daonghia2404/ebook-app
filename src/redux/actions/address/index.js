@@ -9,10 +9,26 @@ export const addressListAction = {
   success: createActionCreator(EAddressAction.ADDRESS_LIST_SUCCESS, (resolve) => (response) => resolve({ response })),
   failure: createActionCreator(EAddressAction.ADDRESS_LIST_FAILED, (resolve) => (error) => resolve({ error })),
 };
+export const getAddressDefaultAction = {
+  request: createActionCreator(EAddressAction.GET_ADDRESS_DEFAULT_REQUEST, (resolve) => (cb) => resolve({ cb })),
+  success: createActionCreator(
+    EAddressAction.GET_ADDRESS_DEFAULT_SUCCESS,
+    (resolve) => (response) => resolve({ response }),
+  ),
+  failure: createActionCreator(EAddressAction.GET_ADDRESS_DEFAULT_FAILED, (resolve) => (error) => resolve({ error })),
+};
 export const addAddressAction = {
   request: createActionCreator(EAddressAction.ADDRESS_ADD_REQUEST, (resolve) => (body, cb) => resolve({ body, cb })),
   success: createActionCreator(EAddressAction.ADDRESS_ADD_SUCCESS, (resolve) => (response) => resolve({ response })),
   failure: createActionCreator(EAddressAction.ADDRESS_ADD_FAILED, (resolve) => (error) => resolve({ error })),
+};
+export const updateAddressAction = {
+  request: createActionCreator(
+    EAddressAction.ADDRESS_UPDATE_REQUEST,
+    (resolve) => (id, body, cb) => resolve({ id, body, cb }),
+  ),
+  success: createActionCreator(EAddressAction.ADDRESS_UPDATE_SUCCESS, (resolve) => (response) => resolve({ response })),
+  failure: createActionCreator(EAddressAction.ADDRESS_UPDATE_FAILED, (resolve) => (error) => resolve({ error })),
 };
 export const getProvinceAction = {
   request: createActionCreator(EAddressAction.GET_PROVINCE_REQUEST, (resolve) => (cb) => resolve({ cb })),

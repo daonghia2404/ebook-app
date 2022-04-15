@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Upload from '@/components/Upload/Upload';
 import ImageAvatarDefault from '@/assets/images/image-avatar-default.png';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import LoadingSpin from '@/assets/icons/icon-loading-spin.svg';
+import { uploadFileAction } from '@/redux/actions';
+import { EUploadFileAction } from '@/redux/actions/upload/constants';
+import { getFullPathUrl } from '@/utils/functions';
 
 import './UploadAvatar.scss';
 
 const UploadAvatar = ({ className, value, onChange }) => {
-  const uploadLoading = false;
+  const dispatch = useDispatch();
+  const [currentValue, setCurrentValue] = useState(value);
+
+  const uploadLoading = useSelector((state) => state.loading[EUploadFileAction.UPLOAD_FILE]);
 
   const handleUpload = (data) => {
     const singleFile = data?.[0];
@@ -17,18 +24,24 @@ const UploadAvatar = ({ className, value, onChange }) => {
     if (singleFile) {
       const bodyFormData = new FormData();
       bodyFormData.append('file', singleFile);
+      dispatch(uploadFileAction.request(bodyFormData, handleUploadSuccess));
     }
   };
 
-  const handleUploadSuccess = (data) => {
-    onChange?.(data.filename);
+  const handleUploadSuccess = (response) => {
+    onChange?.(response.data.fileId);
+    setCurrentValue(response.data.fullUrl);
   };
+
+  useEffect(() => {
+    setCurrentValue(value);
+  }, [value]);
 
   return (
     <div className={classNames('UploadAvatar', className)}>
       <Upload disabled={uploadLoading} onChange={handleUpload}>
         <div className="UploadAvatar-image flex">
-          <img src={value || ImageAvatarDefault} alt="" />
+          <img src={currentValue || ImageAvatarDefault} alt="" />
 
           {uploadLoading && (
             <div className="UploadAvatar-loading flex items-center justify-center">

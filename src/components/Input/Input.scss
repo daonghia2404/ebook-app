@@ -18,4 +18,24 @@
       color: $oslo-gray;
     }
   }
+
+  .ant-input-affix-wrapper {
+    border: 1px solid $mercury;
+    min-height: 4.2rem;
+    padding: 1rem 1.5rem;
+    box-shadow: none;
+    border-radius: 1rem;
+
+    &:hover {
+      border-color: $mercury;
+    }
+
+    .ant-input {
+      min-height: auto;
+    }
+
+    &.ant-input-affix-wrapper-lg {
+      min-height: 5.4rem;
+    }
+  }
 }

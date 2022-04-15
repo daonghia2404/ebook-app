@@ -1,0 +1,23 @@
+@import '../../assets/styles/global';
+
+.Empty {
+  padding: 1.6rem;
+
+  &-image {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 30rem;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &-title {
+    font-size: 1.6rem;
+    color: $fun-green;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 2rem;
+  }
+}

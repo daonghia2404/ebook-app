@@ -1,14 +1,26 @@
 import React, { useEffect } from 'react';
-
-import ImageBook from '@/assets/images/image-book-1.png';
-import { EAddressAction } from '@/redux/actions/auth/constants';
-import './Checkout.scss';
-import CheckoutCard from '@/containers/CheckoutCard';
 import { useSelector } from 'react-redux';
-import { caculateTotal, showNotification } from '@/utils/functions';
+import { navigate, useLocation } from '@reach/router';
+
+import CheckoutCard from '@/containers/CheckoutCard';
+import { caculateTotal, formatMoneyVND, showNotification } from '@/utils/functions';
+import { Paths } from '@/pages/routers';
+import { ETypeNotification } from '@/utils/constants';
+import { ETypeBook } from '@/common/static';
+
+import './Checkout.scss';
 
 const Checkout = () => {
-  const listCart = useSelector((state) => state.productState.carts) ?? [];
+  const location = useLocation();
+  const { checkedCartData } = location.state;
+
+  useEffect(() => {
+    if (!checkedCartData || (checkedCartData && checkedCartData.length === 0)) {
+      navigate(Paths.Home);
+      showNotification(ETypeNotification.WARNING, 'Vui lòng chọn mua sản phẩm để thực hiện thanh toán');
+    }
+  }, [checkedCartData]);
+
   return (
     <div className="Checkout">
       <div className="container">
@@ -16,25 +28,30 @@ const Checkout = () => {
           <div className="Checkout-wrapper-item">
             <div className="Checkout-title">Danh sách sản phẩm</div>
             <div className="Checkout-list">
-              {listCart &&
-                listCart.map((item) => (
-                  <div key={item} className="Checkout-list-item flex">
-                    <div className="Checkout-list-item-image">
-                      <img src={item.product.image} alt="" />
-                    </div>
-                    <div className="Checkout-list-item-info flex flex-col">
-                      <div className="Checkout-list-item-info-title">
-                        {item.product.name} ({item.productType == 'AUDIO_BOOK' ? 'Sách nói' : 'Sách viết'}){' '}
-                      </div>
-                      <div className="Checkout-list-item-info-price">{item.product.price} đ</div>
-                      <div className="Checkout-list-item-info-amount">Số lượng : {item.amount}</div>
-                    </div>
+              {checkedCartData.map((item) => (
+                <div key={item} className="Checkout-list-item flex">
+                  <div className="Checkout-list-item-image">
+                    <img src={item.product.image} alt="" />
                   </div>
-                ))}
+                  <div className="Checkout-list-item-info flex flex-col">
+                    <div className="Checkout-list-item-info-title">
+                      {item.product.name} ({item.productType === ETypeBook.AUDIO_BOOK ? 'Sách nói' : 'Sách giấy'}){' '}
+                    </div>
+                    <div className="Checkout-list-item-info-price">
+                      {formatMoneyVND({ amount: item.product.price, showSuffix: true })}
+                    </div>
+                    <div className="Checkout-list-item-info-amount">Số lượng : {item.amount}</div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
           <div className="Checkout-wrapper-item">
-            <CheckoutCard countCart={listCart.length} subTotal={caculateTotal(listCart)} carts={listCart} />
+            <CheckoutCard
+              countCart={checkedCartData.length}
+              subTotal={caculateTotal(checkedCartData)}
+              carts={checkedCartData}
+            />
           </div>
         </div>
       </div>

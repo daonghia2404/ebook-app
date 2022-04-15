@@ -6,6 +6,8 @@ import {
   getDistrictAction,
   getWardAction,
   caculateAction,
+  getAddressDefaultAction,
+  updateAddressAction,
 } from '@/redux/actions';
 import AddressInstance from '@/services/api/address';
 
@@ -19,14 +21,34 @@ export function* getListAddressSaga(action) {
     yield put(addressListAction.failure(err));
   }
 }
-export function* saveAddressSaga(action) {
+export function* getAddressDefaultSaga(action) {
+  try {
+    const { cb } = action.payload;
+    const response = yield call(AddressInstance.getDefaultAddress);
+    yield put(getAddressDefaultAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(getAddressDefaultAction.failure(err));
+  }
+}
+export function* addAddressSaga(action) {
   try {
     const { body, cb } = action.payload;
     const response = yield call(AddressInstance.addAddress, body);
     yield put(addAddressAction.success(response));
-    cb?.();
+    cb?.(response);
   } catch (err) {
     yield put(addAddressAction.failure(err));
+  }
+}
+export function* updateAddressSaga(action) {
+  try {
+    const { id, body, cb } = action.payload;
+    const response = yield call(AddressInstance.updateAddress, id, body);
+    yield put(updateAddressAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(updateAddressAction.failure(err));
   }
 }
 export function* getProvinceSaga(action) {
@@ -71,7 +93,9 @@ export function* caculateShipSaga(action) {
 }
 export default function* root() {
   yield all([takeLatest(addressListAction.request.type, getListAddressSaga)]);
-  yield all([takeLatest(addAddressAction.request.type, saveAddressSaga)]);
+  yield all([takeLatest(addAddressAction.request.type, addAddressSaga)]);
+  yield all([takeLatest(updateAddressAction.request.type, updateAddressSaga)]);
+  yield all([takeLatest(getAddressDefaultAction.request.type, getAddressDefaultSaga)]);
   yield all([takeLatest(getProvinceAction.request.type, getProvinceSaga)]);
   yield all([takeLatest(getDistrictAction.request.type, getDistrictSaga)]);
   yield all([takeLatest(getWardAction.request.type, getWardSaga)]);

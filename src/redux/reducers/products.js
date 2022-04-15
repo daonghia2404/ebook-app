@@ -13,22 +13,22 @@ import {
 } from '@/redux/actions';
 
 const initialState = {
-  paperBooks: [],
-  audioBooks: [],
-  books: [],
+  paperBooks: {},
+  audioBooks: {},
+  books: {},
   book: {},
-  sameBooks: [],
-  carts: [],
+  sameBooks: {},
+  carts: {},
 };
 
 const reducer = createReducer(initialState, (handleAction) => [
   handleAction(getListProductPaperBookAction.success, (state, action) => {
     const { response } = action.payload;
-    return { ...state, paperBooks: response.data.records };
+    return { ...state, paperBooks: response.data };
   }),
   handleAction(getListProductAudioBookAction.success, (state, action) => {
     const { response } = action.payload;
-    return { ...state, audioBooks: response.data.records };
+    return { ...state, audioBooks: response.data };
   }),
   handleAction(getListProductSearchAction.success, (state, action) => {
     const { response } = action.payload;
@@ -38,25 +38,13 @@ const reducer = createReducer(initialState, (handleAction) => [
     const { response } = action.payload;
     return { ...state, book: response.data };
   }),
-  handleAction(addToCartAction.success, (state, action) => {
-    const { response } = action.payload;
-    return { ...state };
-  }),
   handleAction(getListCartAction.success, (state, action) => {
     const { response } = action.payload;
     return { ...state, carts: response.data };
   }),
-  handleAction(updateCartAction.success, (state, action) => {
-    const { response } = action.payload;
-    return { ...state };
-  }),
-  handleAction(deleteCartAction.success, (state, action) => {
-    const { response } = action.payload;
-    return { ...state };
-  }),
   handleAction(getSameProductAction.success, (state, action) => {
     const { response } = action.payload;
-    return { ...state, sameBooks: response.data.records };
+    return { ...state, sameBooks: response.data };
   }),
 ]);
 
