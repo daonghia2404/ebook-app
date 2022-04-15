@@ -93,7 +93,6 @@ const AddressListConfig = ({ type, data, onSubmit }) => {
 
   useEffect(() => {
     if (!isCreateAddress && data) {
-      console.log(data);
       form.setFieldsValue({ ...data });
     }
   }, [data]);

@@ -19,8 +19,6 @@ const ReviewBookModal = ({ data, visible, onClose }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
 
-  console.log(data);
-
   const postRateProductLoading = useSelector((state) => state.loading[ERateProductAction.POST_RATE_PRODUCT]);
 
   const handleSubmit = (values) => {
