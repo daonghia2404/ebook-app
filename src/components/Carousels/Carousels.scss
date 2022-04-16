@@ -2,19 +2,31 @@
 
 .Carousels {
   position: relative;
-  
+
   .slick-arrow {
     width: 3.2rem;
     height: 3.2rem;
+
     .ant-btn {
       padding: 0;
       border: none;
       background: transparent;
       box-shadow: none;
+      height: auto;
 
       .Button-icon {
         flex: 0 0 100%;
         max-width: 100%;
+
+        .Icon {
+          width: 100%;
+          height: 100%;
+
+          svg {
+            width: 100%;
+            height: 100%;
+          }
+        }
       }
     }
 
