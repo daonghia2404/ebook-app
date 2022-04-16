@@ -39,13 +39,22 @@ const ChangePassword = ({ onSuccess }) => {
       <div className="ForgotPasswordModal-title">Cập nhật mật khẩu</div>
       <div className="ForgotPasswordModal-description">Nhập mật khẩu mới để đăng nhập tài khoản</div>
       <Form form={form} layout="vertical" className="ForgotPasswordModal-form style-form" onFinish={handleSubmit}>
-        <Form.Item label="Mật khẩu" name="password" rules={[validationRules.required()]}>
+        <Form.Item
+          label="Mật khẩu"
+          name="password"
+          rules={[validationRules.required(), validationRules.noSpaceKey(), validationRules.minLength()]}
+        >
           <Input size="large" type="password" onChange={handleChangePassword} />
         </Form.Item>
         <Form.Item
           label="Nhập lại mật khẩu"
           name="confirmPassword"
-          rules={[validationRules.required(), validationRules.confirmPassword(password)]}
+          rules={[
+            validationRules.required(),
+            validationRules.noSpaceKey(),
+            validationRules.minLength(),
+            validationRules.confirmPassword(password),
+          ]}
         >
           <Input size="large" type="password" />
         </Form.Item>

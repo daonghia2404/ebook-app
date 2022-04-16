@@ -47,17 +47,18 @@
     }
   }
 
-  &-account {
+  &-avatar {
     font-size: 1.6rem;
     font-weight: 500;
     color: $mako;
     text-transform: uppercase;
-    margin-right: 2rem;
 
     .Avatar {
       margin-right: 1rem;
     }
+  }
 
+  &-account {
     &-link {
       font-size: 1.6rem;
       font-weight: 500;
@@ -75,6 +76,7 @@
   &-cart {
     flex: 0 0 2.2rem;
     max-width: 2.2rem;
+    margin-left: 2rem;
     position: relative;
 
     @media (max-width: 991px) {
@@ -147,13 +149,6 @@
           }
         }
       }
-    }
-  }
-
-  &-avatar {
-    span {
-      margin-right: 1rem;
-      color: $black;
     }
   }
 }

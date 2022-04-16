@@ -27,6 +27,7 @@ const BooksCategory = lazy(() => retryLoadComponent(() => import('@/pages/BooksC
 const BooksListenCategory = lazy(() => retryLoadComponent(() => import('@/pages/BooksListenCategory')));
 const NewDetail = lazy(() => retryLoadComponent(() => import('@/pages/NewDetail')));
 const Checkout = lazy(() => retryLoadComponent(() => import('@/pages/Checkout')));
+const PaymentResult = lazy(() => retryLoadComponent(() => import('@/pages/PaymentResult')));
 
 const ProfileInfomation = lazy(() => retryLoadComponent(() => import('@/pages/ProfileInfomation')));
 const ProfileInfomationEdit = lazy(() => retryLoadComponent(() => import('@/pages/ProfileInfomation')));
@@ -65,6 +66,7 @@ export const Paths = {
   BooksListenCategory: '/danh-sach/sach-noi',
   NewDetail: (id) => `${ModulePaths.New}/chi-tiet/${id || ':id'}`,
   Checkout: '/thanh-toan',
+  PaymentResult: '/ket-qua-thanh-toan',
 
   ProfileInfomation: '/thong-tin-ca-nhan',
   ProfileInfomationEdit: '/thong-tin-ca-nhan/chinh-sua',
@@ -95,6 +97,7 @@ export const Pages = {
   BooksListenCategory,
   NewDetail,
   Checkout,
+  PaymentResult,
 
   ProfileInfomation,
   ProfileInfomationEdit,

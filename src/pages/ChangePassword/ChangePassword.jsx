@@ -40,16 +40,29 @@ const ChangePassword = () => {
     <div className="ChangePassword flex flex-col items-center justify-center">
       <Form form={form} layout="vertical" className="ChangePassword-form style-form" onFinish={handerSubmit}>
         <div className="ChangePassword-form-title">Đổi mật khẩu</div>
-        <Form.Item label="Mật khẩu hiện tại" name="password" rules={[validationRules.required()]}>
+        <Form.Item
+          label="Mật khẩu hiện tại"
+          name="password"
+          rules={[validationRules.required(), validationRules.noSpaceKey(), validationRules.minLength()]}
+        >
           <Input placeholder="Nhập mật khẩu hiện tại" size="large" type="password" onChange={handleChangePassword} />
         </Form.Item>
-        <Form.Item label="Mật khẩu mới" name="newPassword" rules={[validationRules.required()]}>
+        <Form.Item
+          label="Mật khẩu mới"
+          name="newPassword"
+          rules={[validationRules.required(), validationRules.noSpaceKey(), validationRules.minLength()]}
+        >
           <Input placeholder="Nhập mật khẩu mới" size="large" type="password" onChange={handleChangePassword} />
         </Form.Item>
         <Form.Item
           label="Xác nhận mật khẩu mới"
           name="confirmPassword"
-          rules={[validationRules.required(), validationRules.confirmPassword(password)]}
+          rules={[
+            validationRules.required(),
+            validationRules.noSpaceKey(),
+            validationRules.minLength(),
+            validationRules.confirmPassword(password),
+          ]}
         >
           <Input placeholder="Nhập lại mật khẩu mới" size="large" type="password" />
         </Form.Item>

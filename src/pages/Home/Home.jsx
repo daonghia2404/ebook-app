@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import HomeBanner from '@/containers/HomeBanner/HomeBanner';
 import BooksCarousel from '@/containers/BooksCarousel';
-import { dataBookCarousel, dataNewsList } from '@/common/data';
 import NewsTab from '@/containers/NewsTab';
 import { EProductAction } from '@/redux/actions/products/constants';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +11,7 @@ import { ETypeBook } from '@/common/static';
 import { ENewAction } from '@/redux/actions/news/constants';
 import { EKeyNewsTab } from '@/containers/NewsTab/NewsTab.enums';
 import { Paths } from '@/pages/routers';
+import { scrollToTop } from '@/utils/functions';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -63,6 +63,10 @@ const Home = () => {
     getListProductByAudio();
     getNewsData();
   }, [getListProductByPaper, getListProductByAudio, getNewsData]);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <div className="Home">

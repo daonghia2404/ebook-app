@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { globalHistory, navigate } from '@reach/router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Avatar from '@/components/Avatar';
 import Button from '@/components/Button';
@@ -13,8 +13,10 @@ import { ETypeNotification } from '@/utils/constants';
 
 import { dataMenuListProfile } from './ProfileCard.data';
 import './ProfileCard.scss';
+import { getProfileAction } from '@/redux/actions';
 
 const ProfileCard = ({ onClickMenu }) => {
+  const dispatch = useDispatch();
   const [pathName, setPathName] = useState('');
   const [visibleLogoutModal, setVisibleLogoutModal] = useState(false);
 
@@ -47,8 +49,9 @@ const ProfileCard = ({ onClickMenu }) => {
   };
   const handleSubmitLogoutModal = () => {
     AuthHelpers.clearTokens();
+    dispatch(getProfileAction.success({ data: {} }));
     showNotification(ETypeNotification.SUCCESS, 'Đăng xuất thành công');
-    navigate('/');
+    navigate(Paths.Home);
     handleCloseLogoutModal();
   };
 

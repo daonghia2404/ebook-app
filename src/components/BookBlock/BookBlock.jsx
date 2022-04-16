@@ -5,7 +5,6 @@ import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { navigate } from '@reach/router';
 import { Paths } from '@/pages/routers';
-import { ETypeBook } from '@/common/static';
 import { formatMoneyVND, showNotification } from '@/utils/functions';
 import AuthHelpers from '@/services/auth-helpers';
 import { EProductAction } from '@/redux/actions/products/constants';
@@ -91,8 +90,8 @@ const BookBlock = ({ image, type, owner, name, price, prePrice, _id, ...rest }) 
       {!owner && (
         <>
           <div className="BookBlock-price flex justify-center">
-            <span>{formatMoneyVND({ amount: price, showSuffix: true })}</span>
             {prePrice && <del>{formatMoneyVND({ amount: prePrice, showSuffix: true })}</del>}
+            <span>{formatMoneyVND({ amount: price, showSuffix: true })}</span>
           </div>
           <div className="BookBlock-action flex justify-between">
             <Button

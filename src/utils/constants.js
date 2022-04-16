@@ -80,4 +80,5 @@ export const ERegex = {
   alphanumerial: /^[a-z0-9\s]+$/i,
   numeric: /^\d+$/i,
   onlySpecialKey: /[$&+,:;=?@#|'<>.^*()%`~_!\-"\]\[\\}{'/]/g,
+  onlySpace: /\s/i,
 };

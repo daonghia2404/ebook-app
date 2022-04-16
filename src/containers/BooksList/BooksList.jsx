@@ -48,7 +48,7 @@ const BooksList = ({ owner, title, data = [], link, layout = 4, loading, onClick
                 {!owner && (
                   <div className="BooksList-header-col flex items-center">
                     {onClickFilter ? (
-                      <Icon name={EIconName.Filter} onClick={onClickFilter} />
+                      <Icon className="filter" name={EIconName.Filter} onClick={onClickFilter} />
                     ) : (
                       <>
                         {link && (

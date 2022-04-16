@@ -1,0 +1,43 @@
+@import '../../assets/styles/global';
+
+.PaymentResult {
+  padding: 7rem 16rem;
+
+  &-wrapper {
+    max-width: 60rem;
+    margin: 0 auto;
+  }
+
+  &-table {
+    margin: 5rem 0;
+    border: 1px solid $mercury;
+  }
+
+  &-row {
+    &:nth-child(even) {
+      background: $athens-gray;
+    }
+  }
+
+  &-text {
+    flex: 0 0 50%;
+    max-width: 50%;
+    border: 1px solid $mercury;
+    padding: .8rem;
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+
+  &-title {
+    font-size: 3.6rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  &-text {
+    font-size: 1.8rem;
+    color: $fun-green;
+  }
+}

@@ -34,10 +34,10 @@ const App = () => {
           <PublicRoute path={Paths.BookDetail()} component={Pages.BookDetail} />
 
           <ProtectedRoute path={Paths.Checkout} component={Pages.Checkout} />
+          <ProtectedRoute path={Paths.PaymentResult} component={Pages.PaymentResult} />
           <ProtectedRoute path={Paths.MyBookDetail()} component={Pages.MyBookDetail} />
-
-          <PublicRoute path={Paths.BookReader} component={Pages.BookReader} />
-          <PublicRoute path={Paths.BookAudio} component={Pages.BookAudio} />
+          <ProtectedRoute path={Paths.BookReader} component={Pages.BookReader} />
+          <ProtectedRoute path={Paths.BookAudio} component={Pages.BookAudio} />
 
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
         </Guest>

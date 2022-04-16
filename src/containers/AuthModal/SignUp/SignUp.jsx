@@ -42,24 +42,33 @@ const SignUp = ({ onSignUpSuccess }) => {
       <Form.Item
         label="Tên của bạn"
         name="name"
-        rules={[validationRules.required(), validationRules.minLength(undefined, 4)]}
+        rules={[validationRules.required(), validationRules.noSpaceKey(), validationRules.minLength(6)]}
       >
         <Input size="large" placeholder="Nhập tên" />
       </Form.Item>
       <Form.Item label="Email" name="email" rules={[validationRules.required(), validationRules.email()]}>
         <Input size="large" placeholder="Nhập email" />
       </Form.Item>
-      <Form.Item label="Mật khẩu" name="password" rules={[validationRules.required()]}>
+      <Form.Item
+        label="Mật khẩu"
+        name="password"
+        rules={[validationRules.required(), validationRules.noSpaceKey(), validationRules.minLength()]}
+      >
         <Input size="large" placeholder="Nhập password" type="password" onChange={handleChangePassword} />
       </Form.Item>
       <Form.Item
         label="Nhập lại mật khẩu"
         name="confirmPassword"
-        rules={[validationRules.required(), validationRules.confirmPassword(password)]}
+        rules={[
+          validationRules.required(),
+          validationRules.noSpaceKey(),
+          validationRules.minLength(),
+          validationRules.confirmPassword(password),
+        ]}
       >
         <Input size="large" type="password" placeholder="Nhập lại password" />
       </Form.Item>
-      <Form.Item label="ID giới thiệu" name="referCode">
+      <Form.Item label="ID giới thiệu" name="referCode" rules={[validationRules.noSpaceKey()]}>
         <Input size="large" placeholder="Nhập mã giới thiệu" />
       </Form.Item>
 

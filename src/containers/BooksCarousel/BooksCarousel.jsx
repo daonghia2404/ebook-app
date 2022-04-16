@@ -17,10 +17,14 @@ const BooksCarousel = ({ title, data = [], darkBackground, link, loading }) => {
     switch (true) {
       case windowType.width <= 575:
         return 2;
-      case windowType.width <= 991:
+      case windowType.width <= 768:
         return 3;
-      default:
+      case windowType.width <= 991:
         return 4;
+      case windowType.width <= 1200:
+        return 4;
+      default:
+        return 5;
     }
   };
 

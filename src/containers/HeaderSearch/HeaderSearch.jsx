@@ -13,13 +13,14 @@ import DropdownCustom from '@/components/DropdownCustom';
 import CartDropdown from '@/containers/CartDropdown/CartDropdown';
 import ForgotPasswordModal from '@/containers/ForgotPasswordModal';
 import { Link, navigate } from '@reach/router';
-import { Paths } from '@/pages/routers';
+import { LayoutPaths, Paths } from '@/pages/routers';
 import { EDeviceType } from '@/redux/reducers/ui';
 import AuthHelpers from '@/services/auth-helpers';
 import { EKeyStepForgotPasswordModal } from '@/containers/ForgotPasswordModal/ForgotPasswordModal.enums';
 import { EProductAction } from '@/redux/actions/products/constants';
 import { getListCartAction, getListProductSearchAction, getProfileAction } from '@/redux/actions';
-import { ETypePage } from '@/utils/constants';
+import { ETypePage, ETypeNotification } from '@/utils/constants';
+import { showNotification } from '@/utils/functions';
 
 import './HeaderSearch.scss';
 
@@ -71,7 +72,11 @@ const HeaderSearch = () => {
   };
 
   const handleOpenCartDropdown = () => {
-    setVisibleCartDropdown(true);
+    if (atk) {
+      setVisibleCartDropdown(true);
+    } else {
+      showNotification(ETypeNotification.WARNING, 'Vui lòng đăng nhập để tiếp tục thực hiện hành động này');
+    }
   };
 
   const handleCloseCartDropdown = () => {
@@ -195,15 +200,14 @@ const HeaderSearch = () => {
                 />
               </Form>
               {atk ? (
-                <a href="/thong-tin">
+                <Link to={LayoutPaths.Profile}>
                   <div className="HeaderSearch-avatar flex items-center">
                     <Avatar image={profile.avatar} />
                     <span>{profile.name}</span>
                   </div>
-                </a>
+                </Link>
               ) : (
                 <div className="HeaderSearch-account flex items-center">
-                  <Avatar image={profile.avatar} />
                   <div
                     className="HeaderSearch-account-link"
                     onClick={() => handleOpenAuthModal(ETypeAuthModal.SIGN_UP)}
@@ -221,7 +225,7 @@ const HeaderSearch = () => {
               )}
             </>
           )}
-          {atk && (
+          {atk ? (
             <DropdownCustom
               visible={visibleCartDropdown}
               onClose={handleCloseCartDropdown}
@@ -235,6 +239,11 @@ const HeaderSearch = () => {
                 <Icon name={EIconName.ShoppingBag} color={EIconColor.MAKO} />
               </div>
             </DropdownCustom>
+          ) : (
+            <div className="HeaderSearch-cart cursor-pointer" onClick={handleOpenCartDropdown}>
+              <div className="HeaderSearch-cart-badge">0</div>
+              <Icon name={EIconName.ShoppingBag} color={EIconColor.MAKO} />
+            </div>
           )}
         </div>
       </div>

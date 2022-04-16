@@ -94,11 +94,11 @@ export const validationRules = {
     required: true,
     message: message || 'Vui lòng nhập đầy đủ thông tin trường',
   }),
-  minLength: (message, length = 2) => ({
+  minLength: (length = 8, message) => ({
     min: length,
     message: message || `Vui lòng nhập tối thiểu ít nhất ${length} ký tự`,
   }),
-  maxLength: (message, length = 10) => ({
+  maxLength: (length = 10, message) => ({
     max: length,
     message: message || `Vui lòng nhập tối đa nhiều nhất ${length} ký tự`,
   }),
@@ -106,10 +106,22 @@ export const validationRules = {
     type: 'email',
     message: message || 'Vui lòng nhập email hợp lệ',
   }),
+  bitrhDay: (message) => ({
+    validator: (rule, value) => {
+      if (value.isBefore(moment().subtract(1, 'days'))) return Promise.resolve();
+      return Promise.reject(message || 'Vui lòng chọn ngày sinh hợp lệ');
+    },
+  }),
   noSpecialKey: (message) => ({
     validator: (rule, value) => {
       if (!value || !ERegex.onlySpecialKey.test(value)) return Promise.resolve();
       return Promise.reject(message || 'Cannot enter special characters');
+    },
+  }),
+  noSpaceKey: (message) => ({
+    validator: (rule, value) => {
+      if (!value || !ERegex.onlySpace.test(value)) return Promise.resolve();
+      return Promise.reject(message || 'Vui lòng không nhập ký tự khoảng trắng');
     },
   }),
   onlyAlphabetic: (message) => ({
@@ -181,4 +193,8 @@ export const getFullPathUrl = (path) => {
 
 export const formatDuration = (milliseconds = 0) => {
   return moment.utc(milliseconds * 1000).format('HH:mm:ss');
+};
+
+export const decodeResultPayment = (str) => {
+  return decodeURIComponent(escape(window.atob(str)));
 };

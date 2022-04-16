@@ -106,7 +106,12 @@ const AddressListConfig = ({ type, data, onSubmit }) => {
         <Form.Item
           name="phone"
           label="Số điện thoại"
-          rules={[validationRules.required(), validationRules.onlyNumeric()]}
+          rules={[
+            validationRules.required(),
+            validationRules.noSpaceKey(),
+            validationRules.maxLength(10),
+            validationRules.onlyNumeric(),
+          ]}
         >
           <Input size="large" placeholder="Nhập số điện thoại" />
         </Form.Item>

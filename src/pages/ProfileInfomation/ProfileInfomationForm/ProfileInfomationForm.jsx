@@ -10,7 +10,7 @@ import Radio from '@/components/Radio/Radio';
 import { dataGenderOptions } from '@/common/static';
 import { useDispatch, useSelector } from 'react-redux';
 import { EProfileAction } from '@/redux/actions/profile/constants';
-import { updateProfileAction } from '@/redux/actions';
+import { getProfileAction, updateProfileAction } from '@/redux/actions';
 import { navigate } from '@reach/router';
 import { LayoutPaths, Paths } from '@/pages/routers';
 import { ETypeNotification } from '@/utils/constants';
@@ -41,7 +41,12 @@ const ProfileInfomationForm = () => {
 
   const handleUpdateProfileSuccess = () => {
     showNotification(ETypeNotification.SUCCESS, 'Cập nhật thông tin cá nhân thành công');
+    getProfile();
     navigate(`${LayoutPaths.Profile}${Paths.ProfileInfomation}`);
+  };
+
+  const getProfile = () => {
+    dispatch(getProfileAction.request());
   };
 
   useEffect(() => {
@@ -67,14 +72,19 @@ const ProfileInfomationForm = () => {
         <Form.Item
           name="phone"
           label="Số điện thoại"
-          rules={[validationRules.required(), validationRules.onlyNumeric()]}
+          rules={[
+            validationRules.required(),
+            validationRules.noSpaceKey(),
+            validationRules.maxLength(10),
+            validationRules.onlyNumeric(),
+          ]}
         >
           <Input size="large" placeholder="Nhập số điện thoại" />
         </Form.Item>
         <Form.Item name="email" label="Email" rules={[validationRules.required(), validationRules.email()]}>
           <Input size="large" placeholder="Nhập email" />
         </Form.Item>
-        <Form.Item name="dob" label="Ngày sinh" rules={[validationRules.required()]}>
+        <Form.Item name="dob" label="Ngày sinh" rules={[validationRules.required(), validationRules.bitrhDay()]}>
           <DatePicker size="large" placeholder="Chọn ngày sinh" />
         </Form.Item>
         <div className="ProfileInfomation-form-row flex justify-end">
