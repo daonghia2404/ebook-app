@@ -126,12 +126,17 @@ const HeaderSearch = () => {
   const renderDropdownMenuMobile = () => {
     return (
       <div className="HeaderSearch-menu-mobile">
-        <div className="HeaderSearch-menu-mobile-item" onClick={() => handleOpenAuthModal(ETypeAuthModal.SIGN_UP)}>
-          Đăng Ký
-        </div>
-        <div className="HeaderSearch-menu-mobile-item" onClick={() => handleOpenAuthModal(ETypeAuthModal.SIGN_IN)}>
-          Đăng Nhập
-        </div>
+        {!atk && (
+          <>
+            <div className="HeaderSearch-menu-mobile-item" onClick={() => handleOpenAuthModal(ETypeAuthModal.SIGN_UP)}>
+              Đăng Ký
+            </div>
+            <div className="HeaderSearch-menu-mobile-item" onClick={() => handleOpenAuthModal(ETypeAuthModal.SIGN_IN)}>
+              Đăng Nhập
+            </div>
+          </>
+        )}
+
         <div className="HeaderSearch-menu-mobile-item">
           <div className="HeaderSearch-menu-mobile-item-search flex items-center">
             <Input placeholder="Tìm kiếm" />
@@ -173,17 +178,26 @@ const HeaderSearch = () => {
             </Link>
           </div>
           {isMobile ? (
-            <DropdownCustom
-              visible={visibleMenuDropdown}
-              onClose={handleCloseMenuDropdown}
-              maxWidth="50rem"
-              placement="bottomRight"
-              overlay={renderDropdownMenuMobile()}
-            >
-              <div className="HeaderSearch-menu" onClick={handleOpenMenuDropdown}>
-                <Icon name={EIconName.Menu} color={EIconColor.FUN_GREEN} />
-              </div>
-            </DropdownCustom>
+            <>
+              <DropdownCustom
+                visible={visibleMenuDropdown}
+                onClose={handleCloseMenuDropdown}
+                maxWidth="50rem"
+                placement="bottomRight"
+                overlay={renderDropdownMenuMobile()}
+              >
+                <div className="HeaderSearch-menu" onClick={handleOpenMenuDropdown}>
+                  <Icon name={EIconName.Menu} color={EIconColor.FUN_GREEN} />
+                </div>
+              </DropdownCustom>
+              {atk && (
+                <Link to={LayoutPaths.Profile}>
+                  <div className="HeaderSearch-avatar flex items-center">
+                    <Avatar image={profile.avatar} />
+                  </div>
+                </Link>
+              )}
+            </>
           ) : (
             <>
               <Form className="HeaderSearch-search flex items-center" onFinish={handlerClickSearch}>

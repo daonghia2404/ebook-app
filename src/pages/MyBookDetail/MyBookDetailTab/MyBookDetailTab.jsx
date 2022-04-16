@@ -21,8 +21,8 @@ const MyBookDetailTab = () => {
   //   }
   // }, [keyTabList, dispatch, id]);
 
-  const handleReadBook = (id, index) => {
-    navigate(`${Paths.BookReader}?voice=${bookData.voice?.[index]?._id}&product=${bookData._id}`);
+  const handleReadBook = (id) => {
+    navigate(`${Paths.BookReader}?voice=${id}&product=${bookData._id}`);
   };
   const handleListenBook = (id) => {
     navigate(`${Paths.BookAudio}?voice=${id}&product=${bookData._id}`);
@@ -52,7 +52,7 @@ const MyBookDetailTab = () => {
                 title={`Đọc sách: ${bookData.name}`}
                 description="Bấm vào đây để đọc sách"
                 pdf
-                onClick={() => handleReadBook(item._id, index)}
+                onClick={() => handleReadBook(item._id)}
               />
             ))}
           </>

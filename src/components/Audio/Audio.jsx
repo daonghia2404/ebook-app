@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import TimeSlider from 'react-input-slider';
 
 import ImagePlay from '@/assets/icons/icon-audio-play.svg';
@@ -8,9 +8,9 @@ import ImageNext from '@/assets/icons/icon-audio-next.svg';
 import { formatDuration } from '@/utils/functions';
 
 import SampleAudio from './sample-mp3.mp3';
+import Loading from '@/containers/Loading/Loading';
 
 import './Audio.scss';
-import Loading from '@/containers/Loading/Loading';
 
 const Audio = ({ image, title, src = SampleAudio }) => {
   const audioRef = useRef();
@@ -52,6 +52,10 @@ const Audio = ({ image, title, src = SampleAudio }) => {
   const handleClickAudioNext = () => {
     // setAudioIndex((audioIndex + 1) % audios.length);
   };
+
+  useEffect(() => {
+    setDuration(0);
+  }, [src]);
 
   return (
     <div className="Audio">

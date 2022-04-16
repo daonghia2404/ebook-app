@@ -23,6 +23,8 @@ const BookAudio = () => {
   const bookData = useSelector((state) => state.productState.book) ?? {};
   const getBookLoading = useSelector((state) => state.loading[EProductAction.GET_DETAIL_PRODUCT]);
 
+  const fileData = useSelector((state) => state.profileState.voiceMyBook);
+
   const isAvaiablePage = voice && product;
 
   const getVoiceMyBookData = useCallback(() => {
@@ -55,7 +57,7 @@ const BookAudio = () => {
           ) : (
             <>
               <div className="BookAudio-control">
-                <Audio image={bookData.image} title={bookData.name} />
+                <Audio src={fileData.url} image={bookData.image} title={bookData.name} />
               </div>
               <div className="BookAudio-list">
                 <div className="BookAudio-list-title">Danh sách</div>

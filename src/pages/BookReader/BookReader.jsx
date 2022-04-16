@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { navigate, useLocation } from '@reach/router';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 import classNames from 'classnames';
@@ -22,6 +22,8 @@ const BookReader = () => {
   const voice = query.get('voice');
   const product = query.get('product');
   const page = query.get('page');
+
+  const fileData = useSelector((state) => state.profileState.fileMyBook);
 
   const [pageNumber, setPageNumber] = useState({
     page,
@@ -76,7 +78,7 @@ const BookReader = () => {
     <div className="BookReader">
       <div className="container">
         <div className="BookReader-wrapper">
-          <Document file={SamplePdf} onLoadSuccess={handleLoadPdfSuccess}>
+          <Document file={fileData.url} onLoadSuccess={handleLoadPdfSuccess}>
             <Page pageNumber={pageNumber.page} />
           </Document>
 
@@ -89,7 +91,7 @@ const BookReader = () => {
             </div>
             <div className="BookReader-footer-item">
               <span>
-                {pageNumber.page} / {pageNumber.total}
+                {pageNumber.page || 0} / {pageNumber.total}
               </span>
             </div>
             <div
