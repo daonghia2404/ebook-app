@@ -35,7 +35,7 @@ const Checkout = () => {
                   </div>
                   <div className="Checkout-list-item-info flex flex-col">
                     <div className="Checkout-list-item-info-title">
-                      {item.product.name} ({item.productType === ETypeBook.AUDIO_BOOK ? 'Sách nói' : 'Sách giấy'}){' '}
+                      {item.product.name} ({item.productType === ETypeBook.AUDIO_BOOK ? 'Ebook' : 'Sách giấy'}){' '}
                     </div>
                     <div className="Checkout-list-item-info-price">
                       {formatMoneyVND({ amount: item.product.price, showSuffix: true })}

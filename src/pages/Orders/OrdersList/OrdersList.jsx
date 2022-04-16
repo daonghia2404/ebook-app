@@ -21,7 +21,7 @@ const OrdersList = ({ data = [], onClickOrderItem }) => {
                   const isNotLastItem = productIndex !== item.products.length - 1;
                   return (
                     <>
-                      <span>{product.type === ETypeBook.PAPER_BOOK ? 'Sách giấy' : 'Sách nói'}: </span>
+                      <span>{product.type === ETypeBook.PAPER_BOOK ? 'Sách giấy' : 'Ebook'}: </span>
                       {product.name}
                       {isNotLastItem && ', '}
                     </>

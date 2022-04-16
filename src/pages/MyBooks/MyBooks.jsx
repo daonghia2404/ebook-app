@@ -19,8 +19,10 @@ const MyBooks = () => {
 
   const getMyBooksLoading = useSelector((state) => state.loading[EProfileAction.MY_BOOK]);
 
-  const myBooksData = useSelector((state) => state.profileState.myBookList?.records) ?? [];
-  const isEmpty = myBooksData.length === 0;
+  const myBooksState = useSelector((state) => state.profileState.myBookList?.records) ?? [];
+  const myBookData = myBooksState.map((item) => ({
+    ...item.product,
+  }));
 
   const getListMyBook = useCallback(() => {
     dispatch(getListMyBookAction.request(getMyBooksParamsRequest));
@@ -32,7 +34,7 @@ const MyBooks = () => {
 
   return (
     <div className="MyBooks">
-      {getMyBooksLoading ? <Loading /> : <BooksList owner title="Sách của tôi" data={myBooksData} />}
+      {getMyBooksLoading ? <Loading /> : <BooksList owner title="Sách của tôi" data={myBookData} />}
     </div>
   );
 };

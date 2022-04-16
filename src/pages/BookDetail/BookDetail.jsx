@@ -16,13 +16,12 @@ import Loading from '@/containers/Loading/Loading';
 
 import { EKeyTabBookDetail } from './BookDetail.enums';
 import './BookDetail.scss';
-import { ETypeBook } from '@/common/static';
+import { ETypeBook, LIMIT_DESCRIPTION_LENGTH } from '@/common/static';
 
 const BookDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const atk = AuthHelpers.getAccessToken();
-  const LIMIT_DESCRIPTION_LENGTH = 300;
 
   const addCartLoading = useSelector((state) => state.loading[EProductAction.ADD_TO_CART_PRODUCT]);
   const getBookLoading = useSelector((state) => state.loading[EProductAction.GET_DETAIL_PRODUCT]);
@@ -113,7 +112,7 @@ const BookDetail = () => {
               </div>
               <div className="BookDetail-main-item">
                 <div className="BookDetail-title">
-                  {bookData.name} <span>({isPaperBook ? 'Sách giấy' : 'Sách nói'})</span>
+                  {bookData.name} <span>({isPaperBook ? 'Sách giấy' : 'Ebook'})</span>
                 </div>
                 <div className="BookDetail-row flex justify-between items-center">
                   <div className="BookDetail-author">{bookData?.author?.name}</div>

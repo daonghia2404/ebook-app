@@ -13,6 +13,14 @@ class Profile {
     const response = await ApiService.get(`/my-book`, { params });
     return response.data;
   }
+  async getFileMyBook(body) {
+    const response = await ApiService.post(`/my-book/file-url`, body);
+    return response.data;
+  }
+  async getVoiceMyBook(body) {
+    const response = await ApiService.post(`/my-book/voice-url`, body);
+    return response.data;
+  }
 }
 
 const ProfileInstance = new Profile();

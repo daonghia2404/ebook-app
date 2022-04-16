@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { navigate } from '@reach/router';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
@@ -14,6 +14,7 @@ import { ETypeNotification } from '@/utils/constants';
 import { EProductAction } from '@/redux/actions/products/constants';
 import Loading from '@/containers/Loading/Loading';
 import Empty from '@/components/Empty/Empty';
+import { ETypeBook } from '@/common/static';
 
 import './CartDropdown.scss';
 
@@ -104,9 +105,11 @@ const CartDropdown = ({ onClose }) => {
                 </div>
                 <div className="CartDropdown-list-item-book-info">
                   <div className="CartDropdown-list-item-book-info-title">
-                    {item.product.name} ({item.productType == 'AUDIO_BOOK' ? 'Sách nói' : 'Sách viết'})
+                    {item.product.name} ({item.productType == ETypeBook.AUDIO_BOOK ? 'Ebook' : 'Sách giấy'})
                   </div>
-                  <div className="CartDropdown-list-item-book-info-price">{item.product.price}đ</div>
+                  <div className="CartDropdown-list-item-book-info-price">
+                    {formatMoneyVND({ amount: item.product.price, showSuffix: true })}
+                  </div>
                   <div className="CartDropdown-list-item-book-info-actions">
                     <Amount
                       value={item.amount}
@@ -136,7 +139,8 @@ const CartDropdown = ({ onClose }) => {
         <div className="CartDropdown-footer-item">
           <Checkbox value={checkedCartData.length === listCart.length} label="Tất cả" onChange={handleCheckAllCart} />
           <div className="CartDropdown-footer-total">
-            Tổng tiền hàng <span>{formatMoneyVND({ amount: caculateTotal(listCart) || 0, showSuffix: true })}</span>
+            Tổng tiền hàng{' '}
+            <span>{formatMoneyVND({ amount: caculateTotal(checkedCartData) || 0, showSuffix: true })}</span>
           </div>
         </div>
         <div className="CartDropdown-footer-item">

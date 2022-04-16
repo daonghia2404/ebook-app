@@ -69,7 +69,7 @@ const Home = () => {
       <HomeBanner />
       <BooksCarousel title="Sách Giấy" data={paperBooks} loading={getPaperBooksLoading} link={Paths.BooksCategory} />
       <BooksCarousel
-        title="Sách Nói"
+        title="Ebook"
         darkBackground
         data={audioBooks}
         loading={getAudioBooksLoading}

@@ -172,9 +172,13 @@ export const formatMoneyVND = (config) => {
 };
 
 export const formatISODateToDateTime = (date, format) => {
-  return moment(date).format(format || 'DD/MM/YYYY - HH:MM');
+  return moment(date).format(format || 'DD/MM/YYYY - HH:mm');
 };
 
 export const getFullPathUrl = (path) => {
   return `https://api.kalabooks.com/static/${path}/high`;
+};
+
+export const formatDuration = (milliseconds = 0) => {
+  return moment.utc(milliseconds * 1000).format('HH:mm:ss');
 };

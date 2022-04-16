@@ -8,3 +8,5 @@ export const ETypeBook = {
   PAPER_BOOK: 'PAPER_BOOK',
   AUDIO_BOOK: 'AUDIO_BOOK',
 };
+
+export const LIMIT_DESCRIPTION_LENGTH = 300;

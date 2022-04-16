@@ -16,3 +16,25 @@ export const getListMyBookAction = {
   success: createActionCreator(EProfileAction.MY_BOOK_SUCCESS, (resolve) => (response) => resolve({ response })),
   failure: createActionCreator(EProfileAction.MY_BOOK_FAILED, (resolve) => (error) => resolve({ error })),
 };
+export const getFileMyBookAction = {
+  request: createActionCreator(
+    EProfileAction.GET_FILE_MY_BOOK_REQUEST,
+    (resolve) => (body, cb) => resolve({ body, cb }),
+  ),
+  success: createActionCreator(
+    EProfileAction.GET_FILE_MY_BOOK_SUCCESS,
+    (resolve) => (response) => resolve({ response }),
+  ),
+  failure: createActionCreator(EProfileAction.GET_FILE_MY_BOOK_FAILED, (resolve) => (error) => resolve({ error })),
+};
+export const getVoiceMyBookAction = {
+  request: createActionCreator(
+    EProfileAction.GET_VOICE_MY_BOOK_REQUEST,
+    (resolve) => (body, cb) => resolve({ body, cb }),
+  ),
+  success: createActionCreator(
+    EProfileAction.GET_VOICE_MY_BOOK_SUCCESS,
+    (resolve) => (response) => resolve({ response }),
+  ),
+  failure: createActionCreator(EProfileAction.GET_VOICE_MY_BOOK_FAILED, (resolve) => (error) => resolve({ error })),
+};

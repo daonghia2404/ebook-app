@@ -21,7 +21,11 @@ const BookBlock = ({ image, type, owner, name, price, prePrice, _id, ...rest }) 
   const addCartLoading = useSelector((state) => state.loading[EProductAction.ADD_TO_CART_PRODUCT]);
 
   const handleClickBookBlock = () => {
-    navigate(Paths.BookDetail(_id));
+    if (owner) {
+      navigate(Paths.MyBookDetail(_id));
+    } else {
+      navigate(Paths.BookDetail(_id));
+    }
   };
 
   const handleAddBookToCart = () => {

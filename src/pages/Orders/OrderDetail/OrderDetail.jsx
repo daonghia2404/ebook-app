@@ -96,7 +96,7 @@ const OrderDetail = ({ data, onCancelOrder }) => {
                   </div>
                   <div className="OrdersList-item-info">
                     <div className="OrdersList-item-info-title">
-                      <span>{item.type === ETypeBook.PAPER_BOOK ? 'Sách giấy' : 'Sách nói'}: </span>
+                      <span>{item.type === ETypeBook.PAPER_BOOK ? 'Sách giấy' : 'Ebook'}: </span>
                       {item.name}
                     </div>
                     <div className="OrdersList-item-info-amount">Số lượng: {item.amount}</div>

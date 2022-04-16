@@ -1,13 +1,57 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { navigate, useLocation } from '@reach/router';
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
+import classNames from 'classnames';
 
-import ImageBookReader from '@/assets/images/image-new-detail.png';
 import ConfirmModal from '@/containers/ConfirmModal/ConfirmModal';
 import { scrollToTop } from '@/utils/functions';
+import { getFileMyBookAction } from '@/redux/actions';
+import { Paths } from '@/pages/routers';
+import { ETypePage } from '@/utils/constants';
+
+import SamplePdf from './sample-pdf.pdf';
 
 import './BookReader.scss';
 
 const BookReader = () => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  const query = new URLSearchParams(location.search);
+  const voice = query.get('voice');
+  const product = query.get('product');
+  const page = query.get('page');
+
+  const [pageNumber, setPageNumber] = useState({
+    page,
+    total: 0,
+  });
   const [visibleNextPageModal, setVisibleNextPageModal] = useState(false);
+
+  const isAvaiablePage = voice && product;
+
+  const getFileMyBookData = useCallback(() => {
+    dispatch(getFileMyBookAction.request({ product, voice }));
+  }, [dispatch, voice, product]);
+
+  const handleChangePage = (changedPage) => {
+    if (changedPage > 0 && changedPage <= pageNumber.total) {
+      setPageNumber({
+        ...pageNumber,
+        page: changedPage,
+      });
+    }
+  };
+
+  const handleLoadPdfSuccess = (data) => {
+    const { numPages } = data._pdfInfo;
+    const initPage = page && page <= numPages ? page : ETypePage.DEFAULT_PAGE;
+    setPageNumber({
+      page: initPage,
+      total: numPages,
+    });
+  };
 
   const handleOpenNextPageModal = () => {
     setVisibleNextPageModal(true);
@@ -20,6 +64,11 @@ const BookReader = () => {
   };
 
   useEffect(() => {
+    if (isAvaiablePage) getFileMyBookData();
+    else navigate(Paths.Home);
+  }, [getFileMyBookData]);
+
+  useEffect(() => {
     scrollToTop();
   }, []);
 
@@ -27,72 +76,27 @@ const BookReader = () => {
     <div className="BookReader">
       <div className="container">
         <div className="BookReader-wrapper">
-          <div className="BookReader-title">Chương 1</div>
-
-          <div className="BookReader-image">
-            <img src={ImageBookReader} alt="" />
-          </div>
-
-          <div className="BookReader-main">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eleifend ante at vestibulum aliquam. Maecenas
-              porta nec sem nec congue. Aenean dapibus non velit non faucibus. Donec eleifend felis a mi aliquet, at
-              volutpat quam feugiat. Suspendisse ut pharetra justo, et pellentesque sapien. Curabitur dictum tincidunt
-              ante, interdum vestibulum enim egestas sit amet. Praesent in porta felis, non ultricies dui.
-            </p>
-            <p>
-              Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum
-              ac enim nunc. Nulla luctus blandit erat, vel pharetra elit tempor vel. Etiam eget elit a justo maximus
-              bibendum ac eget justo. Suspendisse mollis blandit nunc, at tempor quam commodo quis. Duis non dignissim
-              mi. Nullam sodales viverra elit, sed vulputate purus.
-            </p>
-            <p>
-              Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum
-              ac enim nunc. Nulla luctus blandit erat, vel pharetra elit tempor vel. Etiam eget elit a justo maximus
-              bibendum ac eget justo. Suspendisse mollis blandit nunc, at tempor quam commodo quis.{' '}
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eleifend ante at vestibulum aliquam. Maecenas
-              porta nec sem nec congue. Aenean dapibus non velit non faucibus. Donec eleifend felis a mi aliquet, at
-              volutpat quam feugiat. Suspendisse ut pharetra justo, et pellentesque sapien. Curabitur dictum tincidunt
-              ante, interdum vestibulum enim egestas sit amet. Praesent in porta felis, non ultricies dui.
-            </p>
-            <p>
-              Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum
-              ac enim nunc. Nulla luctus blandit erat, vel pharetra elit tempor vel. Etiam eget elit a justo maximus
-              bibendum ac eget justo. Suspendisse mollis blandit nunc, at tempor quam commodo quis. Duis non dignissim
-              mi. Nullam sodales viverra elit, sed vulputate purus.
-            </p>
-            <p>
-              Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum
-              ac enim nunc. Nulla luctus blandit erat, vel pharetra elit tempor vel. Etiam eget elit a justo maximus
-              bibendum ac eget justo. Suspendisse mollis blandit nunc, at tempor quam commodo quis.{' '}
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eleifend ante at vestibulum aliquam. Maecenas
-              porta nec sem nec congue. Aenean dapibus non velit non faucibus. Donec eleifend felis a mi aliquet, at
-              volutpat quam feugiat. Suspendisse ut pharetra justo, et pellentesque sapien. Curabitur dictum tincidunt
-              ante, interdum vestibulum enim egestas sit amet. Praesent in porta felis, non ultricies dui.
-            </p>
-            <p>
-              Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum
-              ac enim nunc. Nulla luctus blandit erat, vel pharetra elit tempor vel. Etiam eget elit a justo maximus
-              bibendum ac eget justo. Suspendisse mollis blandit nunc, at tempor quam commodo quis. Duis non dignissim
-              mi. Nullam sodales viverra elit, sed vulputate purus.
-            </p>
-            <p>
-              Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum
-              ac enim nunc. Nulla luctus blandit erat, vel pharetra elit tempor vel. Etiam eget elit a justo maximus
-              bibendum ac eget justo. Suspendisse mollis blandit nunc, at tempor quam commodo quis.{' '}
-            </p>
-          </div>
+          <Document file={SamplePdf} onLoadSuccess={handleLoadPdfSuccess}>
+            <Page pageNumber={pageNumber.page} />
+          </Document>
 
           <div className="BookReader-footer flex justify-between">
-            <div className="BookReader-footer-item">
-              Chương <span>78/100</span>
+            <div
+              className={classNames('BookReader-footer-item', { disabled: pageNumber.page === ETypePage.DEFAULT_PAGE })}
+              onClick={() => handleChangePage(pageNumber.page - 1)}
+            >
+              Trang trước
             </div>
-            <div className="BookReader-footer-item cursor-pointer" onClick={handleOpenNextPageModal}>
-              Trang <span> 2/22</span>
+            <div className="BookReader-footer-item">
+              <span>
+                {pageNumber.page} / {pageNumber.total}
+              </span>
+            </div>
+            <div
+              className={classNames('BookReader-footer-item', { disabled: pageNumber.page === pageNumber.total })}
+              onClick={() => handleChangePage(pageNumber.page + 1)}
+            >
+              Trang sau
             </div>
           </div>
         </div>

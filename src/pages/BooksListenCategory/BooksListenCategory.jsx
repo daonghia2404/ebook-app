@@ -67,7 +67,7 @@ const BooksListenCategory = () => {
           {isEmpty ? (
             <Empty />
           ) : (
-            <BooksList title="Sách nói" layout={5} onClickFilter={handleOpenFilterModal} data={booksData.records} />
+            <BooksList title="Ebook" layout={5} onClickFilter={handleOpenFilterModal} data={booksData.records} />
           )}
         </>
       )}

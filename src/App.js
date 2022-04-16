@@ -32,10 +32,12 @@ const App = () => {
           <PublicRoute path={Paths.BooksListenCategory} component={Pages.BooksListenCategory} />
           <PublicRoute path={Paths.NewDetail()} component={Pages.NewDetail} />
           <PublicRoute path={Paths.BookDetail()} component={Pages.BookDetail} />
-          <PublicRoute path={Paths.BookListenControl()} component={Pages.BookListenControl} />
-          <ProtectedRoute path={Paths.Checkout} component={Pages.Checkout} />
 
-          <PublicRoute path={Paths.BookReader()} component={Pages.BookReader} />
+          <ProtectedRoute path={Paths.Checkout} component={Pages.Checkout} />
+          <ProtectedRoute path={Paths.MyBookDetail()} component={Pages.MyBookDetail} />
+
+          <PublicRoute path={Paths.BookReader} component={Pages.BookReader} />
+          <PublicRoute path={Paths.BookAudio} component={Pages.BookAudio} />
 
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
         </Guest>

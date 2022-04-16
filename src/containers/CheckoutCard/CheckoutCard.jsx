@@ -36,6 +36,7 @@ const CheckoutCard = ({ countCart, subTotal, carts = [] }) => {
   const createOrderOnlineLoading = useSelector((state) => state.loading[EOrderAction.CREATE_ONLINE_ORDER]);
 
   const isOnlyPayOnline = carts.some((item) => item.productType === ETypeBook.AUDIO_BOOK);
+  const isExistedPaperBook = carts.some((item) => item.productType === ETypeBook.PAPER_BOOK);
 
   const handleOpenAddressListModal = () => {
     setVisibleAddressListModal(true);
@@ -68,7 +69,7 @@ const CheckoutCard = ({ countCart, subTotal, carts = [] }) => {
   };
 
   const getFeeShipData = useCallback(() => {
-    if (currentAddress?._id) {
+    if (isExistedPaperBook && currentAddress?._id) {
       const body = {
         carts: carts?.map((item) => item._id),
         addressId: currentAddress._id,
@@ -131,34 +132,36 @@ const CheckoutCard = ({ countCart, subTotal, carts = [] }) => {
     <div className="CheckoutCard">
       <div className="CheckoutCard-header flex items-center justify-center">Thanh toán</div>
       <div className="CheckoutCard-body">
-        <div className="CheckoutCard-group">
-          <div className="CheckoutCard-row flex justify-between">
-            <div className="CheckoutCard-row-label">Địa chỉ của bạn</div>
-          </div>
-          <div className="CheckoutCard-address flex">
-            <div className="CheckoutCard-address-item">
-              <div className="CheckoutCard-address-item-icon">
-                <Icon name={EIconName.MapMarkerFill} color={EIconColor.GRENADIER} />
-              </div>
+        {isExistedPaperBook && (
+          <div className="CheckoutCard-group">
+            <div className="CheckoutCard-row flex justify-between">
+              <div className="CheckoutCard-row-label">Địa chỉ của bạn</div>
             </div>
-            <div className="CheckoutCard-address-item">
-              <div className="CheckoutCard-address-item-info">
-                <div className="CheckoutCard-address-item-info-name">
-                  {currentAddress?.name || 'Không có địa chỉ mặc định'}
-                </div>
-                {currentAddress?.phone && (
-                  <div className="CheckoutCard-address-item-info-description">{currentAddress.phone}</div>
-                )}
-                {currentAddress?.detailAddress && (
-                  <div className="CheckoutCard-address-item-info-description">{currentAddress.detailAddress}</div>
-                )}
-                <div className="CheckoutCard-address-item-info-change" onClick={handleOpenAddressListModal}>
-                  Thay đổi
+            <div className="CheckoutCard-address flex">
+              <div className="CheckoutCard-address-item">
+                <div className="CheckoutCard-address-item-icon">
+                  <Icon name={EIconName.MapMarkerFill} color={EIconColor.GRENADIER} />
                 </div>
               </div>
+              <div className="CheckoutCard-address-item">
+                <div className="CheckoutCard-address-item-info">
+                  <div className="CheckoutCard-address-item-info-name">
+                    {currentAddress?.name || 'Không có địa chỉ mặc định'}
+                  </div>
+                  {currentAddress?.phone && (
+                    <div className="CheckoutCard-address-item-info-description">{currentAddress.phone}</div>
+                  )}
+                  {currentAddress?.detailAddress && (
+                    <div className="CheckoutCard-address-item-info-description">{currentAddress.detailAddress}</div>
+                  )}
+                  <div className="CheckoutCard-address-item-info-change" onClick={handleOpenAddressListModal}>
+                    Thay đổi
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* <div className="CheckoutCard-group">
           <div className="CheckoutCard-row flex justify-between">
@@ -170,7 +173,7 @@ const CheckoutCard = ({ countCart, subTotal, carts = [] }) => {
         </div> */}
 
         <div className="CheckoutCard-group">
-          <div className="CheckoutCard-note">Lưu ý: Bạn chỉ có thể thanh toán COD khi mua sách giấy</div>
+          <div className="CheckoutCard-note">Lưu ý: Bạn chỉ có thể thanh toán COD khi mua ít nhất một sách giấy</div>
           <div className="CheckoutCard-row flex justify-between">
             <div className="CheckoutCard-row-label">{countCart} sản phẩm</div>
             <div className="CheckoutCard-row-label">{formatMoneyVND({ amount: subTotal, showSuffix: true })}</div>

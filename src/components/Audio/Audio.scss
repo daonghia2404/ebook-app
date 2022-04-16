@@ -1,0 +1,94 @@
+@import '../../assets/styles/global';
+
+.Audio {
+  min-height: 68rem;
+  background: url('../../assets/images/bg-audio.png');
+  background-size: cover;
+  background-position: center;
+  padding: 7rem 7rem 2.5rem;
+  position: relative;
+
+  .Loading {
+    background: rgba($black, 0.5);
+
+    .ant-spin {
+      .ant-spin-dot-item {
+        background: $white;
+      }
+    }
+  }
+
+  @media (max-width: 575px) {
+    padding: 6rem 3rem 3rem;
+  }
+
+  &-image {
+    width: 35rem;
+    height: 35rem;
+    margin: auto;
+    position: relative;
+
+    img {
+      @include centerImage;
+    }
+  }
+
+  &-title {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: $white;
+  }
+
+  &-control {
+    &-bars {
+      position: relative;
+
+      .css-1czs87d-Slider {
+        width: 100%;
+      }
+
+      &-current,
+      &-total {
+        position: absolute;
+        color: $white;
+        font-size: 1.4rem;
+        font-weight: 400;
+        top: calc(100% + 20px)
+      }
+
+      &-current {
+        left: 0;
+      }
+
+      &-total {
+        right: 0;
+      }
+    }
+
+
+    &-actions {
+      margin-top: 2.6rem;
+
+      @media (max-width: 575px) {
+        margin-top: 4rem;
+      }
+
+      &-prev,
+      &-next {
+        flex: 0 0 3.5rem;
+        max-width: 3.5rem;
+        cursor: pointer;
+      }
+
+      &-play {
+        width: 10rem;
+        cursor: pointer;
+        margin: 0 8rem;
+
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

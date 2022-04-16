@@ -146,6 +146,12 @@ const HeaderSearch = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    if (visibleCartDropdown) {
+      getListCart();
+    }
+  }, [visibleCartDropdown]);
+
+  useEffect(() => {
     if (atk) {
       getProfile();
       getListCart();
