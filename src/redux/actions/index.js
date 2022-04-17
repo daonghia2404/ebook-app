@@ -9,3 +9,4 @@ export * from './rate';
 export * from './author';
 export * from './order';
 export * from './upload';
+export * from './banner';

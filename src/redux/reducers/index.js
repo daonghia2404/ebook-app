@@ -13,6 +13,7 @@ import addressState from './address';
 import rateProductState from './rate';
 import authorState from './author';
 import orderState from './order';
+import bannerState from './banner';
 
 const rootReducer = combineReducers({
   loading,
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   rateProductState,
   authorState,
   orderState,
+  bannerState,
 });
 
 export default rootReducer;

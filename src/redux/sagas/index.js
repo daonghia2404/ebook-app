@@ -10,6 +10,7 @@ import rateProductSaga from './rate';
 import authorSaga from './author';
 import orderSaga from './order';
 import uploadSaga from './upload';
+import bannerSaga from './banner';
 
 const rootSaga = function* root() {
   yield all([
@@ -23,6 +24,7 @@ const rootSaga = function* root() {
     fork(authorSaga),
     fork(orderSaga),
     fork(uploadSaga),
+    fork(bannerSaga),
   ]);
 };
 

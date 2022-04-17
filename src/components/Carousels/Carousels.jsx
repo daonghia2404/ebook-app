@@ -16,6 +16,7 @@ export const Carousels = ({
   slidesPerRow = 1,
   responsive = [],
   autoplay,
+  onDragging,
   children,
 }) => {
   const renderPrevArrow = () => {
@@ -48,6 +49,8 @@ export const Carousels = ({
     nextArrow: renderNextArrow(),
     prevArrow: renderPrevArrow(),
     responsive,
+    beforeChange: () => onDragging(true),
+    afterChange: () => onDragging(false),
   };
   return (
     <div className={classNames('Carousels')}>
