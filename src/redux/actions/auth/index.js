@@ -36,7 +36,10 @@ export const vertifyForgotAction = {
   failure: createActionCreator(EAuthAction.VERTIFY_FORGOT_PASSWORD_FAILED, (resolve) => (error) => resolve({ error })),
 };
 export const resetPasswordAction = {
-  request: createActionCreator(EAuthAction.RESET_PASSWORD_REQUEST, (resolve) => (body, cb) => resolve({ body, cb })),
+  request: createActionCreator(
+    EAuthAction.RESET_PASSWORD_REQUEST,
+    (resolve) => (token, body, cb) => resolve({ token, body, cb }),
+  ),
   success: createActionCreator(EAuthAction.RESET_PASSWORD_SUCCESS, (resolve) => (response) => resolve({ response })),
   failure: createActionCreator(EAuthAction.RESET_PASSWORD_FAILED, (resolve) => (error) => resolve({ error })),
 };

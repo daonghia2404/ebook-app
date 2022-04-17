@@ -43,7 +43,7 @@ export function* vertifyOtpSaga(action) {
     const { body, token, cb } = action.payload;
     const response = yield call(AuthInstance.vertifyOtpSignUp, body, token);
     yield put(vertifyOtpAction.success(response));
-    cb?.();
+    cb?.(response);
   } catch (err) {
     yield put(vertifyOtpAction.failure(err));
   }
@@ -63,15 +63,15 @@ export function* vertifyOtpPasswordSaga(action) {
     const { body, token, cb } = action.payload;
     const response = yield call(AuthInstance.vertifyOtpForgot, body, token);
     yield put(vertifyForgotAction.success(response));
-    cb?.();
+    cb?.(response);
   } catch (err) {
     yield put(vertifyForgotAction.failure(err));
   }
 }
 export function* resetPasswordSaga(action) {
   try {
-    const { body, cb } = action.payload;
-    const response = yield call(AuthInstance.resetPassword, body);
+    const { token, body, cb } = action.payload;
+    const response = yield call(AuthInstance.resetPassword, token, body);
     yield put(resetPasswordAction.success(response));
     cb?.();
   } catch (err) {

@@ -28,10 +28,11 @@ const ForgotPasswordModal = ({ visible, onClose, defaultStep, prevAction, data =
     });
   };
 
-  const handleVetiryForgotSuccess = () => {
+  const handleVetiryForgotSuccess = (data) => {
     setGlobalKeyStepState({
       ...globalKeyStepState,
-      key: EKeyStepForgotPasswordModal.VERTIFY_FORGOT,
+      key: EKeyStepForgotPasswordModal.CHANGE_PASSWORD,
+      data,
     });
   };
 
@@ -75,7 +76,7 @@ const ForgotPasswordModal = ({ visible, onClose, defaultStep, prevAction, data =
       case EKeyStepForgotPasswordModal.VERTIFY_FORGOT:
         return <VetifyForgot data={globalKeyStepState.data} onSuccess={handleVetiryForgotSuccess} />;
       case EKeyStepForgotPasswordModal.CHANGE_PASSWORD:
-        return <ChangePassword onSubmit={handleChangePasswordSuccess} />;
+        return <ChangePassword data={globalKeyStepState.data} onSuccess={handleChangePasswordSuccess} />;
 
       case EKeyStepForgotPasswordModal.VETIFY_ACCOUNT:
         return <VetifyAccount data={globalKeyStepState.data} onSuccess={handleVetifyAccountSuccess} />;

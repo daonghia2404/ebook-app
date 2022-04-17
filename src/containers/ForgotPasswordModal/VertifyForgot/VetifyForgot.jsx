@@ -41,8 +41,8 @@ const VetifyForgot = ({ onSuccess, data }) => {
     onSuccess?.();
   };
 
-  const handleForgotPasswordSuccess = () => {
-    onSuccess?.(EKeyStepForgotPasswordModal.CHANGE_PASSWORD);
+  const handleForgotPasswordSuccess = (response) => {
+    onSuccess?.({ token: response.data.token });
   };
 
   return (
@@ -74,7 +74,7 @@ const VetifyForgot = ({ onSuccess, data }) => {
             Gửi lại{' '}
             {!isAvaiableResend && (
               <>
-                (<CountdownTime defaultValue="00:05" onFinish={handleFinishCountdown} />)
+                (<CountdownTime defaultValue="01:00" onFinish={handleFinishCountdown} />)
               </>
             )}
           </span>

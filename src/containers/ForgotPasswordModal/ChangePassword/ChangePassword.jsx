@@ -9,7 +9,7 @@ import { EAuthAction } from '@/redux/actions/auth/constants';
 import { resetPasswordAction } from '@/redux/actions';
 import { ETypeNotification } from '@/utils/constants';
 
-const ChangePassword = ({ onSuccess }) => {
+const ChangePassword = ({ data, onSuccess }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [password, setPassword] = useState('');
@@ -23,10 +23,10 @@ const ChangePassword = ({ onSuccess }) => {
   const handleSubmit = (values) => {
     const body = {
       password: values.password,
-      newPassword: values.newPassword,
+      newPassword: values.password,
     };
 
-    dispatch(resetPasswordAction.request(body, handleResetPasswordSuccess));
+    dispatch(resetPasswordAction.request(data.token, body, handleResetPasswordSuccess));
   };
 
   const handleResetPasswordSuccess = () => {
@@ -44,7 +44,7 @@ const ChangePassword = ({ onSuccess }) => {
           name="password"
           rules={[validationRules.required(), validationRules.noSpaceKey(), validationRules.minLength()]}
         >
-          <Input size="large" type="password" onChange={handleChangePassword} />
+          <Input size="large" type="password" placeholder="Nhập mật khẩu mới" onChange={handleChangePassword} />
         </Form.Item>
         <Form.Item
           label="Nhập lại mật khẩu"
@@ -56,7 +56,7 @@ const ChangePassword = ({ onSuccess }) => {
             validationRules.confirmPassword(password),
           ]}
         >
-          <Input size="large" type="password" />
+          <Input size="large" placeholder="Nhập lại mật khẩu mới" type="password" />
         </Form.Item>
         <Form.Item>
           <Button
