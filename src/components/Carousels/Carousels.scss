@@ -3,6 +3,10 @@
 .Carousels {
   position: relative;
 
+  .slick-track {
+    margin-left: 0;
+  }
+
   .slick-arrow {
     width: 3.2rem;
     height: 3.2rem;
