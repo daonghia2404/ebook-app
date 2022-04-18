@@ -5,9 +5,9 @@ import Icon, { EIconColor, EIconName } from '@/components/Icon';
 
 import './VideoFileCard.scss';
 
-const VideoFileCard = ({ pdf, video, title, image, description, onClick }) => {
+const VideoFileCard = ({ active, pdf, video, title, image, description, onClick }) => {
   return (
-    <div className="VideoFileCard flex items-center" onClick={onClick}>
+    <div className={classNames('VideoFileCard flex items-center', { active })} onClick={onClick}>
       <div
         className={classNames('VideoFileCard-icon', { pdf, video })}
         style={

@@ -10,7 +10,7 @@ import Loading from '@/containers/Loading/Loading';
 import { formatISODateToDateTime, formatMoneyVND, showNotification } from '@/utils/functions';
 import { dataStatusOrdersTab } from '@/pages/Orders/Orders.data';
 import { dataOrderTypeOptions } from '@/services/api/order/data';
-import { EOrderStatus } from '@/services/api/order/enums';
+import { EOrderStatus, EOrderType } from '@/services/api/order/enums';
 import { ETypeNotification } from '@/utils/constants';
 import { ETypeBook } from '@/common/static';
 import ReviewBookModal from '@/containers/ReviewBookModal';
@@ -53,6 +53,8 @@ const OrderDetail = ({ data, onCancelOrder }) => {
     handleCloseCancelOrder();
     onCancelOrder?.();
   };
+
+  const handleClickRebuy = () => {};
 
   const getOrderData = useCallback(() => {
     if (data._id) dispatch(getOrderAction.request(data._id));
@@ -178,11 +180,16 @@ const OrderDetail = ({ data, onCancelOrder }) => {
                   </span>
                 </div>
               </div>
-              {orderState.status === EOrderStatus.DANG_XY_LY && (
+              {orderState.status === EOrderStatus.DANG_XY_LY && orderState.orderType !== EOrderType.ONLINE_ORDER && (
                 <div className="OrderDetail-table-row cancel">
-                  <Button type="primary" title="HỦY ĐƠN" uppercase size="large" onClick={handleOpenCancelOrder} />
+                  <Button type="primary" title="Huỷ đơn" uppercase size="large" onClick={handleOpenCancelOrder} />
                 </div>
               )}
+              {/* {[EOrderStatus.HOAN_THANH, EOrderStatus.DA_HUY, EOrderStatus.THAT_BAI].includes(orderState.status) && (
+                <div className="OrderDetail-table-row cancel">
+                  <Button type="primary" title="Mua lại" uppercase size="large" onClick={handleClickRebuy} />
+                </div>
+              )} */}
             </div>
           </div>
         </>

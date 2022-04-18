@@ -9,9 +9,12 @@ import { navigate } from '@reach/router';
 import Loading from '@/containers/Loading/Loading';
 
 import './BooksCarousel.scss';
+import Empty from '@/components/Empty/Empty';
 
 const BooksCarousel = ({ title, data = [], darkBackground, link, loading }) => {
   const windowType = useSelector((state) => state.uiState.device);
+
+  const isEmpty = data.length === 0;
 
   const renderSlidesToShow = () => {
     switch (true) {
@@ -65,15 +68,21 @@ const BooksCarousel = ({ title, data = [], darkBackground, link, loading }) => {
           {loading ? (
             <Loading />
           ) : (
-            <div className="BooksCarousel-list">
-              <Carousels infinite={false} arrows dots={false} slidesToShow={renderSlidesToShow()}>
-                {data?.map((item, index) => (
-                  <div key={index} className="BooksCarousel-list-item">
-                    <BookBlock key={item._id} {...item} />
-                  </div>
-                ))}
-              </Carousels>
-            </div>
+            <>
+              {isEmpty ? (
+                <Empty />
+              ) : (
+                <div className="BooksCarousel-list">
+                  <Carousels infinite={false} arrows dots={false} slidesToShow={renderSlidesToShow()}>
+                    {data?.map((item, index) => (
+                      <div key={index} className="BooksCarousel-list-item">
+                        <BookBlock key={item._id} {...item} />
+                      </div>
+                    ))}
+                  </Carousels>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>

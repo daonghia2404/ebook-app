@@ -28,6 +28,7 @@ const HeaderSearch = () => {
   const dispatch = useDispatch();
   const windowType = useSelector((state) => state.uiState.device);
   const isMobile = windowType.type === EDeviceType.MOBILE;
+
   const atk = AuthHelpers.getAccessToken();
 
   const listCart = useSelector((state) => state.productState.carts) ?? [];
@@ -120,6 +121,7 @@ const HeaderSearch = () => {
   };
 
   const handleSignInSuccess = () => {
+    getProfile();
     handleCloseAuthModal();
   };
 

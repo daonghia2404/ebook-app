@@ -3,10 +3,10 @@ import React, { useEffect } from 'react';
 import { Paths } from '@/pages/routers';
 import { decodeResultPayment, formatISODateToDateTime, formatMoneyVND } from '@/utils/functions';
 import { navigate, useLocation } from '@reach/router';
-
-import './PaymentResult.scss';
 import { paymentMethod, paymentStatus } from '@/common/data';
 import Button from '@/components/Button';
+
+import './PaymentResult.scss';
 
 const PaymentResult = () => {
   const location = useLocation();
@@ -14,9 +14,7 @@ const PaymentResult = () => {
   const query = new URLSearchParams(location.search);
   const result = query.get('result');
 
-  const resultData = JSON.parse(decodeResultPayment(result));
-
-  console.log(resultData);
+  const resultData = decodeResultPayment(result);
 
   useEffect(() => {
     if (!result) navigate(Paths.Home);

@@ -38,6 +38,7 @@ const App = () => {
           <ProtectedRoute path={Paths.MyBookDetail()} component={Pages.MyBookDetail} />
           <ProtectedRoute path={Paths.BookReader} component={Pages.BookReader} />
           <ProtectedRoute path={Paths.BookAudio} component={Pages.BookAudio} />
+          <ProtectedRoute path={Paths.BookVideo} component={Pages.BookVideo} />
 
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
         </Guest>

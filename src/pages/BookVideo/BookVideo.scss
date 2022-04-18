@@ -1,0 +1,26 @@
+@import '../../assets/styles/global';
+
+.BookVideo {
+  padding: 7rem 0;
+
+  &-wrapper {
+    position: relative;
+
+    background: rgba($black, 0.5);
+
+    .ant-spin {
+      .ant-spin-dot-item {
+        background: $white;
+      }
+    }
+  }
+
+  .plyr__menu__container .plyr__control[role=menuitemradio][aria-checked=true]:before,
+  .plyr--video .plyr__control.plyr__tab-focus, .plyr--video .plyr__control:hover, .plyr--video .plyr__control[aria-expanded=true] {
+    background: $fun-green;
+  }
+
+  .plyr--full-ui input[type=range] {
+    color: $fun-green !important;
+  }
+}

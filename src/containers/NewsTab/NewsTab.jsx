@@ -4,14 +4,17 @@ import classNames from 'classnames';
 import NewBlock from '@/components/NewBlock';
 import { EKeyNewsTab } from '@/containers/NewsTab/NewsTab.enums';
 import Loading from '@/containers/Loading/Loading';
+import Empty from '@/components/Empty/Empty';
 
 import './NewsTab.scss';
 
-const NewsTab = ({ data, loading, onTabChange }) => {
+const NewsTab = ({ data = [], loading, onTabChange }) => {
   const dataNewsTab = [
     { key: EKeyNewsTab.LASTEST, title: 'Tin mới nhất' },
     { key: EKeyNewsTab.FEATURED, title: 'Tin tức nổi bật' },
   ];
+
+  const isEmpty = data.length === 0;
 
   const [keyTab, setKeyTab] = useState(dataNewsTab[0]);
 
@@ -39,13 +42,19 @@ const NewsTab = ({ data, loading, onTabChange }) => {
           {loading ? (
             <Loading />
           ) : (
-            <div className="NewsTab-list flex flex-wrap">
-              {data?.map((item, index) => (
-                <div key={index} className="NewsTab-list-item">
-                  <NewBlock {...item} />
+            <>
+              {isEmpty ? (
+                <Empty />
+              ) : (
+                <div className="NewsTab-list flex flex-wrap">
+                  {data?.map((item, index) => (
+                    <div key={index} className="NewsTab-list-item">
+                      <NewBlock {...item} />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              )}
+            </>
           )}
         </div>
       </div>

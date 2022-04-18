@@ -8,11 +8,13 @@
   }
 
   &-item {
+    position: relative;
     overflow: hidden;
     cursor: pointer;
+    height: 58rem;
 
     img {
-      width: 100%;
+      @include centerImage;
       border-radius: .8rem;
     }
   }

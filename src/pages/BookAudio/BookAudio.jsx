@@ -22,14 +22,21 @@ const BookAudio = () => {
 
   const bookData = useSelector((state) => state.productState.book) ?? {};
   const getBookLoading = useSelector((state) => state.loading[EProductAction.GET_DETAIL_PRODUCT]);
-
   const fileData = useSelector((state) => state.profileState.voiceMyBook);
 
   const isAvaiablePage = voice && product;
 
+  const handleListenBook = (id) => {
+    window.location.href = `${Paths.BookAudio}?voice=${id}&product=${bookData._id}`;
+  };
+
   const getVoiceMyBookData = useCallback(() => {
     dispatch(getVoiceMyBookAction.request({ product, voice }));
   }, [dispatch, voice, product]);
+
+  const getProductById = useCallback(() => {
+    if (product) dispatch(getProductDetailAction.request(product));
+  }, [product]);
 
   useEffect(() => {
     if (isAvaiablePage) getVoiceMyBookData();
@@ -39,10 +46,6 @@ const BookAudio = () => {
   useEffect(() => {
     scrollToTop();
   }, []);
-
-  const getProductById = useCallback(() => {
-    if (product) dispatch(getProductDetailAction.request(product));
-  }, [product]);
 
   useEffect(() => {
     getProductById();
@@ -57,16 +60,25 @@ const BookAudio = () => {
           ) : (
             <>
               <div className="BookAudio-control">
-                <Audio src={fileData.url} image={bookData.image} title={bookData.name} />
+                <Audio
+                  id={voice}
+                  src={fileData.url}
+                  image={bookData.image}
+                  title={bookData.name}
+                  list={bookData?.voice}
+                  productId={bookData?._id}
+                />
               </div>
               <div className="BookAudio-list">
                 <div className="BookAudio-list-title">Danh sách</div>
                 <div className="BookAudio-list-main">
                   {bookData.voice?.map((item) => (
                     <VideoFileCard
+                      active={voice === item._id}
                       key={item._id}
-                      title={`Nghe sách: ${bookData.name}`}
-                      description="Bấm vào đây để nghe sách"
+                      title={`Nghe sách: ${item.name || bookData?.name}`}
+                      description={item.description || 'Bấm vào đây để nghe sách'}
+                      onClick={() => handleListenBook(item._id)}
                     />
                   ))}
                 </div>

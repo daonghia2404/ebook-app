@@ -7,10 +7,13 @@ import './UploadImagesList.scss';
 
 const UploadImagesList = ({ value = [], onChange }) => {
   const uploadLoading = false;
+  const LIMIT_LENGTH = 5;
 
   const handleUpload = (data) => {
-    const files = data;
-    onChange?.([...value, ...files]);
+    if (value.length < LIMIT_LENGTH) {
+      const files = data;
+      onChange?.([...value, ...files]);
+    }
   };
 
   const handleRemoveImage = (removeIndex) => {
@@ -29,7 +32,9 @@ const UploadImagesList = ({ value = [], onChange }) => {
           <div className="UploadImagesList-icon">
             <Icon name={EIconName.Camera} color={EIconColor.FUN_GREEN} />
           </div>
-          <div className="UploadImagesList-text">3/4</div>
+          <div className="UploadImagesList-text">
+            {value.length}/{LIMIT_LENGTH}
+          </div>
         </div>
       </Upload>
 

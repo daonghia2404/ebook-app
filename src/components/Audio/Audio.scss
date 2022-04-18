@@ -24,12 +24,12 @@
 
   &-image {
     width: 35rem;
-    height: 35rem;
     margin: auto;
     position: relative;
 
     img {
-      @include centerImage;
+      width: 100%;
+      border-radius: 1rem;
     }
   }
 

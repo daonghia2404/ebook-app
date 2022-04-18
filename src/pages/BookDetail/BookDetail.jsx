@@ -13,15 +13,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { EProductAction } from '@/redux/actions/products/constants';
 import { ETypeNotification, ETypePage } from '@/utils/constants';
 import Loading from '@/containers/Loading/Loading';
+import { ETypeBook, LIMIT_DESCRIPTION_LENGTH } from '@/common/static';
 
 import { EKeyTabBookDetail } from './BookDetail.enums';
 import './BookDetail.scss';
-import { ETypeBook, LIMIT_DESCRIPTION_LENGTH } from '@/common/static';
 
 const BookDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const atk = AuthHelpers.getAccessToken();
+  const profile = useSelector((state) => state.profileState.profile) || {};
+  const atk = profile?.name;
 
   const addCartLoading = useSelector((state) => state.loading[EProductAction.ADD_TO_CART_PRODUCT]);
   const getBookLoading = useSelector((state) => state.loading[EProductAction.GET_DETAIL_PRODUCT]);
@@ -117,7 +118,9 @@ const BookDetail = () => {
                 <div className="BookDetail-row flex justify-between items-center">
                   <div className="BookDetail-author">{bookData?.author?.name}</div>
                   <div className="BookDetail-price">
-                    {bookData.prePrice && <del>{formatMoneyVND({ amount: bookData.prePrice, showSuffix: true })}</del>}
+                    {Boolean(bookData.prePrice) && (
+                      <del>{formatMoneyVND({ amount: bookData.prePrice, showSuffix: true })}</del>
+                    )}
                     <span>{formatMoneyVND({ amount: bookData.price, showSuffix: true })}</span>
                   </div>
                 </div>

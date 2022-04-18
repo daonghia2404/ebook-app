@@ -1,5 +1,6 @@
 import { notification } from 'antd';
 import moment from 'moment';
+import { Buffer } from 'buffer';
 
 import { ETypeNotification, ERegex } from './constants';
 
@@ -98,9 +99,9 @@ export const validationRules = {
     min: length,
     message: message || `Vui lòng nhập tối thiểu ít nhất ${length} ký tự`,
   }),
-  maxLength: (length = 10, message) => ({
+  maxLength: (length = 60, message) => ({
     max: length,
-    message: message || `Vui lòng nhập tối đa nhiều nhất ${length} ký tự`,
+    message: message || `Vui lòng nhập ít hơn ${length} ký tự`,
   }),
   email: (message) => ({
     type: 'email',
@@ -122,6 +123,12 @@ export const validationRules = {
     validator: (rule, value) => {
       if (!value || !ERegex.onlySpace.test(value)) return Promise.resolve();
       return Promise.reject(message || 'Vui lòng không nhập ký tự khoảng trắng');
+    },
+  }),
+  phone: (message) => ({
+    validator: (rule, value) => {
+      if (!value || ERegex.phone.test(value)) return Promise.resolve();
+      return Promise.reject(message || 'Vui lòng nhập số điện thoại hợp lệ');
     },
   }),
   onlyAlphabetic: (message) => ({
@@ -196,5 +203,15 @@ export const formatDuration = (milliseconds = 0) => {
 };
 
 export const decodeResultPayment = (str) => {
-  return decodeURIComponent(escape(window.atob(str)));
+  const base64ToString = Buffer.from(str, 'base64').toString();
+  return JSON.parse(base64ToString);
+};
+
+export const validateImageTypeFile = (file) => {
+  const acceptType = ['image/png', 'image/jpeg', 'image/jpg'];
+  const maxSize = 2;
+  const fileType = file.type;
+  const fileSize = file.size / 1024 / 1024;
+
+  return fileSize < maxSize && acceptType.includes(fileType);
 };

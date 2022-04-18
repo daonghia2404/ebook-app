@@ -73,7 +73,9 @@ const MyBookDetail = () => {
                 <div className="MyBookDetail-row flex justify-between items-center">
                   <div className="MyBookDetail-author">{bookData?.author?.name}</div>
                   <div className="MyBookDetail-price">
-                    {bookData.prePrice && <del>{formatMoneyVND({ amount: bookData.prePrice, showSuffix: true })}</del>}
+                    {Boolean(bookData.prePrice) && (
+                      <del>{formatMoneyVND({ amount: bookData.prePrice, showSuffix: true })}</del>
+                    )}
                     <span>{formatMoneyVND({ amount: bookData.price, showSuffix: true })}</span>
                   </div>
                 </div>

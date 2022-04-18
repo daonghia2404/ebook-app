@@ -101,14 +101,14 @@ const CartDropdown = ({ onClose }) => {
               </div>
               <div className="CartDropdown-list-item-book flex items-start">
                 <div className="CartDropdown-list-item-book-image">
-                  <img src={item.product.image} alt="" />
+                  <img src={item.product?.image} alt="" />
                 </div>
                 <div className="CartDropdown-list-item-book-info">
                   <div className="CartDropdown-list-item-book-info-title">
-                    {item.product.name} ({item.productType == ETypeBook.AUDIO_BOOK ? 'Ebook' : 'Sách giấy'})
+                    {item.product?.name} ({item.productType == ETypeBook.AUDIO_BOOK ? 'Ebook' : 'Sách giấy'})
                   </div>
                   <div className="CartDropdown-list-item-book-info-price">
-                    {formatMoneyVND({ amount: item.product.price, showSuffix: true })}
+                    {formatMoneyVND({ amount: item.product?.price, showSuffix: true })}
                   </div>
                   <div className="CartDropdown-list-item-book-info-actions">
                     <Amount

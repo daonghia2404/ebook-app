@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import OrdersList from '@/pages/Orders/OrdersList';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
-import OrdersDetail from '@/pages/Orders/OrderDetail';
-import ReviewBookModal from '@/containers/ReviewBookModal';
+import OrderDetail from '@/pages/Orders/OrderDetail';
 import { ETypePage } from '@/utils/constants';
 
 import './Orders.scss';
@@ -75,23 +74,13 @@ const Orders = () => {
         ))}
       </div>
       {orderDetailState.data ? (
-        <OrdersDetail data={orderDetailState.data} />
+        <OrderDetail data={orderDetailState.data} onCancelOrder={handleCancelOrderState} />
       ) : (
         <>
           {gerOrdersLoading ? (
             <Loading />
           ) : (
-            <>
-              {isEmpty ? (
-                <Empty />
-              ) : (
-                <OrdersList
-                  data={ordersState}
-                  onClickOrderItem={handleClickOrderItem}
-                  onCancelOrder={handleCancelOrderState}
-                />
-              )}
-            </>
+            <>{isEmpty ? <Empty /> : <OrdersList data={ordersState} onClickOrderItem={handleClickOrderItem} />}</>
           )}
         </>
       )}

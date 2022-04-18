@@ -108,6 +108,7 @@ const AddressListConfig = ({ type, data, onSubmit }) => {
           label="Số điện thoại"
           rules={[
             validationRules.required(),
+            validationRules.phone(),
             validationRules.noSpaceKey(),
             validationRules.maxLength(10),
             validationRules.onlyNumeric(),

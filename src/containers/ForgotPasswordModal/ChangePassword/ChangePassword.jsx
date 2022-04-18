@@ -42,7 +42,12 @@ const ChangePassword = ({ data, onSuccess }) => {
         <Form.Item
           label="Mật khẩu"
           name="password"
-          rules={[validationRules.required(), validationRules.noSpaceKey(), validationRules.minLength()]}
+          rules={[
+            validationRules.required(),
+            validationRules.noSpaceKey(),
+            validationRules.minLength(),
+            validationRules.maxLength(),
+          ]}
         >
           <Input size="large" type="password" placeholder="Nhập mật khẩu mới" onChange={handleChangePassword} />
         </Form.Item>
@@ -53,6 +58,7 @@ const ChangePassword = ({ data, onSuccess }) => {
             validationRules.required(),
             validationRules.noSpaceKey(),
             validationRules.minLength(),
+            validationRules.maxLength(),
             validationRules.confirmPassword(password),
           ]}
         >

@@ -60,9 +60,15 @@ const Home = () => {
 
   useEffect(() => {
     getListProductByPaper();
+  }, [getListProductByPaper]);
+
+  useEffect(() => {
     getListProductByAudio();
+  }, [getListProductByAudio]);
+
+  useEffect(() => {
     getNewsData();
-  }, [getListProductByPaper, getListProductByAudio, getNewsData]);
+  }, [getNewsData]);
 
   useEffect(() => {
     scrollToTop();

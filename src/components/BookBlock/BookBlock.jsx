@@ -15,7 +15,8 @@ import './BookBlock.scss';
 
 const BookBlock = ({ image, type, owner, name, price, prePrice, _id, ...rest }) => {
   const dispatch = useDispatch();
-  const atk = AuthHelpers.getAccessToken();
+  const profile = useSelector((state) => state.profileState.profile) || {};
+  const atk = profile?.name;
 
   const addCartLoading = useSelector((state) => state.loading[EProductAction.ADD_TO_CART_PRODUCT]);
 
@@ -90,7 +91,7 @@ const BookBlock = ({ image, type, owner, name, price, prePrice, _id, ...rest }) 
       {!owner && (
         <>
           <div className="BookBlock-price flex justify-center">
-            {prePrice && <del>{formatMoneyVND({ amount: prePrice, showSuffix: true })}</del>}
+            {Boolean(prePrice) && <del>{formatMoneyVND({ amount: prePrice, showSuffix: true })}</del>}
             <span>{formatMoneyVND({ amount: price, showSuffix: true })}</span>
           </div>
           <div className="BookBlock-action flex justify-between">

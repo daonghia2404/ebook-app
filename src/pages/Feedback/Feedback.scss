@@ -7,5 +7,9 @@
   &-form {
     max-width: 57rem;
     width: 100%;
+
+    .ant-form-item-explain {
+      font-size: 1.4rem;
+    }
   }
 }

@@ -8,7 +8,8 @@ import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import LoadingSpin from '@/assets/icons/icon-loading-spin.svg';
 import { uploadFileAction } from '@/redux/actions';
 import { EUploadFileAction } from '@/redux/actions/upload/constants';
-import { getFullPathUrl } from '@/utils/functions';
+import { showNotification, validateImageTypeFile } from '@/utils/functions';
+import { ETypeNotification } from '@/utils/constants';
 
 import './UploadAvatar.scss';
 
@@ -22,9 +23,16 @@ const UploadAvatar = ({ className, value, onChange }) => {
     const singleFile = data?.[0];
 
     if (singleFile) {
-      const bodyFormData = new FormData();
-      bodyFormData.append('file', singleFile);
-      dispatch(uploadFileAction.request(bodyFormData, handleUploadSuccess));
+      if (validateImageTypeFile(singleFile)) {
+        const bodyFormData = new FormData();
+        bodyFormData.append('file', singleFile);
+        dispatch(uploadFileAction.request(bodyFormData, handleUploadSuccess));
+      } else {
+        showNotification(
+          ETypeNotification.ERROR,
+          'Vui lòng chọn ảnh có định dạng .jpg, .jpeg, .png và kích thước nhỏ hơn 2MB',
+        );
+      }
     }
   };
 

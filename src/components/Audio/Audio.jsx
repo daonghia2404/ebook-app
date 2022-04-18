@@ -11,13 +11,23 @@ import SampleAudio from './sample-mp3.mp3';
 import Loading from '@/containers/Loading/Loading';
 
 import './Audio.scss';
+import { Paths } from '@/pages/routers';
 
-const Audio = ({ image, title, src = SampleAudio }) => {
+const Audio = ({ image, title, src, id, productId, list = [] }) => {
   const audioRef = useRef();
   const [audioIndex, setAudioIndex] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isPlay, setPlay] = useState(false);
+  const [file, setFile] = useState(undefined);
+
+  const getFileAudio = async () => {
+    if (src) {
+      const file = await fetch(src);
+      const fileBlob = await file.blob();
+      setFile(window.URL.createObjectURL(fileBlob));
+    }
+  };
 
   const isLoading = duration === 0;
 
@@ -46,15 +56,24 @@ const Audio = ({ image, title, src = SampleAudio }) => {
   };
 
   const handleClickAudioPrev = () => {
-    // setAudioIndex((audioIndex - 1) % audios.length);
+    const currentIndex = list.map((item) => item._id).indexOf(id);
+    const prevAudio = list?.[currentIndex - 1];
+    if (prevAudio) {
+      window.location.href = `${Paths.BookAudio}?voice=${prevAudio._id}&product=${productId}`;
+    }
   };
 
   const handleClickAudioNext = () => {
-    // setAudioIndex((audioIndex + 1) % audios.length);
+    const currentIndex = list.map((item) => item._id).indexOf(id);
+    const nextAudio = list?.[currentIndex + 1];
+    if (nextAudio) {
+      window.location.href = `${Paths.BookAudio}?voice=${nextAudio._id}&product=${productId}`;
+    }
   };
 
   useEffect(() => {
     setDuration(0);
+    getFileAudio();
   }, [src]);
 
   return (
@@ -95,25 +114,27 @@ const Audio = ({ image, title, src = SampleAudio }) => {
           <div className="Audio-control-bars-total">{duration ? formatDuration(duration) : '00:00:00'}</div>
         </div>
         <div className="Audio-control-actions flex justify-center items-center">
-          <div className="Audio-control-actions-prev">
+          <div className="Audio-control-actions-prev" onClick={handleClickAudioPrev}>
             <img src={ImagePrev} alt="" />
           </div>
           <div className="Audio-control-actions-play" onClick={handlePausePlayClick}>
             <img src={isPlay ? ImagePause : ImagePlay} alt="" />
           </div>
-          <div className="Audio-control-actions-next">
+          <div className="Audio-control-actions-next" onClick={handleClickAudioNext}>
             <img src={ImageNext} alt="" />
           </div>
         </div>
       </div>
 
-      <audio
-        ref={audioRef}
-        src={src}
-        onLoadedData={handleLoadedData}
-        onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
-        onEnded={() => setPlay(false)}
-      />
+      {file && (
+        <audio
+          ref={audioRef}
+          src={file}
+          onLoadedData={handleLoadedData}
+          onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
+          onEnded={() => setPlay(false)}
+        />
+      )}
     </div>
   );
 };

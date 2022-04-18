@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { navigate, useLocation } from '@reach/router';
 
 import CheckoutCard from '@/containers/CheckoutCard';
@@ -31,14 +30,14 @@ const Checkout = () => {
               {checkedCartData.map((item) => (
                 <div key={item} className="Checkout-list-item flex">
                   <div className="Checkout-list-item-image">
-                    <img src={item.product.image} alt="" />
+                    <img src={item.product?.image} alt="" />
                   </div>
                   <div className="Checkout-list-item-info flex flex-col">
                     <div className="Checkout-list-item-info-title">
-                      {item.product.name} ({item.productType === ETypeBook.AUDIO_BOOK ? 'Ebook' : 'Sách giấy'}){' '}
+                      {item.product?.name} ({item.productType === ETypeBook.AUDIO_BOOK ? 'Ebook' : 'Sách giấy'}){' '}
                     </div>
                     <div className="Checkout-list-item-info-price">
-                      {formatMoneyVND({ amount: item.product.price, showSuffix: true })}
+                      {formatMoneyVND({ amount: item.product?.price, showSuffix: true })}
                     </div>
                     <div className="Checkout-list-item-info-amount">Số lượng : {item.amount}</div>
                   </div>

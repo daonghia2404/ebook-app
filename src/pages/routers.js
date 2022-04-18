@@ -23,6 +23,7 @@ const Home = lazy(() => retryLoadComponent(() => import('@/pages/Home')));
 const SearchResult = lazy(() => retryLoadComponent(() => import('@/pages/SearchResult')));
 const BookDetail = lazy(() => retryLoadComponent(() => import('@/pages/BookDetail')));
 const BookAudio = lazy(() => retryLoadComponent(() => import('@/pages/BookAudio')));
+const BookVideo = lazy(() => retryLoadComponent(() => import('@/pages/BookVideo')));
 const BooksCategory = lazy(() => retryLoadComponent(() => import('@/pages/BooksCategory')));
 const BooksListenCategory = lazy(() => retryLoadComponent(() => import('@/pages/BooksListenCategory')));
 const NewDetail = lazy(() => retryLoadComponent(() => import('@/pages/NewDetail')));
@@ -74,6 +75,7 @@ export const Paths = {
   MyBookDetail: (id) => `/sach-cua-toi/${id || ':id'}`,
   BookReader: `/sach-cua-toi/doc-sach`,
   BookAudio: `/sach-cua-toi/nghe-sach`,
+  BookVideo: `/sach-cua-toi/gioi-thieu-sach`,
   PrivacyPolicy: '/dieu-khoan-chinh-sach',
   ChangePassword: '/doi-mat-khau',
   Questions: '/cau-hoi',
@@ -105,6 +107,7 @@ export const Pages = {
   MyBookDetail,
   BookReader,
   BookAudio,
+  BookVideo,
   PrivacyPolicy,
   ChangePassword,
   Questions,

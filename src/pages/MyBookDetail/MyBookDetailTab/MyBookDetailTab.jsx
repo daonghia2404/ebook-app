@@ -15,17 +15,14 @@ const MyBookDetailTab = () => {
   const [keyTabList, setKeyTabList] = useState(dataTabMyBookDetail[0]);
   const bookData = useSelector((state) => state.productState.book) ?? {};
 
-  // const getVoiceMyBookData = useCallback(() => {
-  //   if (id && keyTabList.value === EKeyTabMyBookDetail.VOICE) {
-  //     dispatch(getVoiceMyBookAction.request({ product: id, voice: id }));
-  //   }
-  // }, [keyTabList, dispatch, id]);
-
   const handleReadBook = (id) => {
     navigate(`${Paths.BookReader}?voice=${id}&product=${bookData._id}`);
   };
   const handleListenBook = (id) => {
     navigate(`${Paths.BookAudio}?voice=${id}&product=${bookData._id}`);
+  };
+  const handleVideoBook = (url) => {
+    navigate(`${Paths.BookVideo}?url=${url}`);
   };
 
   const renderMyBookDetailTab = () => {
@@ -36,8 +33,8 @@ const MyBookDetailTab = () => {
             {bookData.voice?.map((item) => (
               <VideoFileCard
                 key={item._id}
-                title={`Nghe sách: ${bookData.name}`}
-                description="Bấm vào đây để nghe sách"
+                title={`Nghe sách: ${item.name || bookData?.name}`}
+                description={item.description || 'Bấm vào đây để nghe sách'}
                 onClick={() => handleListenBook(item._id)}
               />
             ))}
@@ -46,11 +43,11 @@ const MyBookDetailTab = () => {
       case EKeyTabMyBookDetail.FILE:
         return (
           <>
-            {bookData.file?.map((item, index) => (
+            {bookData.file?.map((item) => (
               <VideoFileCard
                 key={item._id}
-                title={`Đọc sách: ${bookData.name}`}
-                description="Bấm vào đây để đọc sách"
+                title={`Đọc sách: ${item.name || bookData?.name}`}
+                description={item.description || 'Bấm vào đây để đọc sách'}
                 pdf
                 onClick={() => handleReadBook(item._id)}
               />
@@ -62,9 +59,10 @@ const MyBookDetailTab = () => {
           <>
             <VideoFileCard
               video
-              image={getFullPathUrl(bookData.video.src)}
-              title={`Video giới thiệu: ${bookData.video.name}`}
-              description={formatDuration(bookData.video.duration)}
+              image=""
+              title={`Video giới thiệu: ${bookData?.video?.name || bookData?.name}`}
+              description={formatDuration(bookData?.video?.duration || 0)}
+              onClick={() => handleVideoBook(bookData?.video?.src)}
             />
           </>
         );
@@ -72,10 +70,6 @@ const MyBookDetailTab = () => {
         return <></>;
     }
   };
-
-  // useEffect(() => {
-  //   getVoiceMyBookData();
-  // }, [getVoiceMyBookData]);
 
   return (
     <div className="MyBookDetailTab">

@@ -14,7 +14,9 @@ import './NotificationDropdown.scss';
 
 const NotificationDropdown = ({ onClose }) => {
   const dispatch = useDispatch();
-  const atk = AuthHelpers.getAccessToken();
+  const profile = useSelector((state) => state.profileState.profile) || {};
+  const atk = profile?.name;
+
   const [notificationData, setNotificationData] = useState([]);
   const notificationDataTotal = useSelector((state) => state.notificationState.noticeList?.total) ?? 0;
 

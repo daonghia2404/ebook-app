@@ -66,7 +66,11 @@ const ProfileInfomationForm = () => {
         <Form.Item name="avatar" style={{ marginBottom: '7rem' }}>
           <UploadAvatar />
         </Form.Item>
-        <Form.Item name="name" label="Tên của bạn" rules={[validationRules.required()]}>
+        <Form.Item
+          name="name"
+          label="Tên của bạn"
+          rules={[validationRules.required(), validationRules.minLength(), validationRules.maxLength(10)]}
+        >
           <Input size="large" placeholder="Nhập tên của bạn" />
         </Form.Item>
         <Form.Item
@@ -75,6 +79,7 @@ const ProfileInfomationForm = () => {
           rules={[
             validationRules.required(),
             validationRules.noSpaceKey(),
+            validationRules.phone(),
             validationRules.maxLength(10),
             validationRules.onlyNumeric(),
           ]}
@@ -82,7 +87,7 @@ const ProfileInfomationForm = () => {
           <Input size="large" placeholder="Nhập số điện thoại" />
         </Form.Item>
         <Form.Item name="email" label="Email" rules={[validationRules.required(), validationRules.email()]}>
-          <Input size="large" placeholder="Nhập email" />
+          <Input size="large" placeholder="Nhập email" disabled />
         </Form.Item>
         <Form.Item name="dob" label="Ngày sinh" rules={[validationRules.required(), validationRules.bitrhDay()]}>
           <DatePicker size="large" placeholder="Chọn ngày sinh" />

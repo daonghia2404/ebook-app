@@ -42,17 +42,31 @@ const SignUp = ({ onSignUpSuccess }) => {
       <Form.Item
         label="Tên của bạn"
         name="name"
-        rules={[validationRules.required(), validationRules.noSpaceKey(), validationRules.minLength(6)]}
+        rules={[
+          validationRules.required(),
+          validationRules.noSpaceKey(),
+          validationRules.minLength(6),
+          validationRules.maxLength(),
+        ]}
       >
         <Input size="large" placeholder="Nhập tên" />
       </Form.Item>
-      <Form.Item label="Email" name="email" rules={[validationRules.required(), validationRules.email()]}>
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[validationRules.required(), validationRules.email(), validationRules.maxLength()]}
+      >
         <Input size="large" placeholder="Nhập email" />
       </Form.Item>
       <Form.Item
         label="Mật khẩu"
         name="password"
-        rules={[validationRules.required(), validationRules.noSpaceKey(), validationRules.minLength()]}
+        rules={[
+          validationRules.required(),
+          validationRules.noSpaceKey(),
+          validationRules.minLength(),
+          validationRules.maxLength(),
+        ]}
       >
         <Input size="large" placeholder="Nhập password" type="password" onChange={handleChangePassword} />
       </Form.Item>
@@ -64,6 +78,7 @@ const SignUp = ({ onSignUpSuccess }) => {
           validationRules.noSpaceKey(),
           validationRules.minLength(),
           validationRules.confirmPassword(password),
+          validationRules.maxLength(),
         ]}
       >
         <Input size="large" type="password" placeholder="Nhập lại password" />
