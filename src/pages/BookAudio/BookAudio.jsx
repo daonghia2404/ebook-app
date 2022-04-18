@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from '@reach/router';
+import { createHistory, useLocation } from '@reach/router';
 
 import VideoFileCard from '@/components/VideoFileCard/VideoFileCard';
 import { scrollToTop } from '@/utils/functions';
@@ -15,10 +15,13 @@ import './BookAudio.scss';
 const BookAudio = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const history = createHistory(window);
 
   const query = new URLSearchParams(location.search);
   const voice = query.get('voice');
   const product = query.get('product');
+
+  const [voiceId, setVoiceId] = useState(voice);
 
   const bookData = useSelector((state) => state.productState.book) ?? {};
   const getBookLoading = useSelector((state) => state.loading[EProductAction.GET_DETAIL_PRODUCT]);
@@ -27,12 +30,12 @@ const BookAudio = () => {
   const isAvaiablePage = voice && product;
 
   const handleListenBook = (id) => {
-    window.location.href = `${Paths.BookAudio}?voice=${id}&product=${bookData._id}`;
+    setVoiceId(id);
   };
 
   const getVoiceMyBookData = useCallback(() => {
-    dispatch(getVoiceMyBookAction.request({ product, voice }));
-  }, [dispatch, voice, product]);
+    dispatch(getVoiceMyBookAction.request({ product, voice: voiceId }));
+  }, [dispatch, voiceId, product]);
 
   const getProductById = useCallback(() => {
     if (product) dispatch(getProductDetailAction.request(product));
@@ -61,12 +64,13 @@ const BookAudio = () => {
             <>
               <div className="BookAudio-control">
                 <Audio
-                  id={voice}
+                  id={voiceId}
                   src={fileData.url}
                   image={bookData.image}
                   title={bookData.name}
                   list={bookData?.voice}
-                  productId={bookData?._id}
+                  onClickPrev={setVoiceId}
+                  onClickNext={setVoiceId}
                 />
               </div>
               <div className="BookAudio-list">
@@ -74,7 +78,7 @@ const BookAudio = () => {
                 <div className="BookAudio-list-main">
                   {bookData.voice?.map((item) => (
                     <VideoFileCard
-                      active={voice === item._id}
+                      active={voiceId === item._id}
                       key={item._id}
                       title={`Nghe sách: ${item.name || bookData?.name}`}
                       description={item.description || 'Bấm vào đây để nghe sách'}

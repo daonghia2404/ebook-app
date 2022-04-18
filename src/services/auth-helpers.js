@@ -4,6 +4,7 @@ import env from '@/env';
 const COOKIE_DOMAIN = env.cookie.domain;
 const COOKIE_ACCESS_TOKEN = `atk`;
 const COOKIE_REFRESH_TOKEN = `rtk`;
+const BOOK_MARK = `bm`;
 // const MAXIMUM_EXPIRES_TIME = 2147483647;
 
 const cookieSetting = {
@@ -35,6 +36,14 @@ class AuthHelpers {
 
   storeAccessToken(accessToken) {
     setCookie(COOKIE_ACCESS_TOKEN, accessToken);
+  }
+
+  getBookMark() {
+    return getCookie(BOOK_MARK);
+  }
+
+  storeBookMark(data) {
+    return setCookie(BOOK_MARK, data);
   }
 
   clearTokens() {

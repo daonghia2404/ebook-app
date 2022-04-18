@@ -11,11 +11,9 @@ import SampleAudio from './sample-mp3.mp3';
 import Loading from '@/containers/Loading/Loading';
 
 import './Audio.scss';
-import { Paths } from '@/pages/routers';
 
-const Audio = ({ image, title, src, id, productId, list = [] }) => {
+const Audio = ({ image, title, src, id, onClickPrev, onClickNext, list = [] }) => {
   const audioRef = useRef();
-  const [audioIndex, setAudioIndex] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isPlay, setPlay] = useState(false);
@@ -59,7 +57,7 @@ const Audio = ({ image, title, src, id, productId, list = [] }) => {
     const currentIndex = list.map((item) => item._id).indexOf(id);
     const prevAudio = list?.[currentIndex - 1];
     if (prevAudio) {
-      window.location.href = `${Paths.BookAudio}?voice=${prevAudio._id}&product=${productId}`;
+      onClickPrev?.(prevAudio._id);
     }
   };
 
@@ -67,7 +65,7 @@ const Audio = ({ image, title, src, id, productId, list = [] }) => {
     const currentIndex = list.map((item) => item._id).indexOf(id);
     const nextAudio = list?.[currentIndex + 1];
     if (nextAudio) {
-      window.location.href = `${Paths.BookAudio}?voice=${nextAudio._id}&product=${productId}`;
+      onClickNext?.(nextAudio._id);
     }
   };
 

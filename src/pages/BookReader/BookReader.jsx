@@ -9,6 +9,7 @@ import { scrollToTop } from '@/utils/functions';
 import { getFileMyBookAction } from '@/redux/actions';
 import { Paths } from '@/pages/routers';
 import { ETypePage } from '@/utils/constants';
+import AuthHelpers from '@/services/auth-helpers';
 
 import SamplePdf from './sample-pdf.pdf';
 
@@ -29,7 +30,9 @@ const BookReader = () => {
     page,
     total: 0,
   });
-  const [visibleNextPageModal, setVisibleNextPageModal] = useState(false);
+  const [visibleNextPageModal, setVisibleNextPageModal] = useState({
+    visible: false,
+  });
 
   const isAvaiablePage = voice && product;
 
@@ -39,6 +42,7 @@ const BookReader = () => {
 
   const handleChangePage = (changedPage) => {
     if (changedPage > 0 && changedPage <= pageNumber.total) {
+      AuthHelpers.storeBookMark(`${voice},${changedPage}`);
       setPageNumber({
         ...pageNumber,
         page: changedPage,
@@ -55,13 +59,14 @@ const BookReader = () => {
     });
   };
 
-  const handleOpenNextPageModal = () => {
-    setVisibleNextPageModal(true);
+  const handleOpenNextPageModal = (page) => {
+    setVisibleNextPageModal({ visible: true, page });
   };
   const handleCloseNextPageModal = () => {
-    setVisibleNextPageModal(false);
+    setVisibleNextPageModal({ visible: false });
   };
   const handleSubmitNextPageModal = () => {
+    handleChangePage(visibleNextPageModal.page);
     handleCloseNextPageModal();
   };
 
@@ -69,6 +74,19 @@ const BookReader = () => {
     if (isAvaiablePage) getFileMyBookData();
     else navigate(Paths.Home);
   }, [getFileMyBookData]);
+
+  useEffect(() => {
+    if (voice) {
+      const bookMark = AuthHelpers.getBookMark();
+
+      if (bookMark) {
+        const [voiceMark, pageMark] = bookMark.split(',');
+        if (voiceMark && pageMark && voiceMark === voice) {
+          handleOpenNextPageModal(Number(pageMark));
+        }
+      }
+    }
+  }, [voice]);
 
   useEffect(() => {
     scrollToTop();
@@ -105,8 +123,8 @@ const BookReader = () => {
       </div>
 
       <ConfirmModal
-        title="Bạn muốn đọc tiếp trang 29 không ?"
-        visible={visibleNextPageModal}
+        title={`Bạn muốn đọc tiếp trang ${visibleNextPageModal.page} không ?`}
+        visible={visibleNextPageModal.visible}
         hideCancel
         onClose={handleCloseNextPageModal}
         onSubmit={handleSubmitNextPageModal}
