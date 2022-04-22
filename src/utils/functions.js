@@ -215,3 +215,10 @@ export const validateImageTypeFile = (file) => {
 
   return fileSize < maxSize && acceptType.includes(fileType);
 };
+
+export const convertToSlug = (text) => {
+  return removeAccents(text)
+    .toLowerCase()
+    .replace(/ /g, '-')
+    .replace(/[^\w-]+/g, '');
+};

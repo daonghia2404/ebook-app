@@ -62,7 +62,7 @@ export const ModulePaths = {
 export const Paths = {
   Home: '/',
   SearchResult: '/ket-qua-tim-kiem',
-  BookDetail: (id) => `${ModulePaths.Book}/chi-tiet/${id || ':id'}`,
+  BookDetail: (slug, id) => `${ModulePaths.Book}/chi-tiet/${slug || ':slug'}/${id || ':id'}`,
   BooksCategory: '/danh-sach/sanh-giay',
   BooksListenCategory: '/danh-sach/sach-noi',
   NewDetail: (id) => `${ModulePaths.New}/chi-tiet/${id || ':id'}`,
@@ -72,7 +72,7 @@ export const Paths = {
   ProfileInfomation: '/thong-tin-ca-nhan',
   ProfileInfomationEdit: '/thong-tin-ca-nhan/chinh-sua',
   MyBooks: '/sach-cua-toi',
-  MyBookDetail: (id) => `/sach-cua-toi/${id || ':id'}`,
+  MyBookDetail: (slug, id) => `/sach-cua-toi/${slug || ':slug'}/${id || ':id'}`,
   BookReader: `/sach-cua-toi/doc-sach`,
   BookAudio: `/sach-cua-toi/nghe-sach`,
   BookVideo: `/sach-cua-toi/gioi-thieu-sach`,

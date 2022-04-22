@@ -5,15 +5,14 @@ import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { navigate } from '@reach/router';
 import { Paths } from '@/pages/routers';
-import { formatMoneyVND, showNotification } from '@/utils/functions';
-import AuthHelpers from '@/services/auth-helpers';
+import { convertToSlug, formatMoneyVND, showNotification } from '@/utils/functions';
 import { EProductAction } from '@/redux/actions/products/constants';
 import { addToCartAction, getListCartAction } from '@/redux/actions';
 import { ETypeNotification } from '@/utils/constants';
 
 import './BookBlock.scss';
 
-const BookBlock = ({ image, type, owner, name, price, prePrice, _id, ...rest }) => {
+const BookBlock = ({ image, type, owner, name, price, prePrice, _id, slug, ...rest }) => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profileState.profile) || {};
   const atk = profile?.name;
@@ -22,9 +21,9 @@ const BookBlock = ({ image, type, owner, name, price, prePrice, _id, ...rest }) 
 
   const handleClickBookBlock = () => {
     if (owner) {
-      navigate(Paths.MyBookDetail(_id));
+      navigate(Paths.MyBookDetail(slug || convertToSlug(name), _id));
     } else {
-      navigate(Paths.BookDetail(_id));
+      navigate(Paths.BookDetail(slug || convertToSlug(name), _id));
     }
   };
 
