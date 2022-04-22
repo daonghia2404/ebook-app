@@ -257,7 +257,6 @@ const HeaderSearch = () => {
             </DropdownCustom>
           ) : (
             <div className="HeaderSearch-cart cursor-pointer" onClick={handleOpenCartDropdown}>
-              <div className="HeaderSearch-cart-badge">0</div>
               <Icon name={EIconName.ShoppingBag} color={EIconColor.MAKO} />
             </div>
           )}

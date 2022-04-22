@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { cancelOrderAction, getOrderAction } from '@/redux/actions';
+import { addToCartAction, cancelOrderAction, getOrderAction } from '@/redux/actions';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Button from '@/components/Button';
 import ConfirmModal from '@/containers/ConfirmModal/ConfirmModal';
@@ -14,6 +14,7 @@ import { EOrderStatus, EOrderType } from '@/services/api/order/enums';
 import { ETypeNotification } from '@/utils/constants';
 import { ETypeBook } from '@/common/static';
 import ReviewBookModal from '@/containers/ReviewBookModal';
+import { EProductAction } from '@/redux/actions/products/constants';
 
 import './OrderDetail.scss';
 
@@ -25,10 +26,12 @@ const OrderDetail = ({ data, onCancelOrder }) => {
     visible: false,
     data: undefined,
   });
+  const [disabledRebuy, setDisabledRebuy] = useState(false);
 
   const orderState = useSelector((state) => state.orderState.order) || {};
   const getOrderLoading = useSelector((state) => state.loading[EOrderAction.GET_ORDER]);
   const cancelOrderLoading = useSelector((state) => state.loading[EOrderAction.CANCEL_ORDER]);
+  const addCartLoading = useSelector((state) => state.loading[EProductAction.ADD_TO_CART_PRODUCT]);
 
   const orderType = dataOrderTypeOptions.find((item) => item.value === orderState.orderType);
 
@@ -54,7 +57,17 @@ const OrderDetail = ({ data, onCancelOrder }) => {
     onCancelOrder?.();
   };
 
-  const handleClickRebuy = () => {};
+  const handleClickRebuy = () => {
+    orderState.products.forEach((item) => {
+      const body = { product: item.product, amount: 1 };
+      dispatch(addToCartAction.request(body, handleAddBookToCartSuccess));
+    });
+  };
+
+  const handleAddBookToCartSuccess = () => {
+    setDisabledRebuy(true);
+    showNotification(ETypeNotification.SUCCESS, 'Đã thêm tất cả sản phẩm mua lại vào giỏ hàng');
+  };
 
   const getOrderData = useCallback(() => {
     if (data._id) dispatch(getOrderAction.request(data._id));
@@ -185,11 +198,19 @@ const OrderDetail = ({ data, onCancelOrder }) => {
                   <Button type="primary" title="Huỷ đơn" uppercase size="large" onClick={handleOpenCancelOrder} />
                 </div>
               )}
-              {/* {[EOrderStatus.HOAN_THANH, EOrderStatus.DA_HUY, EOrderStatus.THAT_BAI].includes(orderState.status) && (
+              {[EOrderStatus.HOAN_THANH, EOrderStatus.DA_HUY, EOrderStatus.THAT_BAI].includes(orderState.status) && (
                 <div className="OrderDetail-table-row cancel">
-                  <Button type="primary" title="Mua lại" uppercase size="large" onClick={handleClickRebuy} />
+                  <Button
+                    type="primary"
+                    title="Mua lại"
+                    uppercase
+                    size="large"
+                    loading={addCartLoading}
+                    onClick={handleClickRebuy}
+                    disabled={disabledRebuy}
+                  />
                 </div>
-              )} */}
+              )}
             </div>
           </div>
         </>

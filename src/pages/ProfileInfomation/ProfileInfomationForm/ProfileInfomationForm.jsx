@@ -69,7 +69,7 @@ const ProfileInfomationForm = () => {
         <Form.Item
           name="name"
           label="Tên của bạn"
-          rules={[validationRules.required(), validationRules.minLength(), validationRules.maxLength(10)]}
+          rules={[validationRules.required(), validationRules.minLength(), validationRules.maxLength()]}
         >
           <Input size="large" placeholder="Nhập tên của bạn" />
         </Form.Item>

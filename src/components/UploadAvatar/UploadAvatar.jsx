@@ -16,6 +16,7 @@ import './UploadAvatar.scss';
 const UploadAvatar = ({ className, value, onChange }) => {
   const dispatch = useDispatch();
   const [currentValue, setCurrentValue] = useState(value);
+  const [isMounted, setIsMounted] = useState(false);
 
   const uploadLoading = useSelector((state) => state.loading[EUploadFileAction.UPLOAD_FILE]);
 
@@ -42,7 +43,10 @@ const UploadAvatar = ({ className, value, onChange }) => {
   };
 
   useEffect(() => {
-    setCurrentValue(value);
+    if (!isMounted && value) {
+      setCurrentValue(value);
+      setIsMounted(true);
+    }
   }, [value]);
 
   return (
