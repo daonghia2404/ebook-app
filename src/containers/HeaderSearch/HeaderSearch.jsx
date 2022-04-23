@@ -97,8 +97,10 @@ const HeaderSearch = () => {
     setForgotPasswordModalState({ visible: true, defaultStep, prevAction, data });
   };
 
-  const handleCloseForgotPasswordModal = () => {
+  const handleCloseForgotPasswordModal = (type) => {
     setForgotPasswordModalState({ visible: false });
+
+    if (type) handleOpenAuthModal(type);
   };
 
   const handleOpenAuthModal = (type) => {
