@@ -30,9 +30,12 @@ const NewDetail = () => {
     <div className="NewDetail">
       <div className="container">
         <div className="NewDetail-wrapper">
-          <div className="NewDetail-image">
-            <img src={ImageNewDetail} alt="" />
-          </div>
+          {blog.featureImageId && (
+            <div className="NewDetail-image">
+              <img src={blog.featureImageId} alt="" />
+            </div>
+          )}
+
           <div className="NewDetail-title">{blog.title} </div>
           <div className="NewDetail-time">{formatISODateToDateTime(blog.createdAt)}</div>
 
