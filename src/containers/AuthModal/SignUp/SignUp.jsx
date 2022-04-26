@@ -47,6 +47,7 @@ const SignUp = ({ onSignUpSuccess }) => {
           validationRules.noSpaceKey(),
           validationRules.minLength(6),
           validationRules.maxLength(),
+          validationRules.noSpecialKey(),
         ]}
       >
         <Input size="large" placeholder="Nhập tên" />
@@ -68,7 +69,7 @@ const SignUp = ({ onSignUpSuccess }) => {
           validationRules.maxLength(),
         ]}
       >
-        <Input size="large" placeholder="Nhập password" type="password" onChange={handleChangePassword} />
+        <Input size="large" placeholder="Nhập mật khẩu" type="password" onChange={handleChangePassword} />
       </Form.Item>
       <Form.Item
         label="Nhập lại mật khẩu"

@@ -80,7 +80,7 @@ const FilterBooksModal = ({ visible, onClose, onSubmit }) => {
     >
       <img className="FilterBooksModal-bg special" src={BgSpecial} alt="" />
       <div className="FilterBooksModal-header flex items-center justify-center">
-        <div className="FilterBooksModal-back">
+        <div className="FilterBooksModal-back" onClick={onClose}>
           <Icon name={EIconName.ArrowLeft} color={EIconColor.BLUE_ZODIAC} />
         </div>
         <div className="FilterBooksModal-title">Lọc</div>

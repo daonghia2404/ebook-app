@@ -33,7 +33,7 @@ const SingIn = ({ onClickForgotPassword, onSignInSuccess }) => {
         name="password"
         rules={[validationRules.required(), validationRules.noSpaceKey(), validationRules.minLength()]}
       >
-        <Input size="large" placeholder="Nhập password" type="password" />
+        <Input size="large" placeholder="Nhập mật khẩu" type="password" />
       </Form.Item>
       <Form.Item>
         <div

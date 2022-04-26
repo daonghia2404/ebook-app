@@ -38,7 +38,7 @@ const BooksCarousel = ({ title, data = [], darkBackground, link, loading }) => {
       case windowType.width <= 991:
         return data.length > 3;
       default:
-        return data.length > 4;
+        return data.length > 5;
     }
   };
 

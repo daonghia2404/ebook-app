@@ -116,7 +116,7 @@ export const validationRules = {
   noSpecialKey: (message) => ({
     validator: (rule, value) => {
       if (!value || !ERegex.onlySpecialKey.test(value)) return Promise.resolve();
-      return Promise.reject(message || 'Cannot enter special characters');
+      return Promise.reject(message || 'Vui lòng không nhập ký tự đặc biệt');
     },
   }),
   noSpaceKey: (message) => ({
