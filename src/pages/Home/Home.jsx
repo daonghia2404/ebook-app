@@ -38,12 +38,12 @@ const Home = () => {
     pageSize: 4,
   });
 
-  // const handleChangeNewsTab = (key) => {
-  //   setGetNewsParamsRequest({
-  //     ...getNewsParamsRequest,
-  //     featured: key,
-  //   });
-  // };
+  const handleChangeNewsTab = (key) => {
+    setGetNewsParamsRequest({
+      ...getNewsParamsRequest,
+      featured: key,
+    });
+  };
 
   const getListProductByPaper = useCallback(() => {
     dispatch(getListProductPaperBookAction.request(getPaperBooksParamsRequest));
@@ -84,7 +84,7 @@ const Home = () => {
         loading={getAudioBooksLoading}
         link={Paths.BooksListenCategory}
       />
-      <NewsTab data={newsData} loading={getNewsLoading} />
+      <NewsTab data={newsData} loading={getNewsLoading} onTabChange={handleChangeNewsTab} />
     </div>
   );
 };

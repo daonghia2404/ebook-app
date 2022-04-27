@@ -16,11 +16,7 @@ const NewsTab = ({ data = [], loading, onTabChange }) => {
 
   const [keyTab, setKeyTab] = useState(dataNewsTab[0]);
 
-  const showNewsList =
-    keyTab.key === EKeyNewsTab.LASTEST
-      ? data.filter((item) => item.isActivated || item.isFeatured)
-      : data.filter((item) => item.isFeatured);
-  const isEmpty = showNewsList.length === 0;
+  const isEmpty = data.length === 0;
 
   const handleChangeTabKey = (data) => {
     setKeyTab(data);
@@ -51,7 +47,7 @@ const NewsTab = ({ data = [], loading, onTabChange }) => {
                 <Empty />
               ) : (
                 <div className="NewsTab-list flex flex-wrap">
-                  {showNewsList?.map((item, index) => (
+                  {data?.map((item, index) => (
                     <div key={index} className="NewsTab-list-item">
                       <NewBlock {...item} />
                     </div>

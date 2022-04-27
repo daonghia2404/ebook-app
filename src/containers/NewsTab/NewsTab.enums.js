@@ -1,4 +1,4 @@
 export const EKeyNewsTab = {
-  LASTEST: 'false',
+  LASTEST: undefined,
   FEATURED: 'true',
 };
