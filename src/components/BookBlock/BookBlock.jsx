@@ -7,14 +7,16 @@ import { navigate } from '@reach/router';
 import { Paths } from '@/pages/routers';
 import { convertToSlug, formatMoneyVND, showNotification } from '@/utils/functions';
 import { EProductAction } from '@/redux/actions/products/constants';
-import { addToCartAction, getListCartAction } from '@/redux/actions';
+import { addToCartAction, getListCartAction, uiActions } from '@/redux/actions';
 import { ETypeNotification } from '@/utils/constants';
 
 import './BookBlock.scss';
+import { handleAddNewCartLocalStorage, parseCartData } from '@/utils/cart';
 
 const BookBlock = ({ image, type, owner, name, price, prePrice, _id, slug, ...rest }) => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profileState.profile) || {};
+  const cartsStorage = useSelector((state) => state.uiState.cartsStorage);
   const atk = profile?.name;
 
   const addCartLoading = useSelector((state) => state.loading[EProductAction.ADD_TO_CART_PRODUCT]);
@@ -32,7 +34,19 @@ const BookBlock = ({ image, type, owner, name, price, prePrice, _id, slug, ...re
       const body = { product: _id, amount: 1 };
       dispatch(addToCartAction.request(body, handleAddBookToCartSuccess));
     } else {
-      showNotification(ETypeNotification.WARNING, 'Vui lòng đăng nhập để tiếp tục thực hiện hành động này');
+      const newCartsData = handleAddNewCartLocalStorage(
+        cartsStorage,
+        parseCartData({
+          amount: 1,
+          image,
+          name,
+          prePrice,
+          price,
+          _id,
+          type,
+        }),
+      );
+      if (newCartsData) dispatch(uiActions.setCartsStorage(newCartsData));
     }
   };
 

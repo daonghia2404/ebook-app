@@ -51,6 +51,7 @@
     "slick-carousel": "^1.8.1",
     "storybook-addon-sass-postcss": "^0.1.0",
     "style-loader": "^3.3.1",
+    "uuid": "^8.3.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

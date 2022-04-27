@@ -18,7 +18,7 @@ const initialState = {
   books: {},
   book: {},
   sameBooks: {},
-  carts: {},
+  carts: [],
 };
 
 const reducer = createReducer(initialState, (handleAction) => [

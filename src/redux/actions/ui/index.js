@@ -8,4 +8,6 @@ export const uiActions = {
     (resolve) => (actionName) => resolve({ actionName: actionName.replace('_REQUEST', '') }),
   ),
   setDevice: createActionCreator(EUIAction.SET_DEVICE, (resolve) => (deviceWidth) => resolve({ deviceWidth })),
+  getCartsStorage: createActionCreator(EUIAction.GET_CARTS_STORAGE, (resolve) => (data) => resolve({ data })),
+  setCartsStorage: createActionCreator(EUIAction.SET_CARTS_STORAGE, (resolve) => (data) => resolve({ data })),
 };

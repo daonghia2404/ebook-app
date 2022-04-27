@@ -1,5 +1,6 @@
 import { createReducer } from 'deox';
 import { uiActions } from '@/redux/actions';
+import { getCartsLocalStorage, setCartsLocalStorage } from '@/utils/cart';
 
 export const EDeviceType = {
   DESKTOP: 'desktop',
@@ -11,6 +12,7 @@ const initialState = {
     type: window.innerWidth > 991 ? EDeviceType.DESKTOP : EDeviceType.MOBILE,
     width: window.innerWidth,
   },
+  cartsStorage: getCartsLocalStorage(),
 };
 
 const reducer = createReducer(initialState, (handleAction) => [
@@ -21,6 +23,14 @@ const reducer = createReducer(initialState, (handleAction) => [
       width: payload.deviceWidth,
     },
   })),
+  handleAction(uiActions.setCartsStorage, (state, { payload }) => {
+    setCartsLocalStorage(payload.data);
+
+    return {
+      ...state,
+      cartsStorage: payload.data,
+    };
+  }),
 ]);
 
 export default reducer;

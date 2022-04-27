@@ -6,14 +6,20 @@ import Button from '@/components/Button';
 import Amount from '@/components/Amount';
 import ReviewsModal from '@/containers/ReviewsModal';
 import { formatMoneyVND, scrollToTop, showNotification } from '@/utils/functions';
-import AuthHelpers from '@/services/auth-helpers';
 import { useParams } from '@reach/router';
-import { getProductDetailAction, addToCartAction, getSameProductAction, getListCartAction } from '@/redux/actions';
+import {
+  getProductDetailAction,
+  addToCartAction,
+  getSameProductAction,
+  getListCartAction,
+  uiActions,
+} from '@/redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { EProductAction } from '@/redux/actions/products/constants';
 import { ETypeNotification, ETypePage } from '@/utils/constants';
 import Loading from '@/containers/Loading/Loading';
 import { ETypeBook, LIMIT_DESCRIPTION_LENGTH } from '@/common/static';
+import { handleAddNewCartLocalStorage, parseCartData } from '@/utils/cart';
 
 import { EKeyTabBookDetail } from './BookDetail.enums';
 import './BookDetail.scss';
@@ -21,7 +27,10 @@ import './BookDetail.scss';
 const BookDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+
   const profile = useSelector((state) => state.profileState.profile) || {};
+  const cartsStorage = useSelector((state) => state.uiState.cartsStorage);
+
   const atk = profile?.name;
 
   const addCartLoading = useSelector((state) => state.loading[EProductAction.ADD_TO_CART_PRODUCT]);
@@ -59,11 +68,7 @@ const BookDetail = () => {
   };
 
   const handleChangeAmountProduct = (value) => {
-    if (atk) {
-      setAmount(value);
-    } else {
-      showNotification(ETypeNotification.WARNING, 'Vui lòng đăng nhập để tiếp tục thực hiện hành động này');
-    }
+    setAmount(value);
   };
 
   const handleAddBookToCart = () => {
@@ -71,7 +76,19 @@ const BookDetail = () => {
       const body = { product: id, amount: amount };
       dispatch(addToCartAction.request(body, handleAddBookToCartSuccess));
     } else {
-      showNotification(ETypeNotification.WARNING, 'Vui lòng đăng nhập để tiếp tục thực hiện hành động này');
+      const newCartsData = handleAddNewCartLocalStorage(
+        cartsStorage,
+        parseCartData({
+          amount,
+          image: bookData?.image,
+          name: bookData?.name,
+          prePrice: bookData?.prePrice,
+          price: bookData?.price,
+          _id: bookData?._id,
+          type: bookData?.type,
+        }),
+      );
+      if (newCartsData) dispatch(uiActions.setCartsStorage(newCartsData));
     }
   };
 

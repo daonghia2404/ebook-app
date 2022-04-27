@@ -6,7 +6,7 @@ import Button from '@/components/Button';
 import Checkbox from '@/components/Checkbox';
 import BgSpecial from '@/assets/images/bg-special.png';
 import Amount from '@/components/Amount';
-import { getListCartAction, updateCartAction, deleteCartAction } from '@/redux/actions';
+import { getListCartAction, updateCartAction, deleteCartAction, uiActions } from '@/redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { caculateTotal, formatMoneyVND, showNotification } from '@/utils/functions';
 import { Paths } from '@/pages/routers';
@@ -15,28 +15,40 @@ import { EProductAction } from '@/redux/actions/products/constants';
 import Loading from '@/containers/Loading/Loading';
 import Empty from '@/components/Empty/Empty';
 import { ETypeBook } from '@/common/static';
+import AuthHelpers from '@/services/auth-helpers';
 
 import './CartDropdown.scss';
+import { handleChangeAmountCartLocalStorage, handleDeleteCartLocalStorage } from '@/utils/cart';
 
 const CartDropdown = ({ onClose }) => {
   const dispatch = useDispatch();
+  const atk = AuthHelpers.getAccessToken();
 
-  const listCart = useSelector((state) => state.productState?.carts) ?? [];
+  const listCart = useSelector((state) => state.productState?.carts) || [];
+  const listCartStorage = useSelector((state) => state.uiState?.cartsStorage) || [];
+
   const getListCartLoading = useSelector((state) => state.loading[EProductAction.LIST_CART_PRODUCT]);
   const updateListCartLoading = useSelector((state) => state.loading[EProductAction.UPDATE_CART_PRODUCT]);
   const deleteListCartLoading = useSelector((state) => state.loading[EProductAction.DELETE_CART_PRODUCT]);
 
+  const dataCarts = atk ? listCart : listCartStorage;
+
   const [checkedCartData, setCheckedCartData] = useState([]);
 
-  const isEmpty = listCart?.length === 0;
+  const isEmpty = dataCarts?.length === 0;
 
   const getCartsData = () => {
-    dispatch(getListCartAction.request());
+    if (atk) dispatch(getListCartAction.request());
   };
 
   const handleDeleteCart = (item) => {
     const { _id } = item;
-    dispatch(deleteCartAction.request(_id, handleDeleteCartSuccess));
+    if (atk) {
+      dispatch(deleteCartAction.request(_id, handleDeleteCartSuccess));
+    } else {
+      const newCartsData = handleDeleteCartLocalStorage(listCartStorage, _id);
+      dispatch(uiActions.setCartsStorage(newCartsData));
+    }
   };
 
   const handleDeleteCartSuccess = () => {
@@ -45,7 +57,12 @@ const CartDropdown = ({ onClose }) => {
   };
 
   const handleAmountChange = (amount, item) => {
-    dispatch(updateCartAction.request(item._id, { amount }, handleUpdateCartSuccess));
+    if (atk) {
+      dispatch(updateCartAction.request(item._id, { amount }, handleUpdateCartSuccess));
+    } else {
+      const newCartsData = handleChangeAmountCartLocalStorage(listCartStorage, item._id, amount);
+      dispatch(uiActions.setCartsStorage(newCartsData));
+    }
   };
 
   const handleUpdateCartSuccess = () => {
@@ -54,7 +71,7 @@ const CartDropdown = ({ onClose }) => {
   };
 
   const handleCheckAllCart = (checked) => {
-    setCheckedCartData(checked ? listCart : []);
+    setCheckedCartData(checked ? dataCarts : []);
   };
 
   const handleCheckCart = (checked, data) => {
@@ -66,13 +83,17 @@ const CartDropdown = ({ onClose }) => {
   };
 
   const handleCheckout = () => {
-    const data = checkedCartData;
-    navigate(Paths.Checkout, {
-      state: {
-        checkedCartData: data,
-      },
-    });
-    onClose?.();
+    if (atk) {
+      const data = checkedCartData;
+      navigate(Paths.Checkout, {
+        state: {
+          checkedCartData: data,
+        },
+      });
+      onClose?.();
+    } else {
+      showNotification(ETypeNotification.WARNING, 'Vui lòng đăng nhập để tiếp tục thực hiện hành động này');
+    }
   };
 
   const isCheckedCart = (data) => {
@@ -94,7 +115,7 @@ const CartDropdown = ({ onClose }) => {
         <Empty />
       ) : (
         <div className="CartDropdown-list">
-          {listCart?.map((item) => (
+          {dataCarts?.map((item) => (
             <div key={item} className="CartDropdown-list-item flex items-start">
               <div className="CartDropdown-list-item-checkbox">
                 <Checkbox value={isCheckedCart(item)} onChange={(checked) => handleCheckCart(checked, item)} />
@@ -137,7 +158,12 @@ const CartDropdown = ({ onClose }) => {
 
       <div className="CartDropdown-footer flex justify-between items-center">
         <div className="CartDropdown-footer-item">
-          <Checkbox value={checkedCartData.length === listCart?.length} label="Tất cả" onChange={handleCheckAllCart} />
+          <Checkbox
+            value={checkedCartData.length === dataCarts?.length}
+            label="Tất cả"
+            disabled={isEmpty}
+            onChange={handleCheckAllCart}
+          />
           <div className="CartDropdown-footer-total">
             Tổng tiền hàng{' '}
             <span>{formatMoneyVND({ amount: caculateTotal(checkedCartData) || 0, showSuffix: true })}</span>

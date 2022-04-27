@@ -18,11 +18,18 @@ import { EDeviceType } from '@/redux/reducers/ui';
 import AuthHelpers from '@/services/auth-helpers';
 import { EKeyStepForgotPasswordModal } from '@/containers/ForgotPasswordModal/ForgotPasswordModal.enums';
 import { EProductAction } from '@/redux/actions/products/constants';
-import { getListCartAction, getListProductSearchAction, getProfileAction } from '@/redux/actions';
+import {
+  addToCartAction,
+  getListCartAction,
+  getListProductSearchAction,
+  getProfileAction,
+  uiActions,
+} from '@/redux/actions';
 import { ETypePage, ETypeNotification } from '@/utils/constants';
 import { showNotification } from '@/utils/functions';
 
 import './HeaderSearch.scss';
+import { syncCartsLocalStorageAndCartsDatabase } from '@/utils/cart';
 
 const HeaderSearch = () => {
   const dispatch = useDispatch();
@@ -32,6 +39,7 @@ const HeaderSearch = () => {
   const atk = AuthHelpers.getAccessToken();
 
   const listCart = useSelector((state) => state.productState.carts) ?? [];
+  const listCartStorage = useSelector((state) => state.uiState.cartsStorage) ?? [];
   const profile = useSelector((state) => state.profileState.profile) ?? {};
   const getListProductSearchLoading = useSelector((state) => state.loading[EProductAction.GET_LIST_PRODUCT_SEARCH]);
 
@@ -74,11 +82,7 @@ const HeaderSearch = () => {
   };
 
   const handleOpenCartDropdown = () => {
-    if (atk) {
-      setVisibleCartDropdown(true);
-    } else {
-      showNotification(ETypeNotification.WARNING, 'Vui lòng đăng nhập để tiếp tục thực hiện hành động này');
-    }
+    setVisibleCartDropdown(true);
   };
 
   const handleCloseCartDropdown = () => {
@@ -160,6 +164,18 @@ const HeaderSearch = () => {
     );
   };
 
+  const syncCartsData = () => {
+    const syncCarts = syncCartsLocalStorageAndCartsDatabase(listCartStorage, listCart);
+    syncCarts.forEach((item) => {
+      const body = { product: item.product._id, amount: item.amount };
+      dispatch(
+        addToCartAction.request(body, () => {
+          dispatch(uiActions.setCartsStorage([]));
+        }),
+      );
+    });
+  };
+
   const getProfile = useCallback(() => {
     dispatch(getProfileAction.request());
   }, [dispatch]);
@@ -169,15 +185,16 @@ const HeaderSearch = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (visibleCartDropdown) {
+    if (atk && visibleCartDropdown) {
       getListCart();
     }
-  }, [visibleCartDropdown]);
+  }, [atk, visibleCartDropdown]);
 
   useEffect(() => {
     if (atk) {
       getProfile();
       getListCart();
+      syncCartsData();
     }
   }, [atk]);
 
@@ -252,25 +269,21 @@ const HeaderSearch = () => {
               )}
             </>
           )}
-          {atk ? (
-            <DropdownCustom
-              visible={visibleCartDropdown}
-              onClose={handleCloseCartDropdown}
-              maxWidth="63rem"
-              placement="bottomRight"
-              overlay={<CartDropdown onClose={handleCloseCartDropdown} />}
-              onVisibleChange={handleCartDropdownVisibleChange}
-            >
-              <div className="HeaderSearch-cart" onClick={handleOpenCartDropdown}>
-                <div className="HeaderSearch-cart-badge">{listCart?.length || 0}</div>
-                <Icon name={EIconName.ShoppingBag} color={EIconColor.MAKO} />
+          <DropdownCustom
+            visible={visibleCartDropdown}
+            onClose={handleCloseCartDropdown}
+            maxWidth="63rem"
+            placement="bottomRight"
+            overlay={<CartDropdown onClose={handleCloseCartDropdown} />}
+            onVisibleChange={handleCartDropdownVisibleChange}
+          >
+            <div className="HeaderSearch-cart" onClick={handleOpenCartDropdown}>
+              <div className="HeaderSearch-cart-badge">
+                {atk ? listCart?.length || 0 : listCartStorage?.length || 0}
               </div>
-            </DropdownCustom>
-          ) : (
-            <div className="HeaderSearch-cart cursor-pointer" onClick={handleOpenCartDropdown}>
               <Icon name={EIconName.ShoppingBag} color={EIconColor.MAKO} />
             </div>
-          )}
+          </DropdownCustom>
         </div>
       </div>
 
