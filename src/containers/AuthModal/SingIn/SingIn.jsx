@@ -15,7 +15,7 @@ const SingIn = ({ onClickForgotPassword, onSignInSuccess }) => {
   const loadingSignIn = useSelector((state) => state.loading[EAuthAction.LOGIN]);
 
   const handerSubmit = (values) => {
-    const body = { ...values, email: email.toLowerCase() };
+    const body = { ...values, email: values?.email?.toLowerCase() };
     dispatch(loginAction.request(body, handleSignInSuccess));
   };
   const handleSignInSuccess = () => {

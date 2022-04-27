@@ -36,6 +36,7 @@ const Home = () => {
   const [getNewsParamsRequest, setGetNewsParamsRequest] = useState({
     page: ETypePage.DEFAULT_PAGE,
     pageSize: 4,
+    keyword: '',
   });
 
   const handleChangeNewsTab = (key) => {

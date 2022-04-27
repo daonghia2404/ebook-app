@@ -48,7 +48,7 @@ const HeaderSearch = () => {
 
   const [getListProductSearchParamsRequest, setGetListProductSearchParamsRequest] = useState({
     page: ETypePage.DEFAULT_PAGE,
-    pageSize: ETypePage.DEFAULT_PAGE_SIZE,
+    pageSize: 500,
     name: '',
   });
 
@@ -60,8 +60,9 @@ const HeaderSearch = () => {
   };
 
   const handlerClickSearch = () => {
+    handleCloseMenuDropdown();
     dispatch(getListProductSearchAction.request(getListProductSearchParamsRequest));
-    navigate(Paths.SearchResult);
+    navigate(`${Paths.SearchResult}?keyword=${getListProductSearchParamsRequest.name}`);
     setGetListProductSearchParamsRequest({
       ...getListProductSearchParamsRequest,
       name: '',
@@ -142,10 +143,18 @@ const HeaderSearch = () => {
         )}
 
         <div className="HeaderSearch-menu-mobile-item">
-          <div className="HeaderSearch-menu-mobile-item-search flex items-center">
-            <Input placeholder="Tìm kiếm" />
-            <Button type="primary" icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />} />
-          </div>
+          <Form className="HeaderSearch-menu-mobile-item-search flex items-center" onFinish={handlerClickSearch}>
+            <Input
+              placeholder="Tìm kiếm"
+              value={getListProductSearchParamsRequest.name}
+              onChange={handleChangeKeyword}
+            />
+            <Button
+              type="primary"
+              htmlType="submit"
+              icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} loading={getListProductSearchLoading} />}
+            />
+          </Form>
         </div>
       </div>
     );

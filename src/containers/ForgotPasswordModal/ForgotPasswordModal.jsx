@@ -44,8 +44,6 @@ const ForgotPasswordModal = ({ visible, onClose, defaultStep, prevAction, data =
     onClose?.(ETypeAuthModal.SIGN_IN);
   };
 
-  console.log(globalKeyStepState);
-
   const handleClickBack = () => {
     switch (true) {
       case globalKeyStepState.prevAction === EKeyStepForgotPasswordModal.FIND_ACCOUNT &&
