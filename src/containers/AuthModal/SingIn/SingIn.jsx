@@ -15,7 +15,8 @@ const SingIn = ({ onClickForgotPassword, onSignInSuccess }) => {
   const loadingSignIn = useSelector((state) => state.loading[EAuthAction.LOGIN]);
 
   const handerSubmit = (values) => {
-    dispatch(loginAction.request({ ...values }, handleSignInSuccess));
+    const body = { ...values, email: email.toLowerCase() };
+    dispatch(loginAction.request(body, handleSignInSuccess));
   };
   const handleSignInSuccess = () => {
     showNotification(ETypeNotification.SUCCESS, 'Đăng nhập thành công !');

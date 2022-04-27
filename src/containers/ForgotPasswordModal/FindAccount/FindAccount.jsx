@@ -16,7 +16,8 @@ const FindAccount = ({ onSubmit }) => {
   const loading = useSelector((state) => state.loading[EAuthAction.FORGOT_PASSWORD]);
 
   const handleSubmit = (values) => {
-    dispatch(forgotPasswordAction.request({ ...values }, (response) => handleForgotPasswordSuccess(response, values)));
+    const body = { ...values, email: email.toLowerCase() };
+    dispatch(forgotPasswordAction.request(body, (response) => handleForgotPasswordSuccess(response, values)));
   };
 
   const handleForgotPasswordSuccess = (response, values) => {

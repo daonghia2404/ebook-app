@@ -22,7 +22,7 @@ const SignUp = ({ onSignUpSuccess }) => {
     const { name, email, password, referCode } = values;
     const body = {
       name,
-      email,
+      email: email.toLowerCase(),
       password,
       referCode,
     };

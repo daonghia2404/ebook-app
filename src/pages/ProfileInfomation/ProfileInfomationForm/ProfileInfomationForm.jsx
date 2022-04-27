@@ -30,7 +30,7 @@ const ProfileInfomationForm = () => {
     const body = {
       avatar: isChangeAvatar ? values?.avatar : undefined,
       name: values?.name,
-      email: isChangeEmail ? values?.email : undefined,
+      email: isChangeEmail ? values?.email?.toLowerCase() : undefined,
       gender: values?.gender?.value,
       phone: values?.phone,
       dob: values?.dob,

@@ -37,8 +37,8 @@ const NewDetail = () => {
           )}
 
           <div className="NewDetail-title">{blog.title} </div>
+          <div className="NewDetail-description">{blog.description} </div>
           <div className="NewDetail-time">{formatISODateToDateTime(blog.createdAt)}</div>
-
           <div className="NewDetail-main" dangerouslySetInnerHTML={{ __html: blog.content }} />
         </div>
       </div>
