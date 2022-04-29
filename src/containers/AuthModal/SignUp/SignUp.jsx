@@ -82,7 +82,7 @@ const SignUp = ({ onSignUpSuccess }) => {
           validationRules.maxLength(),
         ]}
       >
-        <Input size="large" type="password" placeholder="Nhập lại password" />
+        <Input size="large" type="password" placeholder="Nhập lại mật khẩu" />
       </Form.Item>
       <Form.Item label="ID giới thiệu" name="referCode" rules={[validationRules.noSpaceKey()]}>
         <Input size="large" placeholder="Nhập mã giới thiệu" />
