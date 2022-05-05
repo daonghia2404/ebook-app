@@ -19,23 +19,25 @@ export const Carousels = ({
   onDragging,
   children,
 }) => {
-  const renderPrevArrow = () => {
+  function RenderPrevArrow({ className, onClick }) {
     return (
       <Button
-        className="Carousels-arrow prev"
+        className={classNames('Carousels-arrow prev', className)}
         icon={<Icon name={EIconName.ArrowCircleLeft} color={EIconColor.FUN_GREEN} />}
+        onClick={onClick}
       />
     );
-  };
+  }
 
-  const renderNextArrow = () => {
+  function RenderNextArrow({ className, onClick }) {
     return (
       <Button
-        className="Carousels-arrow next"
+        className={classNames('Carousels-arrow next', className)}
         icon={<Icon name={EIconName.ArrowCircleRight} color={EIconColor.FUN_GREEN} />}
+        onClick={onClick}
       />
     );
-  };
+  }
   const settings = {
     speed: 500,
     dots,
@@ -46,11 +48,11 @@ export const Carousels = ({
     autoplaySpeed: 5000,
     slidesToShow,
     slidesToScroll,
-    nextArrow: renderNextArrow(),
-    prevArrow: renderPrevArrow(),
+    nextArrow: <RenderNextArrow />,
+    prevArrow: <RenderPrevArrow />,
     responsive,
-    beforeChange: () => onDragging(true),
-    afterChange: () => onDragging(false),
+    beforeChange: () => onDragging?.(true),
+    afterChange: () => onDragging?.(false),
   };
   return (
     <div className={classNames('Carousels')}>

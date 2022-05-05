@@ -44,7 +44,6 @@ const SignUp = ({ onSignUpSuccess }) => {
         name="name"
         rules={[
           validationRules.required(),
-          validationRules.noSpaceKey(),
           validationRules.minLength(6),
           validationRules.maxLength(),
           validationRules.noSpecialKey(),
