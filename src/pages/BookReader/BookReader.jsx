@@ -63,10 +63,22 @@ const BookReader = () => {
   const handleLoadPdfSuccess = (data) => {
     const { numPages } = data._pdfInfo;
     const initPage = page && page <= numPages ? page : ETypePage.DEFAULT_PAGE;
+
     setPageNumber({
       page: initPage,
       total: numPages,
     });
+
+    if (voice) {
+      const bookMark = AuthHelpers.getBookMark();
+
+      if (bookMark) {
+        const [voiceMark, pageMark] = bookMark.split(',');
+        if (voiceMark && pageMark && voiceMark === voice) {
+          handleOpenNextPageModal(Number(pageMark));
+        }
+      }
+    }
   };
 
   const handleOpenNextPageModal = (page) => {
@@ -84,19 +96,6 @@ const BookReader = () => {
     if (isAvaiablePage) getFileMyBookData();
     else navigate(Paths.Home);
   }, [getFileMyBookData]);
-
-  useEffect(() => {
-    if (voice) {
-      const bookMark = AuthHelpers.getBookMark();
-
-      if (bookMark) {
-        const [voiceMark, pageMark] = bookMark.split(',');
-        if (voiceMark && pageMark && voiceMark === voice) {
-          handleOpenNextPageModal(Number(pageMark));
-        }
-      }
-    }
-  }, [voice]);
 
   useEffect(() => {
     scrollToTop();

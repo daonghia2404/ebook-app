@@ -64,5 +64,6 @@
   .react-pdf__Page__canvas {
     margin: 0 auto;
     max-width: 100%;
+    height: auto !important;
   }
 }
