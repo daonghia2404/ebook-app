@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import ConfirmModal from '@/containers/ConfirmModal/ConfirmModal';
 import { decryptPdfFilePassword, scrollToTop, showNotification } from '@/utils/functions';
 import { getFileMyBookAction } from '@/redux/actions';
-import { Paths } from '@/pages/routers';
+import { LayoutPaths, Paths } from '@/pages/routers';
 import { ETypeNotification, ETypePage } from '@/utils/constants';
 import AuthHelpers from '@/services/auth-helpers';
 
@@ -41,12 +41,12 @@ const BookReader = () => {
   }, [dispatch, voice, product]);
 
   const handleVerifyPassword = (cb, reason) => {
-    console.log(reason);
     const passwordDecrypt = decryptPdfFilePassword(fileData);
     cb(passwordDecrypt);
 
     if (reason !== 1) {
       showNotification(ETypeNotification.ERROR, 'Không có quyền truy cập');
+      navigate(`${LayoutPaths.Profile}${Paths.MyBooks}`);
     }
   };
 
