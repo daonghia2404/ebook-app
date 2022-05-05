@@ -5,10 +5,10 @@ import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 import classNames from 'classnames';
 
 import ConfirmModal from '@/containers/ConfirmModal/ConfirmModal';
-import { scrollToTop } from '@/utils/functions';
+import { decryptPdfFilePassword, scrollToTop, showNotification } from '@/utils/functions';
 import { getFileMyBookAction } from '@/redux/actions';
 import { Paths } from '@/pages/routers';
-import { ETypePage } from '@/utils/constants';
+import { ETypeNotification, ETypePage } from '@/utils/constants';
 import AuthHelpers from '@/services/auth-helpers';
 
 import SamplePdf from './sample-pdf.pdf';
@@ -22,13 +22,13 @@ const BookReader = () => {
   const query = new URLSearchParams(location.search);
   const voice = query.get('voice');
   const product = query.get('product');
-  const page = query.get('page');
+  const page = query.get('page') || 1;
 
   const fileData = useSelector((state) => state.profileState.fileMyBook);
 
   const [pageNumber, setPageNumber] = useState({
     page,
-    total: 0,
+    total: 1,
   });
   const [visibleNextPageModal, setVisibleNextPageModal] = useState({
     visible: false,
@@ -39,6 +39,16 @@ const BookReader = () => {
   const getFileMyBookData = useCallback(() => {
     dispatch(getFileMyBookAction.request({ product, voice }));
   }, [dispatch, voice, product]);
+
+  const handleVerifyPassword = (cb, reason) => {
+    console.log(reason);
+    const passwordDecrypt = decryptPdfFilePassword(fileData);
+    cb(passwordDecrypt);
+
+    if (reason !== 1) {
+      showNotification(ETypeNotification.ERROR, 'Không có quyền truy cập');
+    }
+  };
 
   const handleChangePage = (changedPage) => {
     if (changedPage > 0 && changedPage <= pageNumber.total) {
@@ -96,7 +106,7 @@ const BookReader = () => {
     <div className="BookReader">
       <div className="container">
         <div className="BookReader-wrapper">
-          <Document file={fileData.url} onLoadSuccess={handleLoadPdfSuccess}>
+          <Document file={fileData.url} onLoadSuccess={handleLoadPdfSuccess} onPassword={handleVerifyPassword}>
             <Page pageNumber={pageNumber.page} />
           </Document>
 

@@ -6,8 +6,9 @@ import { navigate } from '@reach/router';
 import VideoFileCard from '@/components/VideoFileCard/VideoFileCard';
 import { dataTabMyBookDetail } from '@/pages/MyBookDetail/MyBookDetailTab/MyBookDetailTab.data';
 import { EKeyTabMyBookDetail } from '@/pages/MyBookDetail/MyBookDetailTab/MyBookDetailTab.enums';
-import { formatDuration, getFullPathUrl } from '@/utils/functions';
+import { formatDuration } from '@/utils/functions';
 import { Paths } from '@/pages/routers';
+import Empty from '@/components/Empty/Empty';
 
 import './MyBookDetailTab.scss';
 
@@ -27,8 +28,12 @@ const MyBookDetailTab = () => {
 
   const renderMyBookDetailTab = () => {
     switch (keyTabList.value) {
-      case EKeyTabMyBookDetail.VOICE:
-        return (
+      case EKeyTabMyBookDetail.VOICE: {
+        const isEmpty = bookData?.voice?.length === 0;
+
+        return isEmpty ? (
+          <Empty />
+        ) : (
           <>
             {bookData.voice?.map((item) => (
               <VideoFileCard
@@ -40,8 +45,13 @@ const MyBookDetailTab = () => {
             ))}
           </>
         );
-      case EKeyTabMyBookDetail.FILE:
-        return (
+      }
+
+      case EKeyTabMyBookDetail.FILE: {
+        const isEmpty = bookData?.file?.length === 0;
+        return isEmpty ? (
+          <Empty />
+        ) : (
           <>
             {bookData.file?.map((item) => (
               <VideoFileCard
@@ -54,6 +64,8 @@ const MyBookDetailTab = () => {
             ))}
           </>
         );
+      }
+
       case EKeyTabMyBookDetail.VIDEO:
         return (
           <>

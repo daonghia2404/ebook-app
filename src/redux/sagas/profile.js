@@ -43,7 +43,7 @@ export function* getFileMyBookSaga(action) {
     const { body, cb } = action.payload;
     const response = yield call(ProfileInstance.getFileMyBook, body);
     yield put(getFileMyBookAction.success(response));
-    cb?.();
+    cb?.(response);
   } catch (err) {
     yield put(getFileMyBookAction.failure(err));
   }
@@ -53,7 +53,7 @@ export function* getVoiceMyBookSaga(action) {
     const { body, cb } = action.payload;
     const response = yield call(ProfileInstance.getVoiceMyBook, body);
     yield put(getVoiceMyBookAction.success(response));
-    cb?.();
+    cb?.(response);
   } catch (err) {
     yield put(getVoiceMyBookAction.failure(err));
   }

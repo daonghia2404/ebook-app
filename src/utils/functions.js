@@ -222,3 +222,8 @@ export const convertToSlug = (text) => {
     .replace(/ /g, '-')
     .replace(/[^\w-]+/g, '');
 };
+
+export const decryptPdfFilePassword = (hash) => {
+  const decrypted = Buffer.from(hash.checkSum, 'base64').toString();
+  return decrypted;
+};

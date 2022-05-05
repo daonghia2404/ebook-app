@@ -27,9 +27,9 @@ import {
 } from '@/redux/actions';
 import { ETypePage, ETypeNotification } from '@/utils/constants';
 import { showNotification } from '@/utils/functions';
+import { syncCartsLocalStorageAndCartsDatabase } from '@/utils/cart';
 
 import './HeaderSearch.scss';
-import { syncCartsLocalStorageAndCartsDatabase } from '@/utils/cart';
 
 const HeaderSearch = () => {
   const dispatch = useDispatch();
@@ -181,7 +181,11 @@ const HeaderSearch = () => {
   }, [dispatch]);
 
   const getListCart = useCallback(() => {
-    dispatch(getListCartAction.request());
+    dispatch(
+      getListCartAction.request({}, () => {
+        syncCartsData();
+      }),
+    );
   }, [dispatch]);
 
   useEffect(() => {
@@ -194,7 +198,6 @@ const HeaderSearch = () => {
     if (atk) {
       getProfile();
       getListCart();
-      syncCartsData();
     }
   }, [atk]);
 
