@@ -9,11 +9,11 @@ import { convertToSlug, formatMoneyVND, showNotification } from '@/utils/functio
 import { EProductAction } from '@/redux/actions/products/constants';
 import { addToCartAction, getListCartAction, uiActions } from '@/redux/actions';
 import { ETypeNotification } from '@/utils/constants';
-
-import './BookBlock.scss';
 import { handleAddNewCartLocalStorage, parseCartData } from '@/utils/cart';
 
-const BookBlock = ({ image, type, owner, name, price, prePrice, _id, slug, ...rest }) => {
+import './BookBlock.scss';
+
+const BookBlock = ({ image, type, owner, name, price, prePrice, _id, slug, author, ...rest }) => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profileState.profile) || {};
   const cartsStorage = useSelector((state) => state.uiState.cartsStorage);
@@ -98,9 +98,12 @@ const BookBlock = ({ image, type, owner, name, price, prePrice, _id, slug, ...re
       <div className="BookBlock-image" onClick={handleClickBookBlock}>
         <img src={image} alt="" />
       </div>
-      <div className="BookBlock-title" onClick={handleClickBookBlock}>
-        {name}
-      </div>
+      {author?.name && (
+        <div className="BookBlock-title" onClick={handleClickBookBlock}>
+          {author?.name}
+        </div>
+      )}
+      <div className="BookBlock-author">{name}</div>
       {!owner && (
         <>
           <div className="BookBlock-price flex justify-center">

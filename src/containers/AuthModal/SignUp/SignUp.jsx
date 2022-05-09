@@ -6,6 +6,8 @@ import Button from '@/components/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { EAuthAction } from '@/redux/actions/auth/constants';
 import { registerAction } from '@/redux/actions';
+import Checkbox from '@/components/Checkbox';
+import { EIconColor } from '@/components/Icon';
 
 const SignUp = ({ onSignUpSuccess }) => {
   const dispatch = useDispatch();
@@ -35,6 +37,10 @@ const SignUp = ({ onSignUpSuccess }) => {
       email: values.email,
     });
     form.resetFields();
+  };
+
+  const handleChangeLienceTerm = (checked) => {
+    form.setFieldsValue({ lience: checked || undefined });
   };
 
   return (
@@ -85,6 +91,20 @@ const SignUp = ({ onSignUpSuccess }) => {
       </Form.Item>
       <Form.Item label="ID giới thiệu" name="referCode" rules={[validationRules.noSpaceKey()]}>
         <Input size="large" placeholder="Nhập mã giới thiệu" />
+      </Form.Item>
+      <Form.Item
+        name="lience"
+        rules={[validationRules.required('Vui lòng chấp nhận Điều khoản và chính sách của Kalabooks')]}
+      >
+        <Checkbox
+          label={
+            <>
+              Bằng việc dăng ký tham gia là bạn đã chấp nhận{' '}
+              <span style={{ color: EIconColor.FUN_GREEN }}>Điều khoản và chính sách</span> của Kalabooks
+            </>
+          }
+          onChange={handleChangeLienceTerm}
+        />
       </Form.Item>
 
       <Form.Item>

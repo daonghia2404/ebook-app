@@ -30,7 +30,7 @@ const AuthModal = ({ visible, onClose, type, onClickForgotPassword, onSignUpSucc
           <div className="AuthModal-back" onClick={handleClickBack}>
             <Icon name={EIconName.ArrowLeft} color={EIconColor.BLUE_ZODIAC} />
           </div>
-          <div className="AuthModal-title">{isSignInModal ? 'Hello! Welcome back' : 'Đăng ký ngay'}.</div>
+          <div className="AuthModal-title">{isSignInModal ? 'Chào mừng trở lại với KALABOOKS' : 'Đăng ký ngay'}.</div>
           <div className="AuthModal-description">
             {isSignInModal ? 'Đăng nhập để tiếp tục' : 'Để trải nghiệm dịch vụ tốt nhất từ chúng tôi.'}
           </div>

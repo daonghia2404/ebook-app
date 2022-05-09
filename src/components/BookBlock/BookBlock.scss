@@ -3,11 +3,21 @@
 .BookBlock {
   cursor: pointer;
 
+  &:hover {
+    .BookBlock {
+      &-image {
+        transform: rotateY(180deg);
+      }
+    }
+  }
+
   &-image {
     margin-bottom: 2rem;
     border-radius: 1rem;
     height: 34rem;
     position: relative;
+    transition: 1s ease;
+    box-shadow: 0px 4px 30px rgba($black, 0.15);
 
     img {
       @include centerImage;
@@ -24,6 +34,14 @@
     @media (max-width: 991px) {
       min-height: 6.5rem;
     }
+  }
+
+  &-author {
+    text-align: center;
+    @include ellipsis(1);
+    font-size: 1.6rem;
+    color: $mako;
+    margin-bottom: 5px;
   }
 
   &-price {
