@@ -12,12 +12,15 @@ import { ETypeNotification } from '@/utils/constants';
 import { handleAddNewCartLocalStorage, parseCartData } from '@/utils/cart';
 
 import './BookBlock.scss';
+import classNames from 'classnames';
 
-const BookBlock = ({ image, type, owner, name, price, prePrice, _id, slug, author, ...rest }) => {
+const BookBlock = ({ image, images, type, owner, name, price, prePrice, _id, slug, author, ...rest }) => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profileState.profile) || {};
   const cartsStorage = useSelector((state) => state.uiState.cartsStorage);
   const atk = profile?.name;
+
+  const isFlipCard = images && images.length >= 2;
 
   const addCartLoading = useSelector((state) => state.loading[EProductAction.ADD_TO_CART_PRODUCT]);
 
@@ -94,16 +97,26 @@ const BookBlock = ({ image, type, owner, name, price, prePrice, _id, slug, autho
   };
 
   return (
-    <div className="BookBlock">
+    <div className={classNames('BookBlock', { 'flip-card': isFlipCard })}>
       <div className="BookBlock-image" onClick={handleClickBookBlock}>
-        <img src={image} alt="" />
+        {isFlipCard ? (
+          <>
+            <div className="BookBlock-image-front">
+              <img src={images[0]} alt="" />
+            </div>
+            <div className="BookBlock-image-back">
+              <img src={images[1]} alt="" />
+            </div>
+          </>
+        ) : (
+          <img src={image} alt="" />
+        )}
       </div>
-      {author?.name && (
-        <div className="BookBlock-title" onClick={handleClickBookBlock}>
-          {author?.name}
-        </div>
-      )}
-      <div className="BookBlock-author">{name}</div>
+
+      <div className="BookBlock-title" onClick={handleClickBookBlock}>
+        {name}
+      </div>
+      {author?.name && <div className="BookBlock-author">{author?.name}</div>}
       {!owner && (
         <>
           <div className="BookBlock-price flex justify-center">
