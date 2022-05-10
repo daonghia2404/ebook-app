@@ -32,6 +32,7 @@ const App = () => {
           <PublicRoute path={Paths.BooksListenCategory} component={Pages.BooksListenCategory} />
           <PublicRoute path={Paths.NewDetail()} component={Pages.NewDetail} />
           <PublicRoute path={Paths.BookDetail()} component={Pages.BookDetail} />
+          <PublicRoute path={Paths.PrivacyPolicy} component={Pages.PrivacyPolicyPage} />
 
           <ProtectedRoute path={Paths.Checkout} component={Pages.Checkout} />
           <ProtectedRoute path={Paths.PaymentResult} component={Pages.PaymentResult} />

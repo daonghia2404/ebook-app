@@ -20,6 +20,7 @@ import { ETypeNotification, ETypePage } from '@/utils/constants';
 import Loading from '@/containers/Loading/Loading';
 import { ETypeBook, LIMIT_DESCRIPTION_LENGTH } from '@/common/static';
 import { handleAddNewCartLocalStorage, parseCartData } from '@/utils/cart';
+import Carousels from '@/components/Carousels';
 
 import { EKeyTabBookDetail } from './BookDetail.enums';
 import './BookDetail.scss';
@@ -43,6 +44,8 @@ const BookDetail = () => {
     page: ETypePage.DEFAULT_PAGE,
     pageSize: 5,
   });
+
+  const slidesBooks = bookData?.images || [bookData.image];
 
   const isPaperBook = bookData.type == ETypeBook.PAPER_BOOK;
 
@@ -124,9 +127,13 @@ const BookDetail = () => {
           <div className="BookDetail-wrapper">
             <div className="BookDetail-main flex flex-wrap">
               <div className="BookDetail-main-item">
-                <div className="BookDetail-image flex">
-                  <img src={bookData.image} alt="" />
-                </div>
+                <Carousels dots arrows={false} infinite={false} autoplay={false}>
+                  {slidesBooks.map((item, index) => (
+                    <div key={index} className="BookDetail-image flex">
+                      <img src={item} alt="" />
+                    </div>
+                  ))}
+                </Carousels>
               </div>
               <div className="BookDetail-main-item">
                 <div className="BookDetail-title">

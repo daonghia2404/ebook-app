@@ -8,6 +8,7 @@ import { EAuthAction } from '@/redux/actions/auth/constants';
 import { registerAction } from '@/redux/actions';
 import Checkbox from '@/components/Checkbox';
 import { EIconColor } from '@/components/Icon';
+import { Paths } from '@/pages/routers';
 
 const SignUp = ({ onSignUpSuccess }) => {
   const dispatch = useDispatch();
@@ -100,7 +101,10 @@ const SignUp = ({ onSignUpSuccess }) => {
           label={
             <>
               Bằng việc dăng ký tham gia là bạn đã chấp nhận{' '}
-              <span style={{ color: EIconColor.FUN_GREEN }}>Điều khoản và chính sách</span> của Kalabooks
+              <a href={Paths.PrivacyPolicy} style={{ color: EIconColor.FUN_GREEN }} target="_blank">
+                Điều khoản và chính sách
+              </a>{' '}
+              của Kalabooks
             </>
           }
           onChange={handleChangeLienceTerm}

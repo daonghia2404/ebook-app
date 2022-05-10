@@ -25,6 +25,12 @@
     font-size: 1.8rem;
     color: $mako;
     margin-bottom: 1.5rem;
+    cursor: pointer;
+    transition: $common-transition;
+
+    &:hover {
+      color: $fun-green;
+    }
   }
 
   &-col {

@@ -7,6 +7,8 @@ import ImageAppStore from '@/assets/images/image-app-store.png';
 import ImageGooglePlay from '@/assets/images/image-google-play.png';
 
 import './Footer.scss';
+import { Link } from '@reach/router';
+import { Paths } from '@/pages/routers';
 
 const Footer = () => {
   return (
@@ -63,7 +65,9 @@ const Footer = () => {
             <div className="Footer-title">Thông Tin</div>
             <div className="Footer-link">Giới thiệu</div>
             <div className="Footer-link">Tin tức</div>
-            <div className="Footer-link">Điều khoản chính sách</div>
+            <Link to={Paths.PrivacyPolicy} className="Footer-link">
+              Điều khoản chính sách
+            </Link>
           </div>
 
           <div className="Footer-col">

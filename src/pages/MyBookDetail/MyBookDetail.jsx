@@ -13,6 +13,7 @@ import { ETypeBook, LIMIT_DESCRIPTION_LENGTH } from '@/common/static';
 import { EKeyTabMyBookDetail } from './MyBookDetail.enums';
 import './MyBookDetail.scss';
 import MyBookDetailTab from '@/pages/MyBookDetail/MyBookDetailTab';
+import Carousels from '@/components/Carousels';
 
 const MyBookDetail = () => {
   const { id } = useParams();
@@ -21,6 +22,8 @@ const MyBookDetail = () => {
   const getBookLoading = useSelector((state) => state.loading[EProductAction.GET_DETAIL_PRODUCT]);
 
   const bookData = useSelector((state) => state.productState.book) ?? {};
+
+  const slidesBooks = bookData?.images || [bookData.image];
 
   const isPaperBook = bookData.type == ETypeBook.PAPER_BOOK;
 
@@ -62,9 +65,13 @@ const MyBookDetail = () => {
           <div className="MyBookDetail-wrapper">
             <div className="MyBookDetail-main flex flex-wrap">
               <div className="MyBookDetail-main-item">
-                <div className="MyBookDetail-image flex">
-                  <img src={bookData.image} alt="" />
-                </div>
+                <Carousels dots={false} arrows={false} infinite={false} autoplay={false}>
+                  {slidesBooks.map((item, index) => (
+                    <div key={index} className="MyBookDetail-image flex">
+                      <img src={item} alt="" />
+                    </div>
+                  ))}
+                </Carousels>
               </div>
               <div className="MyBookDetail-main-item">
                 <div className="MyBookDetail-title">

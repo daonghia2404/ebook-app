@@ -3,6 +3,10 @@
 .Carousels {
   position: relative;
 
+  .slick-dots li.slick-active button:before {
+    color: $fun-green;
+  }
+
   .slick-track {
     margin-left: 0;
   }

@@ -3,6 +3,15 @@
 .MyBookDetail {
   padding: 7rem 0;
 
+  .Carousels,
+  .slick-slider,
+  .slick-list,
+  .slick-track,
+  .slick-slide,
+  .slick-slide > div {
+    height: 100%;
+  }
+
   &-main {
     margin-bottom: 4rem;
 
@@ -14,7 +23,7 @@
         margin-right: 2rem;
 
         @media (max-width: 768px) {
-          margin: 0 0 2rem 0;
+          margin: 0 0 4rem 0;
         }
       }
 
@@ -37,7 +46,7 @@
     border-radius: 1rem;
     overflow: hidden;
     height: 100%;
-    padding: 8rem 1.6rem;
+    padding: 1.6rem;
 
     img {
       max-width: 100%;
@@ -46,6 +55,7 @@
       object-position: center;
       margin: auto;
       border-radius: 1rem;
+      height: 100%;
     }
   }
 

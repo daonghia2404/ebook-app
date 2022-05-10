@@ -36,6 +36,7 @@ const MyBooks = lazy(() => retryLoadComponent(() => import('@/pages/MyBooks')));
 const MyBookDetail = lazy(() => retryLoadComponent(() => import('@/pages/MyBookDetail')));
 const BookReader = lazy(() => retryLoadComponent(() => import('@/pages/BookReader')));
 const PrivacyPolicy = lazy(() => retryLoadComponent(() => import('@/pages/PrivacyPolicy')));
+const PrivacyPolicyPage = lazy(() => retryLoadComponent(() => import('@/pages/PrivacyPolicyPage')));
 const ChangePassword = lazy(() => retryLoadComponent(() => import('@/pages/ChangePassword')));
 const Questions = lazy(() => retryLoadComponent(() => import('@/pages/Questions')));
 const Commit = lazy(() => retryLoadComponent(() => import('@/pages/Commit')));
@@ -109,6 +110,7 @@ export const Pages = {
   BookAudio,
   BookVideo,
   PrivacyPolicy,
+  PrivacyPolicyPage,
   ChangePassword,
   Questions,
   Commit,
