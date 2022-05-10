@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form } from 'antd';
 
-import Logo from '@/assets/images/logo.svg';
+import Logo from '@/assets/images/logo.png';
 import Avatar from '@/components/Avatar';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Input from '@/components/Input';

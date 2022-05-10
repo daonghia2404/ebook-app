@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import BgSpecial from '@/assets/images/bg-special.png';
-import Logo from '@/assets/images/logo.svg';
+import Logo from '@/assets/images/logo.png';
 import { formatISODateToDateTime, getTotalPage } from '@/utils/functions';
 import WrapperLazyLoad from '@/components/WrapperLazyLoad';
 import { getNoticeAction } from '@/redux/actions';

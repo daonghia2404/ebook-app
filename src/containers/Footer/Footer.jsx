@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Logo from '@/assets/images/logo.svg';
+import Logo from '@/assets/images/logo.png';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import ImageQRCode from '@/assets/images/image-qr.png';
 import ImageAppStore from '@/assets/images/image-app-store.png';

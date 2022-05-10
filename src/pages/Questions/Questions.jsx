@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Logo from '@/assets/images/logo.svg';
+import Logo from '@/assets/images/logo.png';
 
 import Collapse from '@/components/Collapse';
 import { dataQuestionsList } from '@/pages/Questions/Questions.data';

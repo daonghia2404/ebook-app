@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import classNames from 'classnames';
 
 import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
@@ -12,15 +13,12 @@ import { ETypeNotification } from '@/utils/constants';
 import { handleAddNewCartLocalStorage, parseCartData } from '@/utils/cart';
 
 import './BookBlock.scss';
-import classNames from 'classnames';
 
 const BookBlock = ({ image, images, type, owner, name, price, prePrice, _id, slug, author, ...rest }) => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profileState.profile) || {};
   const cartsStorage = useSelector((state) => state.uiState.cartsStorage);
   const atk = profile?.name;
-
-  const isFlipCard = images && images.length >= 2;
 
   const addCartLoading = useSelector((state) => state.loading[EProductAction.ADD_TO_CART_PRODUCT]);
 
@@ -97,20 +95,14 @@ const BookBlock = ({ image, images, type, owner, name, price, prePrice, _id, slu
   };
 
   return (
-    <div className={classNames('BookBlock', { 'flip-card': isFlipCard })}>
+    <div className={classNames('BookBlock flip-card')}>
       <div className="BookBlock-image" onClick={handleClickBookBlock}>
-        {isFlipCard ? (
-          <>
-            <div className="BookBlock-image-front">
-              <img src={images[0]} alt="" />
-            </div>
-            <div className="BookBlock-image-back">
-              <img src={images[1]} alt="" />
-            </div>
-          </>
-        ) : (
-          <img src={image} alt="" />
-        )}
+        <div className="BookBlock-image-front">
+          <img src={images[0] || image} alt="" />
+        </div>
+        <div className="BookBlock-image-back">
+          <img src={images[1] || image} alt="" />
+        </div>
       </div>
 
       <div className="BookBlock-title" onClick={handleClickBookBlock}>
