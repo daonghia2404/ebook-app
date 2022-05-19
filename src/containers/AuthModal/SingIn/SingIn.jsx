@@ -37,11 +37,13 @@ const SingIn = ({ onClickForgotPassword, onSignInSuccess }) => {
         <Input size="large" placeholder="Nhập mật khẩu" type="password" />
       </Form.Item>
       <Form.Item>
-        <div
-          className="AuthModal-forgot-password"
-          onClick={() => onClickForgotPassword(EKeyStepForgotPasswordModal.FIND_ACCOUNT)}
-        >
-          Quên mật khẩu
+        <div className="flex justify-end">
+          <div
+            className="AuthModal-forgot-password"
+            onClick={() => onClickForgotPassword(EKeyStepForgotPasswordModal.FIND_ACCOUNT)}
+          >
+            Quên mật khẩu
+          </div>
         </div>
       </Form.Item>
       <Form.Item>

@@ -40,8 +40,15 @@
     @include ellipsis(2);
   }
 
+  &-see-detail,
   &-date {
     font-size: 1.4rem;
     color: $fun-green;
+  }
+
+  &-see-detail {
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }

@@ -1,0 +1,22 @@
+@import '../../assets/styles/global';
+
+.News {
+  padding: 7rem 0;
+
+  &-title {
+    font-size: 3.2rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 1.6rem;
+  }
+
+  &-list {
+    margin: 0 -1.6rem;
+
+    &-item {
+      padding: 1.6rem;
+      flex: 0 0 calc(100% / 4);
+      max-width: calc(100% / 4);
+    }
+  }
+}

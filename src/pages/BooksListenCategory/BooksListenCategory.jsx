@@ -22,7 +22,7 @@ const BooksListenCategory = () => {
   const [getBooksParamsRequest, setGetBooksParamsRequest] = useState({
     type: ETypeBook.AUDIO_BOOK,
     page: ETypePage.DEFAULT_PAGE,
-    pageSize: ETypePage.DEFAULT_PAGE_SIZE,
+    pageSize: 500,
   });
   const getBooksLoading = useSelector((state) => state.loading[EProductAction.GET_LIST_PRODUCT_SEARCH]);
   const booksData = useSelector((state) => state.productState.books);

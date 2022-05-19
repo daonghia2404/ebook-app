@@ -63,8 +63,12 @@ const Footer = () => {
 
           <div className="Footer-col">
             <div className="Footer-title">Thông Tin</div>
-            <div className="Footer-link">Giới thiệu</div>
-            <div className="Footer-link">Tin tức</div>
+            <Link to={Paths.About} className="Footer-link">
+              Giới thiệu
+            </Link>
+            <Link to={Paths.News} className="Footer-link">
+              Tin tức
+            </Link>
             <Link to={Paths.PrivacyPolicy} className="Footer-link">
               Điều khoản chính sách
             </Link>

@@ -9,7 +9,7 @@ const OrdersList = ({ data = [], onClickOrderItem }) => {
   return (
     <div className="OrdersList">
       {data.map((item) => {
-        const firstProduct = item.products[0];
+        const firstProduct = item.products?.[0];
         return (
           <div className="OrdersList-item flex" key={item} onClick={() => onClickOrderItem?.(item)}>
             <div className="OrdersList-item-image">

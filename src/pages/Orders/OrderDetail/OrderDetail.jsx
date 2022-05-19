@@ -118,7 +118,7 @@ const OrderDetail = ({ data, onCancelOrder }) => {
                     <div className="OrdersList-item-info-price">
                       Giá: {formatMoneyVND({ amount: item.price, showSuffix: true })}
                     </div>
-                    {orderState.status === EOrderStatus.HOAN_THANH && (
+                    {orderState.status === EOrderStatus.HOAN_THANH && !item.isRated && (
                       <div className="OrdersList-item-info-review flex justify-end">
                         <Button
                           type="primary"

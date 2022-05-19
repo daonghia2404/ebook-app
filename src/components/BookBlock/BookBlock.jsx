@@ -98,10 +98,10 @@ const BookBlock = ({ image, images, type, owner, name, price, prePrice, _id, slu
     <div className={classNames('BookBlock flip-card')}>
       <div className="BookBlock-image" onClick={handleClickBookBlock}>
         <div className="BookBlock-image-front">
-          <img src={images[0] || image} alt="" />
+          <img src={images?.[0] || image} alt="" />
         </div>
         <div className="BookBlock-image-back">
-          <img src={images[1] || image} alt="" />
+          <img src={images?.[1] || image} alt="" />
         </div>
       </div>
 

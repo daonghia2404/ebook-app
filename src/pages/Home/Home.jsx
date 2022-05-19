@@ -21,7 +21,7 @@ const Home = () => {
 
   const paperBooks = useSelector((state) => state.productState.paperBooks?.records) ?? [];
   const audioBooks = useSelector((state) => state.productState.audioBooks?.records) ?? [];
-  const newsData = useSelector((state) => state.newState.news) ?? [];
+  const newsData = useSelector((state) => state.newState.news?.records) ?? [];
 
   const [getPaperBooksParamsRequest] = useState({
     type: ETypeBook.PAPER_BOOK,

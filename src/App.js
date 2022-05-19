@@ -33,6 +33,8 @@ const App = () => {
           <PublicRoute path={Paths.NewDetail()} component={Pages.NewDetail} />
           <PublicRoute path={Paths.BookDetail()} component={Pages.BookDetail} />
           <PublicRoute path={Paths.PrivacyPolicy} component={Pages.PrivacyPolicyPage} />
+          <PublicRoute path={Paths.News} component={Pages.News} />
+          <PublicRoute path={Paths.About} component={Pages.About} />
 
           <ProtectedRoute path={Paths.Checkout} component={Pages.Checkout} />
           <ProtectedRoute path={Paths.PaymentResult} component={Pages.PaymentResult} />

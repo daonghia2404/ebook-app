@@ -54,14 +54,14 @@ const ForgotPasswordModal = ({ visible, onClose, defaultStep, prevAction, data =
         globalKeyStepState.key === EKeyStepForgotPasswordModal.VETIFY_ACCOUNT:
         onClose?.(ETypeAuthModal.SIGN_UP);
         break;
-      case globalKeyStepState.prevAction === ETypeAuthModal.FIND_ACCOUNT &&
+      case globalKeyStepState.prevAction === EKeyStepForgotPasswordModal.FIND_ACCOUNT &&
         globalKeyStepState.key === EKeyStepForgotPasswordModal.VERTIFY_FORGOT:
         setGlobalKeyStepState({
           ...globalKeyStepState,
           key: EKeyStepForgotPasswordModal.FIND_ACCOUNT,
         });
         break;
-      case globalKeyStepState.prevAction === ETypeAuthModal.FIND_ACCOUNT &&
+      case globalKeyStepState.prevAction === EKeyStepForgotPasswordModal.FIND_ACCOUNT &&
         globalKeyStepState.key === EKeyStepForgotPasswordModal.CHANGE_PASSWORD:
         setGlobalKeyStepState({
           ...globalKeyStepState,

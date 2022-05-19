@@ -29,6 +29,8 @@ const BooksListenCategory = lazy(() => retryLoadComponent(() => import('@/pages/
 const NewDetail = lazy(() => retryLoadComponent(() => import('@/pages/NewDetail')));
 const Checkout = lazy(() => retryLoadComponent(() => import('@/pages/Checkout')));
 const PaymentResult = lazy(() => retryLoadComponent(() => import('@/pages/PaymentResult')));
+const News = lazy(() => retryLoadComponent(() => import('@/pages/News')));
+const About = lazy(() => retryLoadComponent(() => import('@/pages/About')));
 
 const ProfileInfomation = lazy(() => retryLoadComponent(() => import('@/pages/ProfileInfomation')));
 const ProfileInfomationEdit = lazy(() => retryLoadComponent(() => import('@/pages/ProfileInfomation')));
@@ -84,6 +86,8 @@ export const Paths = {
   Contact: '/lien-he',
   Feedback: '/gop-y',
   Orders: '/don-hang',
+  News: '/danh-sach-tin-tuc',
+  About: '/gioi-thieu',
 
   Auth: '/',
 
@@ -117,6 +121,8 @@ export const Pages = {
   Contact,
   Feedback,
   Orders,
+  News,
+  About,
 
   Dashboard,
 };
