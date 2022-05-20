@@ -20,10 +20,10 @@ const ForgotPasswordModal = ({ visible, onClose, defaultStep, prevAction, data =
     data: undefined,
   });
 
-  const handleFindAccountSuccess = (prevAction, data) => {
+  const handleFindAccountSuccess = (data) => {
     setGlobalKeyStepState({
+      ...globalKeyStepState,
       key: EKeyStepForgotPasswordModal.VERTIFY_FORGOT,
-      prevAction,
       data,
     });
   };
@@ -45,6 +45,7 @@ const ForgotPasswordModal = ({ visible, onClose, defaultStep, prevAction, data =
   };
 
   const handleClickBack = () => {
+    console.log(globalKeyStepState);
     switch (true) {
       case globalKeyStepState.prevAction === EKeyStepForgotPasswordModal.FIND_ACCOUNT &&
         globalKeyStepState.key === EKeyStepForgotPasswordModal.FIND_ACCOUNT:

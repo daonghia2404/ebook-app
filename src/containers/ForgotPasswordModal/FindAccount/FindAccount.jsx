@@ -22,7 +22,7 @@ const FindAccount = ({ onSubmit }) => {
 
   const handleForgotPasswordSuccess = (response, values) => {
     showNotification(ETypeNotification.SUCCESS, 'Xác nhận mã OTP đã được gửi vào email của bạn !');
-    onSubmit?.(EKeyStepForgotPasswordModal.VERTIFY_FORGOT, {
+    onSubmit?.({
       token: response.data.token,
       email: values.email,
     });
