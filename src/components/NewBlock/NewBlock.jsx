@@ -6,9 +6,9 @@ import { formatISODateToDateTime } from '@/utils/functions';
 
 import './NewBlock.scss';
 
-const NewBlock = ({ featureImageId, title, description, createdAt, _id, slug }) => {
+const NewBlock = ({ featureImageId, title, description, createdAt, slug }) => {
   return (
-    <div className="NewBlock" onClick={() => navigate(Paths.NewDetail(_id))}>
+    <div className="NewBlock" onClick={() => navigate(Paths.NewDetail(slug))}>
       <div className="NewBlock-image">
         <img src={featureImageId} alt="" />
       </div>
