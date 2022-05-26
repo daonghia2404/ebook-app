@@ -106,7 +106,7 @@ const BookReader = () => {
       <div className="container">
         <div className="BookReader-wrapper">
           <Document file={fileData.url} onLoadSuccess={handleLoadPdfSuccess} onPassword={handleVerifyPassword}>
-            <Page pageNumber={pageNumber.page} />
+            <Page scale={96 / 72} pageNumber={pageNumber.page} />
           </Document>
 
           <div className="BookReader-footer flex justify-between">
