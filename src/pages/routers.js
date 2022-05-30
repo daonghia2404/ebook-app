@@ -65,10 +65,10 @@ export const ModulePaths = {
 export const Paths = {
   Home: '/',
   SearchResult: '/ket-qua-tim-kiem',
-  BookDetail: (slug, id) => `${ModulePaths.Book}/chi-tiet/${slug || ':slug'}/${id || ':id'}`,
+  BookDetail: (slug, id) => `${ModulePaths.Book}/${slug || ':slug'}/${id || ':id'}`,
   BooksCategory: '/danh-sach/sanh-giay',
   BooksListenCategory: '/danh-sach/sach-noi',
-  NewDetail: (id) => `${ModulePaths.New}/chi-tiet/${id || ':id'}`,
+  NewDetail: (id) => `${ModulePaths.New}/${id || ':id'}`,
   Checkout: '/thanh-toan',
   PaymentResult: '/ket-qua-thanh-toan',
 
