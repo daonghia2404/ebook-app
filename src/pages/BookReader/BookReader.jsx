@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { navigate, useLocation } from '@reach/router';
-import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
+import { Document, Page, pdfjs } from 'react-pdf';
 import classNames from 'classnames';
 
 import ConfirmModal from '@/containers/ConfirmModal/ConfirmModal';
@@ -14,6 +14,8 @@ import AuthHelpers from '@/services/auth-helpers';
 import SamplePdf from './sample-pdf.pdf';
 
 import './BookReader.scss';
+
+pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const BookReader = () => {
   const dispatch = useDispatch();
@@ -57,6 +59,7 @@ const BookReader = () => {
         ...pageNumber,
         page: changedPage,
       });
+      scrollToTop();
     }
   };
 
@@ -105,9 +108,11 @@ const BookReader = () => {
     <div className="BookReader">
       <div className="container">
         <div className="BookReader-wrapper">
-          <Document file={fileData.url} onLoadSuccess={handleLoadPdfSuccess} onPassword={handleVerifyPassword}>
-            <Page scale={96 / 72} pageNumber={pageNumber.page} />
-          </Document>
+          {fileData && fileData.url && (
+            <Document file={fileData.url} onLoadSuccess={handleLoadPdfSuccess} onPassword={handleVerifyPassword}>
+              <Page renderMode="svg" renderTextLayer scale={96 / 72} pageNumber={pageNumber.page} />
+            </Document>
+          )}
 
           <div className="BookReader-footer flex justify-between">
             <div

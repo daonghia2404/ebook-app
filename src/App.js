@@ -35,9 +35,9 @@ const App = () => {
           <PublicRoute path={Paths.PrivacyPolicy} component={Pages.PrivacyPolicyPage} />
           <PublicRoute path={Paths.News} component={Pages.News} />
           <PublicRoute path={Paths.About} component={Pages.About} />
+          <PublicRoute path={Paths.PaymentResult} component={Pages.PaymentResult} />
 
           <ProtectedRoute path={Paths.Checkout} component={Pages.Checkout} />
-          <ProtectedRoute path={Paths.PaymentResult} component={Pages.PaymentResult} />
           <ProtectedRoute path={Paths.MyBookDetail()} component={Pages.MyBookDetail} />
           <ProtectedRoute path={Paths.BookReader} component={Pages.BookReader} />
           <ProtectedRoute path={Paths.BookAudio} component={Pages.BookAudio} />

@@ -61,9 +61,20 @@
     pointer-events: none;
   }
 
+  .react-pdf__Page__svg,
   .react-pdf__Page__canvas {
     margin: 0 auto;
     max-width: 100%;
     height: auto !important;
+  }
+
+  .react-pdf__Page__svg {
+    svg text {
+      display: none;
+    }
+  }
+
+  .react-pdf__Page__textContent {
+    color: unset !important;
   }
 }
