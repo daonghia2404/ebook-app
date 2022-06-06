@@ -110,7 +110,7 @@ const BookReader = () => {
         <div className="BookReader-wrapper">
           {fileData && fileData.url && (
             <Document file={fileData.url} onLoadSuccess={handleLoadPdfSuccess} onPassword={handleVerifyPassword}>
-              <Page renderMode="svg" renderTextLayer scale={96 / 72} pageNumber={pageNumber.page} />
+              <Page scale={96 / 72} pageNumber={pageNumber.page} />
             </Document>
           )}
 
